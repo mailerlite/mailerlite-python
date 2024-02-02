@@ -438,7 +438,7 @@ client = MailerLite.Client({
   'api_key': 'your-api-key'
 })
 
-response = client.automations.list(limit=10, page=1, filter={'status': true, 'name': 'some name', 'group': 123456})
+response = client.automations.list(limit=10, page=1, filter={'enabled': True, 'name': 'some name', 'group': 123456})
 ```
 
 ### Get an automation
