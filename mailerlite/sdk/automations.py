@@ -74,7 +74,7 @@ class Automations(object):
 
             if key == "filter":
                 for filter_key, filter_value in val.items():
-                    query_params[filter_key] = filter_value
+                    query_params[f"filter[{filter_key}]"] = filter_value
             else:
                 query_params[key] = val
 
