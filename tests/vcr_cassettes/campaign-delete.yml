@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: DELETE
-    uri: https://connect.mailerlite.com/api/campaigns/75117069411026195
+    uri: https://connect.mailerlite.com/api/campaigns/112080931966158193
   response:
     body:
       string: ''
@@ -25,13 +25,13 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d1ba6ddea7c223-VIE
+      - 84f38f445a62b373-PRG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
       Date:
-      - Wed, 21 Dec 2022 15:42:32 GMT
+      - Fri, 02 Feb 2024 15:45:10 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -41,7 +41,7 @@ interactions:
       X-RateLimit-Limit:
       - '120'
       X-RateLimit-Remaining:
-      - '115'
+      - '111'
     status:
       code: 204
       message: No Content
@@ -65,15 +65,15 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6rmUlBQUFDKTS0uTkxPVbJSUPLLVygsTS2qVChKLS7NKSlWSMsvUsjNT0nNUYh2
-        LCiIifEFsYtjYpwTcwsSM9PzEKxYBUMjEFTiqgUAAAD//wMAY8lVEVgAAAA=
+        H4sIAAAAAAAAA6pWyk0tLk5MT1WyUgpKLc4vLUpOVcjLL1FIyy/NS9FTqgUAAAD//wMAZiyhmiEA
+        AAA=
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d1ba6fbc1f77e9-VIE
+      - 84f38f470ea2412c-PRG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -83,7 +83,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 15:42:33 GMT
+      - Fri, 02 Feb 2024 15:45:10 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -93,7 +93,7 @@ interactions:
       X-RateLimit-Limit:
       - '120'
       X-RateLimit-Remaining:
-      - '114'
+      - '110'
     status:
       code: 404
       message: Not Found

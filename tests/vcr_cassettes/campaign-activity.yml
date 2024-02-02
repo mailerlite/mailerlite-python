@@ -15,29 +15,25 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: POST
-    uri: https://connect.mailerlite.com/api/campaigns/75037917434611569/reports/subscriber-activity
+    uri: https://connect.mailerlite.com/api/campaigns/106527960165516964/reports/subscriber-activity
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA7xVS2/bMAz+KwEPPbmJJL81DOthtwHDgB3rwVBspdEiS54efSzIfx/kOE6adlt7
-        yY0kSPnjx4/0FlrmGNDbLYgWKOQpigsU4zQheVLiFEEEuufK1o32ygHFETRSNJspgCKwfmkbI5bc
-        AD28E5cxJnme5ElZlEVOIALeMSGBgm03N8HkRgrH543uIALrmPMWKLDGiXseItqbhgOFjinPZIjw
-        8EFyhoi8gigk1IY5DhQjNCaMARSB6GvWtoZbC1R5KU9aaGvmgAJBhFxjco2KGY5pTGgSmPDqLG9f
-        3BjO3H8q+/ZlCkEzXNAkpSiGCFaCy9YGBhXrQt/fP3+BCCSzrt5Hxq/prmfq6eh65czRFW6y+7VW
-        U1kgeHJ+16Lu984usBWgCXXSku6dULU45OyiM31kCCUEFXEJb5jGa/pIUYyyOMsSXGJcJPGJPsSd
-        Njdr0/DN3Nh/S+OBL1fadJM28BvU+g5tQFHOCc7mJJ/jJIe/yyRMMqNJRmP8TpmcVb4qEzxDeZDJ
-        sI3nMtm/fWmVvMSfEDiVzRl1u92PCKRQmwH5ShgbHlk711taLapFo5XijZs/vwvVgvWiWjSs65m4
-        U7ZaBN3kJc6TOMkwTrOyWhjea+NstTjK7HpQinBPn3p2xz/icY0u+8Xe8PsDk4o/uonIjoeLu4XG
-        G8OVq0PFINWV0d1gDNOcwiNtt1vwRh4HvuRhWa4k++X1h9k3w++F9mFfxjWhKyYtD5s7lF2W7D04
-        fILGGX8E87yHr/zRza7M0MgL/D8i6JlbX6KBMDRuRuJTFIHTw0Fz2jG5P21hjQYJMymnXxFvB9Or
-        g3O4KqN9eg+GwEqbB2ba0Vsz0y61V83oW71yp/5PrzZA0W63+wMAAP//AwAdxcVyrgcAAA==
+        H4sIAAAAAAAAA7xTTY/bIBD9K6s57ImuTeqPmqrqP6h6X68igrFDg8EdhnQrK/+9gqTNbnPPiZmH
+        HvPmDbPCIEmCeF7BDCCA803Zdrxtq5qXVbOpWmDgF+3CVvnoCETJQFmjDlfgxG7I1aeu6sru4/9k
+        fkt+YWCNOwQQK4wGA4GAPdESRF/0hfLOaUVPszRWozWkn5Sf+0Iupi+UnBdpJhf6gpdNvWm7puRN
+        XfOma6q+QL14pNAXIe6CQrPT+EEqMkdDv78uctJfODCw8u4lF9RHEC5ay8DpVzrHJwazTrNYQUVE
+        7WibGNm0Ef2cg6T2Cl+Me14hov37opU7bUHAo5U/o//88B310fgYgEGWokGM0gadxpZpd7b7rI6/
+        kUMYr2reN/FNv9LDI+ZObhp4YbBI2t+lgzQ2jRfr65IBeRCbdJC0OZLThHqSZLzLn1naM54WQA95
+        XtG9SfIipLhMF/9KnoHR4y+JwyXbSxx2Pjp1yYMf6X2ujLRb40hjEuxdhn9Ed0grdjr9AQAA//8D
+        AL2U32HnAwAA
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d1b73aab87c23d-VIE
+      - 84f38f4bbc1bb33f-PRG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -47,7 +43,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 15:40:21 GMT
+      - Fri, 02 Feb 2024 15:45:11 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -59,7 +55,7 @@ interactions:
       X-RateLimit-Limit:
       - '120'
       X-RateLimit-Remaining:
-      - '117'
+      - '109'
     status:
       code: 200
       message: OK

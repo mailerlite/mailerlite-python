@@ -1,8 +1,7 @@
 interactions:
 - request:
-    body: '{"name": "New Campaign Name", "language_id": 2, "emails": [{"subject":
-      "This is a new test campaign", "from_name": "Test Man", "from": "testuser@mailerlite.com",
-      "content": "Hi there, this is a new test campaign!"}]}'
+    body: '{"name": "New Campaign Name", "language_id": 1, "emails": [{"subject":
+      "This is a new test campaign subject", "from_name": "Test Man", "from": "testuser@mailerlite.com"}]}'
     headers:
       Accept:
       - application/json
@@ -11,60 +10,31 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '216'
+      - '171'
       Content-Type:
       - application/json
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: PUT
-    uri: https://connect.mailerlite.com/api/campaigns/75117069411026195
+    uri: https://connect.mailerlite.com/api/campaigns/112080931966158193
   response:
     body:
-      string: !!binary |
-        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
-        AAA=
+      string: "{\n    \"message\": \"Server Error\"\n}"
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d1ba5d0ecdc24f-VIE
+      - 84f38f315fe0b37d-PRG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
-      Content-Encoding:
-      - gzip
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 15:42:31 GMT
+      - Fri, 02 Feb 2024 15:45:07 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -76,8 +46,8 @@ interactions:
       X-RateLimit-Limit:
       - '120'
       X-RateLimit-Remaining:
-      - '119'
+      - '116'
     status:
-      code: 200
-      message: OK
+      code: 500
+      message: Internal Server Error
 version: 1
