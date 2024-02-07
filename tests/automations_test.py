@@ -1,7 +1,6 @@
 import os
 
 import mailerlite as MailerLite
-import pytest
 import vcr
 from dotenv import load_dotenv
 from pytest import fixture
@@ -25,7 +24,7 @@ def automation_keys():
 
 class TestAutomations:
     # Automationd ID used in tests
-    automation_id = 75040845299975641
+    automation_id = 112078014094771336
 
     @classmethod
     def setup_class(self):
@@ -66,7 +65,7 @@ class TestAutomations:
         self,
     ):
         response = self.client.automations.activity(
-            self.automation_id, filter={"filter[status]": "active"}
+            self.automation_id, filter={"status": "active"}
         )
 
         assert isinstance(response, dict)

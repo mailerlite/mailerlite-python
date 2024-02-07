@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"delivery": "scheduled", "schedule": {"date": "2022-12-31", "hours": "22",
+    body: '{"delivery": "scheduled", "schedule": {"date": "2024-03-31", "hours": "22",
       "minutes": "00"}}'
     headers:
       Accept:
@@ -16,51 +16,25 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: POST
-    uri: https://connect.mailerlite.com/api/campaigns/75117069411026195/schedule
+    uri: https://connect.mailerlite.com/api/campaigns/112080931966158193/schedule
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA6xWbW/jNgz+K6pwB2yAk9hp06xeVxxw23DY7g1DgWGYD4ZiMbZaWfJJVF0nyH8f
-        ZDuxk2vXfdgnSw+phxRJU9xSzpDReEsFpzFdLqJoGV5eXURROL+MrhY0oCzLtFOYtgrzxTxaRDSg
-        ipVAY/oRavKWlRUTuSIfPRZQbCovMpA7yQwNqEWGzrYQ4w0NaCmsFSpPO9t/fwmoBUShctvt1kIi
-        mPE6XWuTFq5kqlfhIMUDmCa1WQHcSW9xv+Q0oJKp3LEcerdpQDMDDIGnDD0QzueTaD6ZRyRaxBdh
-        HF3RgLqKP6syj889y8GG92ikdR6R+TwOwzgMaUC/OnA9j3JStiEweISshRK2OFHSVXWEcFgzJzGF
-        kgmZHqfofDm/CBdXSxrQVuwDc5rGkc7TaWxPspWE9Nn8Dyp9YrM+33bI9coJycGkBZaSBnRtdElj
-        imDRWTBvPAMYKRCmmS57hbQvoVuwSD4wdSiqPhhudQeZT8RtISwRljCioCaelOxd8GnVCkF5veuz
-        nz+9vf3r8y/Eu3GTqOv+S8h1AYy3K0KuzyaT7SsPpKir3WRyM0JWGlGXHuyVUaCEm+tk1i1asmR2
-        oLtead4cEXtgT/xOECzAQEDw+Tuc9actNhKID+hPCUV4xGSWWZvQnn1ayl+1RjCk2pbM5ELF4e5N
-        CVwwopVsiM0MgCJMcfJdyR4nteBYxJcXYfX4/XZayrddoG59KredMArD12eirLRBpvDHUqjJXnCE
-        9+ZG0FpqhrHSCgZwNxj55BDMtmKcC5VPuqAend+LJKwxjhbV4xMyI/LiWSHqaky42/VRTGZtHG9G
-        yTjO6XUy63Pm8+gLhAa0kkyo1AedxvRPgaw8S1SiPqHZNCVLXBhdzMF/FiufQCsBfSY0J9tX/Y+1
-        m5KPAiwCNuS21neMVGYDufSnwgVn5p4RJYDUTcdTC0DJyFqbkqEj724/vJ+S36W4V+KOVFoJr7bM
-        4C4g/WrVkFwTzbNNg61P4TL2Xm5fOSN3fvWMxwhq5HXQskPNOlpSN/dsc3Jiw4RCMGB1zbzTo1sm
-        6jfoHZKCZEUGdkM2BjZNrnTd+0U2RLeeNP48G1lnAanhjrcMjChGLBqt/Da6Itat7L1pquxOEEHq
-        phJ2Q6zopHF7U+V1MiNWsEtU24991dtCY+qMpDEtECsbJzNfCNqwHKa51rkEVgnru08yG7rRZDht
-        J5XRPJkNSDLr2moy+6adJrNo/sPF4/L8clqp3NePgQcB9Tcu9Ph01ACFPsDJrOvD/2Lpf3m3fKMX
-        NuVgRa6A0xiNg5Mncj7sD9NA+94V2mCmue/UlWyJ9OX5VbubfH4/TAKftbT3ggaUCwMZCq1oTCUa
-        umuN10Ip/6SvmbTQjQTWG7Jt7w4DqitQNm2LrN07Jb46SE9hv08Nw9bLtgu1sEUjVE5jGr72BjMp
-        svsn2L7BW+BlvlHZHbMe4Jc5bMXK0dl2++Khghn/KDmVHRkewf/BsF7jExwj+GWOtTY1M3w473lB
-        8ZSt20mte7PRsOy+S9m+yJwFm351YtOnfvelxXgqVMoc6pL5UrGHwvDv39GwR/84zJHCpv2IdFAv
-        2FBanQ/dLn0AY4VWA9WJ3DvvR1AU5bG9Ey0Jmf+zSqYck7IZzWaZ59z2/97+uhwkDDtvZL/OdNXs
-        1wY6SReRPkiQ6bIEk8Hhci1snXmA5oBlTKUrSIdRdy+omVHDBC1smjljQKFsDnfVDvc2d/8AAAD/
-        /wMAPUO5d/kLAAA=
+      string: "{\n    \"message\": \"Campaign cannot be scheduled\"\n}"
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d1ba699f15c26a-VIE
+      - 84f38f3facaf2790-PRG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
-      Content-Encoding:
-      - gzip
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 15:42:32 GMT
+      - Fri, 02 Feb 2024 15:45:09 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -72,8 +46,8 @@ interactions:
       X-RateLimit-Limit:
       - '120'
       X-RateLimit-Remaining:
-      - '117'
+      - '113'
     status:
-      code: 200
-      message: OK
+      code: 422
+      message: Unprocessable Entity
 version: 1

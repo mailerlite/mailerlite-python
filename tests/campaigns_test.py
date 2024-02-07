@@ -79,7 +79,6 @@ class TestCampaigns:
                     "subject": "This is a test campaign",
                     "from_name": "Test Man",
                     "from": "testuser@mailerlite.com",
-                    "content": "Hi there, this is a test campaign!",
                 }
             ],
         }
@@ -108,13 +107,12 @@ class TestCampaigns:
     ):
         params = {
             "name": "New Campaign Name",
-            "language_id": 2,
+            "language_id": 1,
             "emails": [
                 {
-                    "subject": "This is a new test campaign",
+                    "subject": "This is a new test campaign subject",
                     "from_name": "Test Man",
                     "from": "testuser@mailerlite.com",
-                    "content": "Hi there, this is a new test campaign!",
                 }
             ],
         }
@@ -150,7 +148,7 @@ class TestCampaigns:
     )
     def test_list_of_all_campaigns_should_be_returned(self, campaign_keys):
         response = self.client.campaigns.list(
-            limit=10, page=1, filter={"filter[status]": "draft"}
+            limit=10, page=1, filter={"status": "draft"}
         )
 
         assert isinstance(response, dict)
@@ -172,7 +170,7 @@ class TestCampaigns:
     ):
         params = {
             "delivery": "scheduled",
-            "schedule": {"date": "2022-12-31", "hours": "22", "minutes": "00"},
+            "schedule": {"date": "2024-03-31", "hours": "22", "minutes": "00"},
         }
         response = self.client.campaigns.schedule(int(pytest.entity_id), params)
 
@@ -214,11 +212,11 @@ class TestCampaigns:
     ):
         response = self.client.campaigns.delete(int(pytest.entity_id))
 
-        assert response == True
+        assert response is True
 
         response = self.client.campaigns.delete(121212)
 
-        assert response == False
+        assert response is False
 
     def test_given_incorrect_campaign_id_when_calling_activity_then_type_error_is_returned(
         self,
@@ -232,7 +230,7 @@ class TestCampaigns:
     def test_given_correct_campaign_id_when_calling_activity_then_campaign_activity_information_is_returned(
         self, campaign_activity_keys
     ):
-        response = self.client.campaigns.activity(75037917434611569)
+        response = self.client.campaigns.activity(106527960165516964)
 
         assert isinstance(response, dict)
         assert isinstance(response["data"], list)

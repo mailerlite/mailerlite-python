@@ -15,53 +15,25 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: POST
-    uri: https://connect.mailerlite.com/api/campaigns/75117069411026195/cancel
+    uri: https://connect.mailerlite.com/api/campaigns/112080931966158193/cancel
   response:
     body:
-      string: !!binary |
-        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
+      string: "{\n    \"message\": \"\"\n}"
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d1ba6bef2cc318-VIE
+      - 84f38f42ba81b324-PRG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
-      Content-Encoding:
-      - gzip
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 15:42:32 GMT
+      - Fri, 02 Feb 2024 15:45:09 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -73,8 +45,8 @@ interactions:
       X-RateLimit-Limit:
       - '120'
       X-RateLimit-Remaining:
-      - '116'
+      - '112'
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: Bad Request
 version: 1

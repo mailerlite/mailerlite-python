@@ -2,7 +2,7 @@
 authors = ["MailerLite <tech@mailerlite.com>"]
 description = "The official MailerLite Python SDK"
 name = "mailerlite"
-version = "0.1.5"
+version = "0.1.6"
 
 [tool.poetry.dependencies]
 python = "^3.7"

@@ -13,43 +13,38 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/campaigns/75117069411026195
+    uri: https://connect.mailerlite.com/api/campaigns/112080931966158193
   response:
     body:
       string: !!binary |
-        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
+        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
+        kj3fCwAA
     headers:
       Access-Control-Allow-Origin:
       - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d1ba66c967c2f7-VIE
+      - 84f38f37ad4db33f-PRG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -59,7 +54,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 15:42:31 GMT
+      - Fri, 02 Feb 2024 15:45:07 GMT
       Server:
       - cloudflare
       Strict-Transport-Security:
@@ -71,7 +66,7 @@ interactions:
       X-RateLimit-Limit:
       - '120'
       X-RateLimit-Remaining:
-      - '118'
+      - '115'
     status:
       code: 200
       message: OK
