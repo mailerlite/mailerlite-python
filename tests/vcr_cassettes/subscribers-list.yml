@@ -13,7 +13,7 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/subscribers?limit=10&page=1
+    uri: https://connect.mailerlite.com/api/subscribers?limit=10&cursor=abc123
   response:
     body:
       string: !!binary |

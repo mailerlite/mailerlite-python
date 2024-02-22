@@ -95,12 +95,18 @@ class TestSubscribers:
         "tests/vcr_cassettes/subscribers-list.yml", filter_headers=["Authorization"]
     )
     def test_list_of_all_subscribers_should_be_returned(self, subscriber_keys):
-        response = self.client.subscribers.list(limit=10, page=1)
+        response = self.client.subscribers.list(limit=10, cursor="abc123")
 
         assert isinstance(response, dict)
         assert isinstance(response["data"], list)
         assert isinstance(response["data"][0], dict)
         assert set(subscriber_keys).issubset(response["data"][0].keys())
+
+    def test_list_of_all_subscribers_raises_exception_with_invalid_params(
+        self,
+    ):
+        with pytest.raises(TypeError):
+            self.client.subscribers.list(limit=10, page=1)
 
     def test_given_invalid_email_address_when_calling_create_then_create_subscriber_will_fail(
         self,

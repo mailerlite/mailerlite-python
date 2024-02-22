@@ -17,13 +17,13 @@ class Subscribers(object):
         Returns a list of all subscribers.
         Ref: https://developers.mailerlite.com/docs/subscribers.html#list-all-subscribers
 
-        :param **kwargs: dict You can pass additional arguments - page, limit or filter by status
+        :param **kwargs: dict You can pass additional arguments - cursor, limit or filter by status
         :raises: :class: `TypeError` : Got an unknown argument
         :return: JSON array
         :rtype: dict
         """
 
-        available_params = ["filter", "limit", "page"]
+        available_params = ["filter", "limit", "cursor"]
 
         params = locals()
         query_params = {}
