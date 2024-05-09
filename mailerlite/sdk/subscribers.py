@@ -7,6 +7,9 @@ class Subscribers(object):
     # Subscribers base API uri
     base_api_url = "api/subscribers"
 
+    emails_only_regex = r"[\w.]+\@[\w.]+"
+    emails_or_ids_only_regex = r"([\w.]+\@[\w.]+)|^[0-9]*$"
+
     def __init__(self, api_client):
         self.api_client = api_client
 
@@ -66,7 +69,7 @@ class Subscribers(object):
             "unsubscribed_at",
         ]
 
-        valid = re.search(r"[\w.]+\@[\w.]+", email)
+        valid = re.search(self.emails_only_regex, email)
 
         if not valid:
             raise TypeError("`email` is not a valid email address.")
@@ -90,14 +93,14 @@ class Subscribers(object):
             "POST", self.base_api_url, body=body_params
         ).json()
 
-    def update(self, email, **kwargs):
+    def update(self, identifier, **kwargs):
         """
         Update a subscriber
 
         Provides ability to update an existing subscriber.
-        Ref: https://developers.mailerlite.com/docs/subscribers.html#create-update-subscriber
+        Ref: https://developers.mailerlite.com/docs/subscribers.html#update-a-subscriber
 
-        :param email: string Valid email address as per RFC 2821
+        :param identifier: string Valid email address as per RFC 2821 or Subscriber ID
         :param **kwargs: dict You can pass additional arguments - fields, groups, status, subscribed_at, ip_address, opted_in_at, optin_ip and unsubscribed_at
         :raises: :class: `TypeError` : `email` is not a valid email address
         :raises: :class: `TypeError` : `fields` argument should be a dict
@@ -118,13 +121,18 @@ class Subscribers(object):
             "unsubscribed_at",
         ]
 
-        valid = re.search(r"[\w.]+\@[\w.]+", email)
+        body_params = {}
 
-        if not valid:
+        if re.search(self.emails_or_ids_only_regex, str(identifier)):
+            try:
+                identifier = int(identifier)
+            except ValueError:
+                body_params["email"] = identifier
+
+        else:
             raise TypeError("`email` is not a valid email address.")
 
         params = locals()
-        body_params = {"email": email}
 
         for key, val in params["kwargs"].items():
             if key not in available_params:
@@ -139,7 +147,7 @@ class Subscribers(object):
             body_params[key] = val
 
         return self.api_client.request(
-            "POST", self.base_api_url, body=body_params
+            "PUT", f"{self.base_api_url}/{identifier}", body=body_params
         ).json()
 
     def get(self, subscriber_id):
@@ -155,10 +163,10 @@ class Subscribers(object):
         :rtype: dict
         """
 
-        valid = re.search(r"[\w.]+\@[\w.]+", subscriber_id)
+        valid = re.search(self.emails_or_ids_only_regex, str(subscriber_id))
 
-        if not valid and not isinstance(subscriber_id, int):
-            raise TypeError("Provided email address or subscriber id are not valid.")
+        if not valid:
+            raise TypeError("Provided email address or `subscriber_id` are not valid.")
 
         return self.api_client.request(
             "GET", f"{self.base_api_url}/{subscriber_id}"
