@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+from .lib import format_query_params
+
 
 class Segments(object):
     # Segments base API uri
@@ -23,13 +25,7 @@ class Segments(object):
 
         available_params = ["limit", "page"]
 
-        params = locals()
-        query_params = {}
-        for key, val in params["kwargs"].items():
-            if key not in available_params:
-                raise TypeError("Got an unknown argument '%s'" % key)
-            query_params[key] = val
-
+        query_params = format_query_params(available_params, **kwargs)
         return self.api_client.request("GET", self.base_api_url, query_params).json()
 
     def get_subscribers(self, segment_id, **kwargs):
@@ -52,20 +48,12 @@ class Segments(object):
                 f"`segment_id` type is not valid. Expected `int`, got {type(segment_id)}."
             )
 
-        if not isinstance(segment_id, int):
-            raise TypeError("Segment ID are not valid.")
+        available_params = ["filter", "limit", "after", "page"]
 
-        available_params = ["filter", "limit", "after"]
-
-        params = locals()
-        query_params = {}
-        for key, val in params["kwargs"].items():
-            if key not in available_params:
-                raise TypeError("Got an unknown argument '%s'" % key)
-            query_params[key] = val
+        query_params = format_query_params(available_params, **kwargs)
 
         return self.api_client.request(
-            "GET", f"{self.base_api_url}/{segment_id}", query_params
+            "GET", f"{self.base_api_url}/{segment_id}/subscribers", query_params
         ).json()
 
     def update(self, segment_id, name):

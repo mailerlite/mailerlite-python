@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from .lib import format_query_params
 
 
 class Campaigns(object):
@@ -77,17 +78,7 @@ class Campaigns(object):
 
         available_params = ["filter", "page", "limit"]
 
-        params = locals()
-        query_params = {}
-        for key, val in params["kwargs"].items():
-            if key not in available_params:
-                raise TypeError("Got an unknown argument '%s'" % key)
-
-            if key == "filter":
-                for filter_key, filter_value in val.items():
-                    query_params[f"filter[{filter_key}]"] = filter_value
-            else:
-                query_params[key] = val
+        query_params = format_query_params(available_params, **kwargs)
 
         return self.api_client.request("GET", self.base_api_url, query_params).json()
 
