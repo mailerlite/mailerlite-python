@@ -13,22 +13,18 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/segments?limit=10&page=1
+    uri: https://connect.mailerlite.com/api/segments/139794711363717070
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6SSQWvCQBCF/0p4UE9rk03SBreUXnorlIJHFdnGURc3m3QzESHkv5dERdueirdh
-        982bNx/TYqVZQ81amBUUZDLJJmkmZfKYZDKLsggCThcEhenrWzClTUGOIcAlawsVC5QVuaXXTFAt
-        1rbUDCUFavbGbXrPKLpDJ5Bbk+9+C6Mr4UnmSTOtlv0v4ihOxzIeR2kgExUnKn1AtxCwxu3qwcb4
-        uhdumatazcN5mJfOUc73hTaWvDVM93lZzENdmXlYH/PXL5Xe0LOEgNW39Vee9lCusVbA0YGPdSdQ
-        UA+2Rd54T46XfccAZu3LYij60Zfn00qzFo23Z0erP8lCYWT1V1M+BR+e9qZsagjonM2eoNba1tSJ
-        U9stII6j5JU3++Zi/TPROx04GPkh1p80C4FK8/b/cXqg5M9Qov7MBjina5Nd9w0AAP//AwBC1XYY
-        sgIAAA==
+        H4sIAAAAAAAAA1zMMQqDQBBG4avID+lWmNndZMnU6VJ6AFl0IhJdg5lOvHsQUoTU7+Nt6LNlyIax
+        h4DDNV1jYg6XkDhRIjiUPCsEze1eNTrMWgwOtlieIN5heWlp12x6XB7Tkg3CDm9bxzIcT6ITdodu
+        GrvnP6Qf+GWrZtO+PSo8+VizrylWHMQHiWfs+wcAAP//AwB/Dyb5tQAAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8ecc2c38ee83e290-BEG
+      - 8ecc2c3a9cf8e290-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -54,7 +50,7 @@ interactions:
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '119'
+      - '118'
     status:
       code: 200
       message: OK

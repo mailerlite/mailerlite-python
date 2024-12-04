@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"name": "New Test Segment Name"}'
+    body: '{"name": "New Name"}'
     headers:
       Accept:
       - application/json
@@ -9,26 +9,24 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '33'
+      - '20'
       Content-Type:
       - application/json
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: PUT
-    uri: https://connect.mailerlite.com/api/segments/75123062193784148
+    uri: https://connect.mailerlite.com/api/segments/139794711363717070
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA1zMwQqDMBCE4VcJA71FyEatdh/CS3uXoFuRalJ0oQfx3Yulh9LrPx+zoQ8awBvG
-        HoyqJJ+7s6dLXtUFFTUsYpgFjEZe5iarmqsMs0Q1zdEtNGmYwGSRnhLbJagcd/cpBf3kVZcxDmCQ
-        cyfsFt00do9/6H7gly0SVPr2WOGd9xn5zJOhiqnkvMC+vwEAAP//AwAym5ifvgAAAA==
+        H4sIAAAAAAAAA1zMQQrCMBCF4auUB+5SmEmioXOIXqEMbZRibaUOuCi5uwRciLsH7+M/MKkp5MA8
+        QcChS11MzOESEidKBIdVHxmCPr+bvk4H20wXiHfYnnkddrVcE9dlU4Oww8v2eb3VINEJxWFc5vH+
+        D+kHftme1fI01BeefGzZtxQbDuKDxDNK+QAAAP//AwAgRZxfsgAAAA==
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d282a82b66c270-VIE
+      - 8ecc2c3d88d9b30c-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -38,24 +36,28 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 17:59:14 GMT
+      - Wed, 04 Dec 2024 13:34:14 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '118'
+      x-ratelimit-remaining:
+      - '116'
     status:
       code: 200
       message: OK
 - request:
-    body: '{"name": "New Test Segment Name"}'
+    body: '{"name": "New Name"}'
     headers:
       Accept:
       - application/json
@@ -64,7 +66,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '33'
+      - '20'
       Content-Type:
       - application/json
       User-Agent:
@@ -74,15 +76,13 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6rmUlBQUFDKTS0uTkxPVbJSUPLLVygsTS2qVChKLS7NKSlWSMsvUsjNT0nNUYh2
-        LCiIifEFsYtjYoJT03NT80piFQyNjA2NjJW4agEAAAD//wMA6xdugU0AAAA=
+        H4sIAAAAAAAAA6pWyk0tLk5MT1WyUgpKLc4vLUpOVcjLL1FIyy/NS9FTqgUAAAD//wMAZiyhmiEA
+        AAA=
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d282aa1b24c2eb-VIE
+      - 8ecc2c3f2e44e292-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -92,17 +92,21 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 17:59:14 GMT
+      - Wed, 04 Dec 2024 13:34:15 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-RateLimit-Limit:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '117'
+      x-ratelimit-remaining:
+      - '115'
     status:
       code: 404
       message: Not Found

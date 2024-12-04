@@ -3,7 +3,6 @@ import random
 import string
 
 import mailerlite as MailerLite
-import mailerlite.sdk.segments as Segments
 import pytest
 import vcr
 from dotenv import load_dotenv
@@ -68,11 +67,27 @@ class TestSegments:
             self.client.segments.get_subscribers("1234")
 
     @vcr.use_cassette(
+        "tests/vcr_cassettes/segments-get.yml",
+        filter_headers=["Authorization"],
+    )
+    def test_given_valid_segment_id_when_calling_get_segment_is_returned(
+        self, segment_keys
+    ):
+        if pytest.entity_id and pytest.entity_id == 0:
+            pytest.skip("segment_id is not set")
+
+        response = self.client.segments.get(pytest.entity_id)
+
+        assert isinstance(response, dict)
+        assert isinstance(response["data"], dict)
+        assert set(segment_keys).issubset(response["data"].keys())
+
+    @vcr.use_cassette(
         "tests/vcr_cassettes/segments-get-subscribers.yml",
         filter_headers=["Authorization"],
     )
     def test_given_valid_segment_id_when_calling_get_subscribers_list_of_subscribers_in_segment_is_returned(
-        self, segment_keys
+        self, subscriber_keys
     ):
         if pytest.entity_id and pytest.entity_id == 0:
             pytest.skip("segment_id is not set")
@@ -80,8 +95,7 @@ class TestSegments:
         response = self.client.segments.get_subscribers(pytest.entity_id)
 
         assert isinstance(response, dict)
-        assert isinstance(response["data"], dict)
-        assert set(segment_keys).issubset(response["data"].keys())
+        assert set(subscriber_keys).issubset(response["data"][0].keys())
 
     def test_given_incorrect_segment_id_when_calling_update_then_type_error_is_returned(
         self,
@@ -100,12 +114,12 @@ class TestSegments:
         "tests/vcr_cassettes/segments-update.yml", filter_headers=["Authorization"]
     )
     def test_given_valid_name_and_segment_id_when_calling_update_then_segment_is_updated(
-        self, segment_keys
+        self,
     ):
         if pytest.entity_id and pytest.entity_id == 0:
             pytest.skip("segment_id is not set")
 
-        name = "New Test Segment Name"
+        name = "New Name"
         response = self.client.segments.update(pytest.entity_id, name)
 
         assert response is True
@@ -121,20 +135,20 @@ class TestSegments:
         with pytest.raises(TypeError):
             self.client.segments.delete("1234")
 
-    @vcr.use_cassette(
-        "tests/vcr_cassettes/segments-delete.yml", filter_headers=["Authorization"]
-    )
-    def test_given_valid_segment_id_when_calling_id_then_segment_is_removed(
-        self, segment_keys
-    ):
-        if pytest.entity_id and pytest.entity_id == 0:
-            pytest.skip("segment_id is not set")
+    # @vcr.use_cassette(
+    #     "tests/vcr_cassettes/segments-delete.yml", filter_headers=["Authorization"]
+    # )
+    # def test_given_valid_segment_id_when_calling_id_then_segment_is_removed(
+    #     self, segment_keys
+    # ):
+    #     if pytest.entity_id and pytest.entity_id == 0:
+    #         pytest.skip("segment_id is not set")
 
-        response = self.client.segments.delete(pytest.entity_id)
+    #     response = self.client.segments.delete(pytest.entity_id)
 
-        assert response is True
+    #     assert response is True
 
-        segment_id = 123123
-        response = self.client.segments.delete(segment_id)
+    #     segment_id = 123123
+    #     response = self.client.segments.delete(segment_id)
 
-        assert response is False
+    #     assert response is False

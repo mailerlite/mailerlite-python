@@ -13,20 +13,27 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/segments/75123062193784148
+    uri: https://connect.mailerlite.com/api/segments/139794711363717070/subscribers
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA1zMwQqCUBCF4VeRA+2ucGfUtHmHVrWXi04i6VV0NiG+exgtou35P86GNliAbOhb
-        CMqCOPNnpktWVjnlFRxiGBWC6yu562rJTbtRo8HBJgsDhBymWWO9BNPj6DFMwT7zaksfOwjI+xN2
-        h2bom+c/9D/wyxYNpm19VLBnTolTpoRKoUKyHPv+BgAA//8DAJtH/Jq4AAAA
+        H4sIAAAAAAAAA+xVXWvbMBT9K+XC3txG8kccC8Y22lE61oZ1pStdilFkJVFjS0IfpW3Ifx+OG8cJ
+        3VrG9jDYm871PZbuOT7WAgrqKJDvCxAFEMBRlmYY4wGOsz5OozSCAHhFRQkExB2V9P3MMD4/MBYC
+        sI46b4EAZU7c8bqivGG87q20Mq6ucOmAoACU5tLmTPknzErB5t1C3ZAb6vjm8QYKndOiMNxaINKX
+        ZQDWjy0zYsyLnDogEKIw3sfhPor3cEjCPokyCMDLnb6GzAyn7gWmLl5qmQheFhbIAiSt+PrdJbUu
+        7xaYqjSVDxvopTMbKFy71jMlW1qtbgsec5HrBiwDmBrlte3YhtJ+jPsoCRMcI5QhBMHTmeDYeE1D
+        CJ5MWgseNdasYbxjULzlxwImpaqFwPWxjJDT1aboDSyfMbJrXctEHWbD27Jmw/aSKTkRptqqjpWX
+        bKty6+W8u+mOo1FtF072cELiiCQxLG/qkeoWITtfgtJOyFy02m4pmmQ4DZMBzgYrv9sgTJV5ZQ4q
+        Kj0t2xyEOzKHv84BRr+ZhO3pY/z6JDzH/FkSMEliEg+eSQIcGT8VeydTZeB/Iv7pRNwEUAo5X5k7
+        Eca67n+utcnwu/Va8vt6x5lz2pJRb9RjSkrO3EGdHm5K4fgBU9WoR7UY9SyfVlw6O+qt7p44xTjq
+        RylOUYpGvVYPY98xb6wyb/nDJ319eNI/vfgQnd1+uT+7mN+fPZ7g4dHHZHh0mnw+/DRhx5key/PH
+        y+NseH01Q1+vzsvx1akYyvOH4ttlVotd8friW4CmbvYXjgsBaG5yTaccSIIaWfJmBiDwR6ZodG9f
+        urJr+QMAAP//AwABmgHp0wcAAA==
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d282043acb789d-VIE
+      - 8ecc2c3c2af6e290-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -36,19 +43,23 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 17:58:47 GMT
+      - Wed, 04 Dec 2024 13:34:14 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '119'
+      x-ratelimit-remaining:
+      - '117'
     status:
       code: 200
       message: OK
