@@ -15,33 +15,35 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: DELETE
-    uri: https://connect.mailerlite.com/api/campaigns/112080931966158193
+    uri: https://connect.mailerlite.com/api/campaigns/139789204514145550
   response:
     body:
       string: ''
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 84f38f445a62b373-PRG
+      - 8ecb9cce1a64b01b-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
       Date:
-      - Fri, 02 Feb 2024 15:45:10 GMT
+      - Wed, 04 Dec 2024 11:56:19 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '111'
+      x-ratelimit-remaining:
+      - '113'
     status:
       code: 204
       message: No Content
@@ -68,12 +70,10 @@ interactions:
         H4sIAAAAAAAAA6pWyk0tLk5MT1WyUgpKLc4vLUpOVcjLL1FIyy/NS9FTqgUAAAD//wMAZiyhmiEA
         AAA=
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 84f38f470ea2412c-PRG
+      - 8ecb9ccfce87b30f-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -83,17 +83,21 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 02 Feb 2024 15:45:10 GMT
+      - Wed, 04 Dec 2024 11:56:19 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-RateLimit-Limit:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '110'
+      x-ratelimit-remaining:
+      - '112'
     status:
       code: 404
       message: Not Found
