@@ -20,17 +20,19 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA4SRz2oDIRDGXyXM2Q2uu7LEUw899RVKEaO2GbqromOhDXn3Ypp/LYTixd98M87M
-        5x6cIQNqD+hAwSQ5n6ZRDlKO/SSHARj4xeAMCsgXkg9HWtu4AINChmoBBcYSfvgWiTVb3yIJG/pA
-        oDiDmHwo2sZ6Yjujfb8NtASdDfmrfEVM2jiXfWm9+vXxtNfrttiMW++0IVAguBBdLzrBVz1Xo1Aj
-        BwY1/MkLdZ4Z2OwN/VOZ3K+UoeOyE+Oq3ygplNgAg1f0syvNvmCWtvdT3AVgMJtC+hR6jM0ZG5dk
-        wuelfds8XxHpck+7GPwZmsUX+NKo0xnad+itIbvTxyl0f1cRd5XhrjL+KAcGbznWVEA9vzCYozWE
-        MZzLYmoGYbgxNibCoPE05+HwDQAA//8DABEp4vdiAgAA
+        H4sIAAAAAAAAA4SRzU4DIRRGX8XcNdPADFMtKxeufAVjCAVsiTNA4GKiTd/d3NpOGxNjZsP5OMPP
+        xwGcQQPqAMGBAjFs7jdcrqUcxwcu5aYHBn42YQIF6CuOjyda2TQDg4oGWwUFxmL48JSkVqynJAdC
+        HxEUZ5Cyj1Xb1M5sp2DfbwMSdDHor9NXDFkb54qvtJdYnT5avW2rLWHrnTYICnrey070HZd3oldi
+        rcQIDFr85cU2TQxs8Qb/+TO7v5ReqoGUt1R2Hhdj7Ljo+HA2+EBG8JOr1HA0MzXznPYRGEymoj5H
+        T4m6s2nOJn4uB6RuyhUDLuO8T9FfgB5hgS8ddP6BI4NdSS1XUC+vVDBdJcSbClLGEHW4+MdvAAAA
+        //8DACYEBrANAgAA
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 7cc815e1ee47b903-AMS
+      - 8ecbc635ccc571a3-BEG
+      Cache-Control:
+      - no-cache, private
       Connection:
       - keep-alive
       Content-Encoding:
@@ -38,25 +40,23 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 24 May 2023 19:53:34 GMT
+      - Wed, 04 Dec 2024 12:24:35 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      VIA:
-      - Ingress
       access-control-allow-origin:
       - '*'
-      cache-control:
-      - no-cache, private
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '119'
+      - '77'
     status:
       code: 200
       message: OK
@@ -76,22 +76,24 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: POST
-    uri: https://connect.mailerlite.com/api/subscribers/75007745355417533/forget
+    uri: https://connect.mailerlite.com/api/subscribers/139790464455804492/forget
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA4RSy24bIRT9FXTXjMXATK2y6qKrbruMKoTh1kZhAMGdRG6Uf69w/UolK2LDeVxm
-        OIc38JYs6DcIHjRsZyG222lW8zyN21kp4ICLDRE0EDaav53QxuUFODSytDbQYB2FF+xMXqvDzpTQ
-        ISYCLTjkgqkZl9czdjG453uiG0y1hDf5BkMx1vuKrX9r3JxWP33dNVfDDr2xBBqkkHIY5SAFG4We
-        pJ4EcFjTf760xsjBVbT0yWTxHyxqEPMgJzZ+1bPSagIOHiN+Yvmd6x7p3vFlkOqDI2D0rXeQ7NLD
-        +5EPCThE28icqe+5x+vyUmw6Xu/Q46s3GOi6L4ec8AJ6T1fwxwRTLqB3anaW3MGc/sKMDxX5UFEP
-        lemf8s5hX/NaGuinXxxidpZCTpexXHqEId21kwuFZEK5zi/Ymt33JH5e2qysP132GmJkO2Q9m15G
-        PLJzK8wmz3r8mQgTew10CIkpwbw9tg28/wUAAP//AwCHbe7y/AIAAA==
+        H4sIAAAAAAAAA4SST08DIRDFvwqZ826zf6vl5MGTV4/GbCiMLZEFArM2tel3N1PbbTUxhgvv8YDh
+        NxzAKFIgD2ANSKjb1d2q6pZd1/f3VdetGigAR2UdSCDM1D+c1EKHEQrIpGjKIEFpsh/ITpiSRnai
+        ZYmeQFYFhIg+DzpMZ62d1e+3BgeGpAivy1dp46CMSZj5rnpxGnz6tM462TWaQRFIaKqmK+umrDpR
+        N7JeyrqHAib/K+cn5wrQCRX9szOavyJNJ1uOGHT4T+QtpA3SnOjLqi6r9kfCojOZm+DVyPCewtZD
+        AU5lGs7WY2C8OoxR+f38BsaXrtLSPI/b4PEiuE+z+BzsEL/FsYBNClPMIF9euQf8FOtvKIVI1g/2
+        mh8xZ7Xhip4vVJPgPyR21jmxRsE1MhS3F2c6QnkjGEMgQi92lrbWi7YSRu3zAo5fAAAA//8DADwW
+        Pr6FAgAA
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 7cc815e478acb772-AMS
+      - 8ecbc6376c03e294-BEG
+      Cache-Control:
+      - no-cache, private
       Connection:
       - keep-alive
       Content-Encoding:
@@ -99,25 +101,23 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 24 May 2023 19:53:34 GMT
+      - Wed, 04 Dec 2024 12:24:35 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      VIA:
-      - Ingress
       access-control-allow-origin:
       - '*'
-      cache-control:
-      - no-cache, private
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '118'
+      - '76'
     status:
       code: 200
       message: OK

@@ -13,23 +13,21 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/subscribers?limit=10&page=1
+    uri: https://connect.mailerlite.com/api/subscribers/139790464455804492
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA8xTy44bIRD8FavP2IbxjD3DKYdc8g1xhFiGtVtmAPFYJbH87xGeCbteRUqU0966
-        imr6UXCFUSYJ/OsVcAQOjB72LesGdmi6ng39bgACepJogAOeXPh0DkpfNiECgZhkyhE4SJXwRRfG
-        5aA0cJikzdIURtsEvCHgvLZRKJcXrAyqSyXoLBBBJg2cUboIFoISQC/kOAYdI3CbjSEQ81NUAZ/0
-        KGQCDg1tdmvWrFm3Yh1vd7xlQCDbd7o5WQUt018y/fggaYuEtivGeNfytgcCz6jNGIFfwcqpzP05
-        5BOuvpxcAAJGxiTmg6Wom7y0P15htim8Qkw19mdna1rZcwU/BQo/g1tZWukQ7ZvJnE9oBVbN4mzX
-        H2hH24H1Ax1ot6fvjS2xDgaT3ig3fUh7mzXdr5vd3YGes8O/2/unzP+w9yMZ+42AQXu5t/eMIVZd
-        6a6WC/rld2z191Tvn3T59lfwMp2BwzklH/lxe9wqZ61WafP4HI5b6fG4rbu+/3+vg/DydHd0vl6o
-        HKILb6s/ULfbLwAAAP//AwCwepyycQQAAA==
+        H4sIAAAAAAAAA4SRwU7EIBCGX8XMud1AS1fLyYNv4NEYwgKuxBYIDCa62Xc3s9Z2Y2IMF76fn5nh
+        5wRWowZ5Am9BAu/H25GJvRDDcMeEGDtowM3aTyABXcHh/kI7E2dooKDGWkCCNujfHSmxZuNISZ7Q
+        BQTJGojJhaJMrAubyZu3a4EMKmt02/GGPiltbXaFevHdZVH1eigm+4OzSiNI6FgnWt61TNzwTvK9
+        5AM0UMMvX6jT1IDJTuM/N5P9y9IJ2dMILzEfHa6OoWW8Zf3iYD05vJtsoYSDnimZxzi7GCisSRdU
+        i/oQSTFxTjp8rDNSPHlDj+s+vVKNBegfVvhUXqVvODdwzLGmAvLpmTKm1/hwlUJM6IPyP/7zFwAA
+        AP//AwDI2TEIEAIAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8ecbc61aac8fe291-BEG
+      - 8ecbc6201cebe298-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -39,7 +37,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 12:24:31 GMT
+      - Wed, 04 Dec 2024 12:24:32 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -55,7 +53,7 @@ interactions:
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '97'
+      - '93'
     status:
       code: 200
       message: OK

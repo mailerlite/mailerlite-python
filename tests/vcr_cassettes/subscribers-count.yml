@@ -17,14 +17,12 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6pWKskvScxRsrKoBQAAAP//AwB6kwnECwAAAA==
+        H4sIAAAAAAAAA6pWKskvScxRsjKqBQAAAP//AwDwe+Y+CwAAAA==
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d935bb292cc2dc-VIE
+      - 8ecbc634bfd9e28f-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -34,19 +32,23 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 22 Dec 2022 13:30:03 GMT
+      - Wed, 04 Dec 2024 12:24:35 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '119'
+      x-ratelimit-remaining:
+      - '78'
     status:
       code: 200
       message: OK

@@ -20,19 +20,16 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA4SRwWpDIRBFf6XM2oSnSXnBVRdZ9RdKkYnaZqhPRcdCG/LvxSQvCYVS3Hiudxzv
-        eACHjKAPQA40jI9ytRmVHEY1qNV6I0GAn5ACaHgvqWX2lZ9OytKmCQRURm4VNKBl+vRdSa1Y35VM
-        HX1k0IOAlH2sxqZ2YRvIftwL3WAKsr8d35CyQeeKr72XXJ5Wv73tqi20884ggwY1KLWQaqHkg5Ja
-        rbXagIAWf/liC0GALR75n8rs/rKsRi0VCHgjH1ztI4w49dzPaR9BQMDK5iJtU5+MTVPG+HVt35OX
-        GxJf93mfop+hj/gK34ZMPsNRnP+kgn55FRCSRaYUZ2fK/eEU7wKnzBQNzfXHHwAAAP//AwBkjVox
-        /gEAAA==
+        H4sIAAAAAAAAA4SRzWpDIRCFX6XM2oT7lxviqouu+gqliFHbDPWq6FhoQ969TH7uDYVS3PgdjzPO
+        8QhWkwZ5BLQgoe13210zjJtNMw7bbT82IMBNGj1IeM+xJnKFHs/K2sQJBBTSVAtI0Ibw07ESazaO
+        lYSMLhDIRkBMLhRlYr2y8Wg+7gU2qKzJLccLYlLa2uwK92rX58XV676YjHtnlSaQ0DXdsGq7VTM8
+        tJ1sR9mOIKCGX75QvRdgstP0z81k/7J0g+w7EPCGztvCGQY98dzP8RBAgNeF1FV6ipyMiVPS4Wtu
+        z5PnBZHmfTrE4G7AEc/wrVClC5zE5U8KyJdXjo8fiuFuwJgIg8Kb//QDAAD//wMAHtxC3O8BAAA=
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d3c1f2fd3cc2dc-VIE
+      - 8ecbc6226b34e292-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -42,24 +39,28 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 21:37:12 GMT
+      - Wed, 04 Dec 2024 12:24:32 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '114'
+      x-ratelimit-remaining:
+      - '91'
     status:
       code: 200
       message: OK
 - request:
-    body: '{"name": "qpOKjavwCm"}'
+    body: '{"name": "wXawFTLtMZ"}'
     headers:
       Accept:
       - application/json
@@ -77,15 +78,13 @@ interactions:
     uri: https://connect.mailerlite.com/api/groups
   response:
     body:
-      string: '{"data":{"id":"75139522427356238","name":"qpOKjavwCm","active_count":0,"sent_count":0,"opens_count":0,"open_rate":{"float":0,"string":"0%"},"clicks_count":0,"click_rate":{"float":0,"string":"0%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2022-12-21
-        21:37:12"}}'
+      string: '{"data":{"id":"139790985718663045","name":"wXawFTLtMZ","active_count":0,"sent_count":0,"opens_count":0,"open_rate":{"float":0,"string":"0%"},"clicks_count":0,"click_rate":{"float":0,"string":"0%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2024-12-04
+        12:24:32"}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d3c1f53bc578a0-VIE
+      - 8ecbc623dd97e28f-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -93,19 +92,23 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 21:37:12 GMT
+      - Wed, 04 Dec 2024 12:24:32 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '113'
+      x-ratelimit-remaining:
+      - '90'
     status:
       code: 201
       message: Created
@@ -125,21 +128,19 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: POST
-    uri: https://connect.mailerlite.com/api/subscribers/75138721072023481/groups/75139522427356238
+    uri: https://connect.mailerlite.com/api/subscribers/139790465506477360/groups/139790985718663045
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA4SNsQ6CMBgGX8V8iRsk9EdEuzo6+AiklGoK8hdLq4Ph3Q3GAV0c75LLPdGooCCf
-        sA0kykLk+4JoQ2VebCnfIQGr3kDiNpyOrbo/Dj0SKB3s3VTaRQ6QWYLRcFigGwyPP1x5Fcx8Ol+d
-        +lTBW75AIltjSqCvVnfL7C3+d5HHWI/a29o0izqydny2vv+ytYusv0wbuVtOvVHBNNX8AmVEqaCU
-        xIqEzEspCNP0AgAA//8DADTNZcM2AQAA
+        H4sIAAAAAAAAA4SNvQrCMBwHX0V+4BYhTWu1eQAn3RzEpaRplKj9R/JhB+m7i+LQujjewXFPtCoq
+        yCdsC4ksr1YVr9bLVbYuy5wXSzCQ6gwk+oPqN/tt3B3BoHS0D1NrlyhCcoZgKI7Q3Q2FH669iua9
+        Ot2c+lbRWzpDgs8xMOib1ddx9hH/u0QhNUF725h2VCfSjk7WdxPbuER6Yi6JruOpNyqatn6/ILgo
+        FplY8GKWCSkKmQsMwwsAAP//AwDgvJrVNwEAAA==
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d3c1f73e4bc293-VIE
+      - 8ecbc6250eb8e295-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -149,19 +150,23 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 21:37:13 GMT
+      - Wed, 04 Dec 2024 12:24:33 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '112'
+      x-ratelimit-remaining:
+      - '89'
     status:
       code: 200
       message: OK
@@ -181,33 +186,35 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: DELETE
-    uri: https://connect.mailerlite.com/api/subscribers/75138721072023481
+    uri: https://connect.mailerlite.com/api/subscribers/139790465506477360
   response:
     body:
       string: ''
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d3c1f96d6c0d56-VIE
+      - 8ecbc6267d33e295-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
       Date:
-      - Wed, 21 Dec 2022 21:37:13 GMT
+      - Wed, 04 Dec 2024 12:24:33 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '111'
+      x-ratelimit-remaining:
+      - '88'
     status:
       code: 204
       message: No Content
@@ -227,33 +234,35 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: DELETE
-    uri: https://connect.mailerlite.com/api/groups/75139522427356238
+    uri: https://connect.mailerlite.com/api/groups/139790985718663045
   response:
     body:
       string: ''
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d3c1fb9ccac2b6-VIE
+      - 8ecbc6280da1b018-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
       Date:
-      - Wed, 21 Dec 2022 21:37:13 GMT
+      - Wed, 04 Dec 2024 12:24:33 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '110'
+      x-ratelimit-remaining:
+      - '87'
     status:
       code: 204
       message: No Content

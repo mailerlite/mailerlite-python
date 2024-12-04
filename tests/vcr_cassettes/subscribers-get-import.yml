@@ -17,19 +17,13 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA4xRy27DIBD8lz2TCNZO7XDqR/TUKrIwkAbJBgS4UhX53yv8SKh6KSdmdkYzC3dQ
-        IgngdzAKODQnhk3btgxfaoZ1XQGB5JIYgCMBH5zUMWq1IDN6F1IGlMDkldjvOgQXNpHXQWqbgDNK
-        CShnNfAUJk3A2C8x5NCPywN00k1ZTAmMJqZvr7f5jgqBvAn7uc83UIwn+xQ8lqP03NK2apqKNbRB
-        IKBHYQbgcDUhptcFHaUbYSZ/TOea1YinwhS1dFaVrksRvJfBzMWpjzKYfi9cMkXr4Abd9SLusicu
-        RL2wVqtuff9uSY/l5utXdCIBB6SIB4YHZG+s5RVypEe6nHfILfKPLEo7DQOBmJz3m3dlsqSLSYT0
-        i74aa+LtPynz/AMAAP//AwAz/IsxZAIAAA==
+        H4sIAAAAAAAAA6pWyk0tLk5MT1WyUgpKLc4vLUpOVcjLL1FIyy/NS9FTqgUAAAD//wMAZiyhmiEA
+        AAA=
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d3c1f13e18c2f7-VIE
+      - 8ecbc6213d25e291-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -39,20 +33,22 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 21:37:12 GMT
+      - Wed, 04 Dec 2024 12:24:32 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
-      - en
-      X-RateLimit-Limit:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '115'
+      x-ratelimit-remaining:
+      - '92'
     status:
-      code: 200
-      message: OK
+      code: 404
+      message: Not Found
 version: 1
