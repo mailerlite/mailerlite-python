@@ -37,6 +37,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [List all segments](#list-all-segments)
     - [Update a segment](#update-a-segment)
     - [Delete a segment](#delete-a-segment)
+    - [Get segment information](#get-segment-information)
     - [Get subscribers belonging to a segment](#get-subscribers-belonging-to-a-segment)
   - [Fields](#fields)
     - [List all fields](#list-all-fields)
@@ -345,6 +346,21 @@ client = MailerLite.Client({
 segment_id = 123456
 
 response = client.segments.delete(segment_id)
+```
+
+### Get segment information
+<a name="get-segment-information"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+segment_id = 123456
+
+response = client.segments.get(segment_id, limit=10, filter={'status': 'active'})
 ```
 
 ### Get subscribers belonging to a segment
