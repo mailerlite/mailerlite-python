@@ -32,6 +32,42 @@ class Segments(object):
 
         return self.api_client.request("GET", self.base_api_url, query_params).json()
 
+    def get(self, segment_id, **kwargs):
+        """
+        Get a segment
+
+        Returns information about a segment.
+        Ref: https://developers.mailerlite.com/docs/segments.html#get-subscribers-belonging-to-a-segment
+
+        :param segment_id: int Segment ID
+        :param **kwargs: dict You can pass additional arguments - after, limit or filter by status
+        :raises: :class: `TypeError` : Got an unknown argument
+        :raises: :class: `TypeError` : `segment_id` type is not valid
+        :return: JSON array
+        :rtype: dict
+        """
+
+        if not isinstance(segment_id, int):
+            raise TypeError(
+                f"`segment_id` type is not valid. Expected `int`, got {type(segment_id)}."
+            )
+
+        if not isinstance(segment_id, int):
+            raise TypeError("Segment ID are not valid.")
+
+        available_params = ["filter", "limit", "after"]
+
+        params = locals()
+        query_params = {}
+        for key, val in params["kwargs"].items():
+            if key not in available_params:
+                raise TypeError("Got an unknown argument '%s'" % key)
+            query_params[key] = val
+
+        return self.api_client.request(
+            "GET", f"{self.base_api_url}/{segment_id}", query_params
+        ).json()
+
     def get_subscribers(self, segment_id, **kwargs):
         """
         Get subscribers belonging to a segment
@@ -65,7 +101,7 @@ class Segments(object):
             query_params[key] = val
 
         return self.api_client.request(
-            "GET", f"{self.base_api_url}/{segment_id}", query_params
+            "GET", f"{self.base_api_url}/{segment_id}/subscribers", query_params
         ).json()
 
     def update(self, segment_id, name):
