@@ -17,12 +17,12 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6pWKskvScxRsjKuBQAAAP//AwCxSv0nCwAAAA==
+        H4sIAAAAAAAAA6pWKskvScxRsjI0MDCuBQAAAP//AwCdOk0fDgAAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8ecbc9e46b87e292-BEG
+      - 8ecce10d0f83b01e-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -32,7 +32,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 12:27:06 GMT
+      - Wed, 04 Dec 2024 15:37:40 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -48,7 +48,7 @@ interactions:
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '100'
+      - '78'
     status:
       code: 200
       message: OK

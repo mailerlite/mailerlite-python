@@ -13,24 +13,25 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/subscribers?limit=10&page=1
+    uri: https://connect.mailerlite.com/api/subscribers?limit=10
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA8yUTY/aMBCG/wqacwDb+faph172NyyV5XW8YJHYlj9QW8R/rxxKyCLaRXviNu+b
-        mfFknsRH6HjgQF+PoDqggPO2bjHGDS7aCtd5nUMGcuCqBwrqwDX/tnNC7lfOQwY+8BA9UOAiqINM
-        jolOyJQ7WONCcqQOQFEGxkrtmTDxrxa9Evu5kRKY40FeH1+lsox3nZPeA9Wx7zPw8c0Lp95kx3gA
-        CgSRYonJEhULTCipaN5CBlHf5J2LhZM8fFJpu89S3pXsOw/0CJoP8tK75z6wuSHMYLn+dZVRB3eV
-        Kkyx3Rk9laXtTuI3U8yexSmtKk2m9OyNjA1KMzXlXICiuipw2eKalA1um3HuCejWuAd5DlxH3k88
-        yQ1P8n+eGH2RaJ6WjssFLmmR0wI/TvRe5b+IYloWtGjuEIXvLm7V4mVrHDwZ2bKpUYmKFjctalFZ
-        oVuwKZauV0GuhBmeEi9ZompJ8pFAQ3H9ON57lV/A+0xgf2TQK70fx3tXzof5hTId5+ThEmv5M0z9
-        B5nu8SNYHnZAYReC9XSz3qyF0VqKsPr4OWzW3KrNetr1+P9b6Zjl25HouT0T0Xnj5qd/sE6nPwAA
-        AP//AwDp9tQ9QgYAAA==
+        H4sIAAAAAAAAA+zYX2vbMBAA8K8y7tlt/D+xoGyjgbIyJywrXegyjCJfFi22LCS51A357sP16qT1
+        Q2HsZcZvuvNJOt3vzXtIqaFAvu+Bp0DA8aKJ7fpeEPqe64d2EIIFmFOeAYFSo3Js2/5Qx6gybvCc
+        FTlYoA01pQYClBl+j3WmKBVDIMBzWShTZ1AYILYFhUShE1aUf2KWcbY7TdQFiaIGj5+PIZcJTVOF
+        WgMRZZZZoMu1ZoqvMU2oAQKu7fpnjntm+++cgLgh8VywoBSv6prNTCE1b+yU6VslG45ZqoHsQdAc
+        n8/OqDbJaYIVuaSiOoalMOoYctOu5bYQ7bZ6um3wmPBENsGhHlXdGRcnLyqk4SLhbU1X1nWisT+O
+        XslGUTTA9gF20oGdDLB9gB13YMcDbB9gww5sOMD2ATbowAYDbB9g/Q6sP8D2AdbrwHoDbB9g3Q6s
+        O8D2AdbpwDoD7H8E+8OCjIvdU3MbrrQ57a69TuH981rgQ/3QrTFSk9VoNWKFEMjM+Uv11YhKvhq1
+        Q1X6PSuVLtQFVtfy7vJTGN/EwXz6sZpNY2f260sV3+y82ZQ9fL683rCrSK7F4vH2KprfLbf21+Ui
+        Wy9jPheLKv12G8HBghzrX2d7kNRs/6ohsECiSiT9iUAcu3la0nQJBP5Jn83s2kOfRn74DQAA//8D
+        ABTmvgP3EwAA
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8ecbc9c879d0e292-BEG
+      - 8ecce0f22a6271a3-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -40,7 +41,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 12:27:02 GMT
+      - Wed, 04 Dec 2024 15:37:36 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -56,7 +57,7 @@ interactions:
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '119'
+      - '97'
     status:
       code: 200
       message: OK
