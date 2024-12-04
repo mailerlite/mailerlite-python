@@ -98,7 +98,7 @@ class TestSubscribers:
         response = self.client.subscribers.list(limit=10)
 
         assert isinstance(response, dict)
-        assert isinstance(response["dataa"], list)
+        assert isinstance(response["data"], list)
         assert isinstance(response["data"][0], dict)
         assert set(subscriber_keys).issubset(response["data"][0].keys())
 

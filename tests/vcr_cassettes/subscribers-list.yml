@@ -13,25 +13,25 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/subscribers?limit=10&cursor=eyJpZCI6MTM5ODAyNDM1NjQyMTk3NDcxLCJfcG9pbnRzVG9OZXh0SXRlbXMiOnRydWV9
+    uri: https://connect.mailerlite.com/api/subscribers?limit=10
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA+zYXW+bMBQG4L8ynWva8B2wVG1TI3WrRqJkURtlmZAxTuMFjGWbtmmU/z6xbCQr
-        2qJN20URd5zDMbz2c4HEFlKsMaBPW2ApILCcMDBt1/F817bCvts3wQCaY5YBglJRGYbmm6qkMmOa
-        npMiBwOUxrpUgAATze5p1SlKSSggYLkopK46lGtApgGFoFzFpCi/1yRjZH3cqAZiiTU93D6UTMQ4
-        TSVVChAvs8wAVSaKSJbQNMYaENim7Z5Z9pnpvrI8ZPvIscGAkj+b2y8mkmJ9YqVIT40sGc1SBWgL
-        HOf0x7MzrHR83CBFLjDfHMqSa3koma6vxarg9bLqdOviKWax2Be76qiqZIwf7agQmvGY1TO/gPXD
-        57BB2MG2ATZowAYdbBtg+w3YfgfbBli/Aet3sG2A9RqwXgfbBli3Aet2sG2AdRqwTgfbBli7AWt3
-        sC8b1rLcIAia31irg31BsJ8NyBhffwu3ZFLp43T16yS9BwQrrYVCi96iRwrOKdHnP0sveliwRa8+
-        SKlek1KqQl7QzbWYX773o2nkjQZvN8NBZA2/jDfRdO0MB+Thw+X1klyFIuGTp5urcDSfrcyPs0mW
-        zCI2yuer5N0wW47BAE4f9f9I8hhNx+5ocGf9NgmfbNLbmxB2BuS0+m+3BYH16q8CgQGCyljgOwrI
-        Mvdbi/cpAcE/ybmXO/nQP2XY7b4CAAD//wMA59oxwbgUAAA=
+        H4sIAAAAAAAAA+zYX2vbMBAA8K8y7tlt/D+xoGyjgbIyJywrXegyjCJfFi22LCS51A357sP16qT1
+        Q2HsZcZvuvNJOt3vzXtIqaFAvu+Bp0DA8aKJ7fpeEPqe64d2EIIFmFOeAYFSo3Js2/5Qx6gybvCc
+        FTlYoA01pQYClBl+j3WmKBVDIMBzWShTZ1AYILYFhUShE1aUf2KWcbY7TdQFiaIGj5+PIZcJTVOF
+        WgMRZZZZoMu1ZoqvMU2oAQKu7fpnjntm+++cgLgh8VywoBSv6prNTCE1b+yU6VslG45ZqoHsQdAc
+        n8/OqDbJaYIVuaSiOoalMOoYctOu5bYQ7bZ6um3wmPBENsGhHlXdGRcnLyqk4SLhbU1X1nWisT+O
+        XslGUTTA9gF20oGdDLB9gB13YMcDbB9gww5sOMD2ATbowAYDbB9g/Q6sP8D2AdbrwHoDbB9g3Q6s
+        O8D2AdbpwDoD7H8E+8OCjIvdU3MbrrQ57a69TuH981rgQ/3QrTFSk9VoNWKFEMjM+Uv11YhKvhq1
+        Q1X6PSuVLtQFVtfy7vJTGN/EwXz6sZpNY2f260sV3+y82ZQ9fL683rCrSK7F4vH2KprfLbf21+Ui
+        Wy9jPheLKv12G8HBghzrX2d7kNRs/6ohsECiSiT9iUAcu3la0nQJBP5Jn83s2kOfRn74DQAA//8D
+        ABTmvgP3EwAA
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8eccdc2b6875e296-BEG
+      - 8ecce0f22a6271a3-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -41,7 +41,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:34:20 GMT
+      - Wed, 04 Dec 2024 15:37:36 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
