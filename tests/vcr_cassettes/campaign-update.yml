@@ -16,38 +16,68 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: PUT
-    uri: https://connect.mailerlite.com/api/campaigns/112080931966158193
+    uri: https://connect.mailerlite.com/api/campaigns/139789204514145550
   response:
     body:
-      string: "{\n    \"message\": \"Server Error\"\n}"
+      string: !!binary |
+        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
+        sEGsvXLYAY0dYLf7FwAA//8DAHQmOZByDgAA
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 84f38f315fe0b37d-PRG
+      - 8ecb9cbedbe1e298-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
+      Content-Encoding:
+      - gzip
       Content-Type:
       - application/json
       Date:
-      - Fri, 02 Feb 2024 15:45:07 GMT
+      - Wed, 04 Dec 2024 11:56:17 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '116'
+      x-ratelimit-remaining:
+      - '118'
     status:
-      code: 500
-      message: Internal Server Error
+      code: 200
+      message: OK
 version: 1

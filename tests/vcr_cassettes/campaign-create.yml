@@ -1,7 +1,8 @@
 interactions:
 - request:
     body: '{"name": "Test Campaign", "language_id": 1, "type": "regular", "emails":
-      [{"subject": "This is a test campaign", "from_name": "Test Man", "from": "testuser@mailerlite.com"}]}'
+      [{"subject": "This is a test campaign", "from_name": "Test Man", "from": "testuser@mailerlite.com",
+      "content": "<html><body><h1>Test</h1></body></html>"}]}'
     headers:
       Accept:
       - application/json
@@ -10,7 +11,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '174'
+      - '228'
       Content-Type:
       - application/json
       User-Agent:
@@ -19,22 +20,20 @@ interactions:
     uri: https://connect.mailerlite.com/api/campaigns
   response:
     body:
-      string: '{"data":{"id":"112080931966158193","account_id":"83510","name":"Test
-        Campaign","type":"regular","status":"draft","missing_data":["content"],"settings":[],"filter":[],"filter_for_humans":[],"delivery_schedule":null,"language_id":"1","language":{"id":"1","shortcode":"lt","iso639":"lt-LT","name":"Lietuvi\u0161kai","direction":"ltr"},"created_at":"2024-02-02
-        15:45:06","updated_at":"2024-02-02 15:45:06","scheduled_for":null,"queued_at":null,"started_at":null,"finished_at":null,"stopped_at":null,"default_email_id":"112080932039558517","emails":[{"id":"112080932039558517","account_id":"83510","emailable_id":"112080931966158193","emailable_type":"campaigns","type":null,"from":"testuser@mailerlite.com","from_name":"Test
+      string: '{"data":{"id":"139789204514145550","account_id":"83510","name":"Test
+        Campaign","type":"regular","status":"draft","missing_data":[],"settings":{"track_opens":true,"use_google_analytics":false,"ecommerce_tracking":false},"filter":[],"filter_for_humans":[],"delivery_schedule":null,"language_id":"1","language":{"id":"1","shortcode":"lt","iso639":"lt-LT","name":"Lietuvi\u0161kai","direction":"ltr"},"created_at":"2024-12-04
+        11:56:14","updated_at":"2024-12-04 11:56:14","scheduled_for":null,"queued_at":null,"started_at":null,"finished_at":null,"stopped_at":null,"default_email_id":"139789204551894287","emails":[{"id":"139789204551894287","account_id":"83510","emailable_id":"139789204514145550","emailable_type":"campaigns","type":"builder_html","from":"testuser@mailerlite.com","from_name":"Test
         Man","reply_to":"igor@mailerlite.com","name":null,"subject":"This is a test
         campaign","plain_text":"Sveiki,\n\nJ\u016bs gavote {$account} naujienlai\u0161k\u012f.
         Ta\u010diau J\u016bs\u0173 el. pa\u0161to programa programa nepalaiko HTML
         formato.\n\nNaujienlai\u0161k\u012f galite rasti \u010dia:\n\n{$url}\n\nPagarbiai,\n{$account}\n\n\n\nJeigu
-        ateityje nebenorite gauti {$account} naujien\u0173, spauskite \u010dia:\n{$unsubscribe}\n","screenshot_url":null,"preview_url":"https:\/\/preview.mailerlite.io\/preview\/83510\/emails\/112080932039558517","created_at":"2024-02-02
-        15:45:06","updated_at":"2024-02-02 15:45:06","is_designed":false,"language_id":1,"language":{"id":"1","shortcode":"lt","iso639":"lt-LT","name":"Lietuvi\u0161kai","direction":"ltr"},"is_winner":false,"stats":{"sent":0,"opens_count":0,"unique_opens_count":0,"open_rate":{"float":0,"string":"0%"},"clicks_count":0,"unique_clicks_count":0,"click_rate":{"float":0,"string":"0%"},"unsubscribes_count":0,"unsubscribe_rate":{"float":0,"string":"0%"},"spam_count":0,"spam_rate":{"float":0,"string":"0%"},"hard_bounces_count":0,"hard_bounce_rate":{"float":0,"string":"0%"},"soft_bounces_count":0,"soft_bounce_rate":{"float":0,"string":"0%"},"forwards_count":0,"forward_rate":{"float":0,"string":"0%"},"social_interactions_count":0,"social_interaction_rate":{"float":0,"string":"0%"},"click_to_open_rate":{"float":0,"string":"0%"}},"send_after":null,"track_opens":true,"uses_survey":false,"uses_quiz":false,"preheader":null}],"used_in_automations":false,"type_for_humans":"Regular","is_stopped":false,"has_winner":null,"winner_version_for_human":null,"winner_sending_time_for_humans":null,"winner_selected_manually_at":null,"can":{"update":true,"delete":true,"send":true,"copy":true,"resend":false},"uses_ecommerce":false,"ecommerce_stats":{"total_orders":0,"total_price":"0","multi_currency":false},"uses_survey":false,"can_be_scheduled":false,"is_smart_sending_index_option_finished":false,"is_applied_for_smart_sending_index_option":false,"warnings":[],"recipients_count":2,"next_step":null,"is_currently_sending_out":false,"can_be_copied":true,"has_basic_filter":true,"basic_filter_for_humans":{"included_groups":[],"excluded_groups":[],"included_segments":[],"excluded_segments":[],"all_active_subscribers":true}}}'
+        ateityje nebenorite gauti {$account} naujien\u0173, spauskite \u010dia:\n{$unsubscribe}\n","screenshot_url":null,"preview_url":"https:\/\/preview.mailerlite.io\/preview\/83510\/emails\/139789204551894287","created_at":"2024-12-04
+        11:56:14","updated_at":"2024-12-04 11:56:16","is_designed":true,"language_id":1,"language":{"id":"1","shortcode":"lt","iso639":"lt-LT","name":"Lietuvi\u0161kai","direction":"ltr"},"is_winner":false,"stats":{"sent":0,"opens_count":0,"unique_opens_count":0,"open_rate":{"float":0,"string":"0%"},"clicks_count":0,"unique_clicks_count":0,"click_rate":{"float":0,"string":"0%"},"unsubscribes_count":0,"unsubscribe_rate":{"float":0,"string":"0%"},"spam_count":0,"spam_rate":{"float":0,"string":"0%"},"hard_bounces_count":0,"hard_bounce_rate":{"float":0,"string":"0%"},"soft_bounces_count":0,"soft_bounce_rate":{"float":0,"string":"0%"},"forwards_count":0,"forward_rate":{"float":0,"string":"0%"},"social_interactions_count":0,"social_interaction_rate":{"float":0,"string":"0%"},"click_to_open_rate":{"float":0,"string":"0%"}},"send_after":null,"track_opens":true,"uses_survey":false,"uses_quiz":false,"preheader":null}],"used_in_automations":false,"type_for_humans":"Regular","is_stopped":false,"has_winner":null,"winner_version_for_human":null,"winner_sending_time_for_humans":null,"winner_selected_manually_at":null,"can":{"update":true,"delete":true,"send":true,"copy":true,"resend":false},"uses_ecommerce":false,"ecommerce_stats":null,"uses_survey":false,"can_be_scheduled":true,"cannot_be_scheduled_reason":null,"is_smart_sending_index_option_finished":false,"is_applied_for_smart_sending_index_option":false,"warnings":[],"recipients_count":2,"next_step":null,"is_currently_sending_out":false,"can_be_copied":true,"has_basic_filter":true,"basic_filter_for_humans":{"included_groups":[],"excluded_groups":[],"included_segments":[],"excluded_segments":[],"all_active_subscribers":true},"is_eligible_for_sending":true,"needs_repair":false}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 84f38f2c3a12b345-PRG
+      - 8ecb9ca7df51e292-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -42,18 +41,22 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 02 Feb 2024 15:45:06 GMT
+      - Wed, 04 Dec 2024 11:56:17 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
       - '119'
     status:
       code: 201

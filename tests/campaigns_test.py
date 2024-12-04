@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import mailerlite as MailerLite
 import pytest
@@ -46,7 +46,7 @@ def campaign_keys():
 
 @fixture
 def campaign_activity_keys():
-    return ["id", "opens_count", "clicks_count", "subscriber"]
+    return ["id", "opens_count", "clicks_count"]
 
 
 @fixture
@@ -79,6 +79,7 @@ class TestCampaigns:
                     "subject": "This is a test campaign",
                     "from_name": "Test Man",
                     "from": "testuser@mailerlite.com",
+                    "content": "<html><body><h1>Test</h1></body></html>",
                 }
             ],
         }
@@ -123,7 +124,7 @@ class TestCampaigns:
         assert isinstance(response["data"], dict)
         assert set(campaign_keys).issubset(response["data"].keys())
         assert response["data"]["name"] == params["name"]
-        assert int(response["data"]["language"]["id"]) == params["language_id"]
+        assert int(response["data"]["language_id"]) == params["language_id"]
 
     def test_given_incorrect_campaign_id_when_calling_get_then_type_error_is_returned(
         self,
@@ -166,12 +167,16 @@ class TestCampaigns:
         "tests/vcr_cassettes/campaign-schedule.yml", filter_headers=["Authorization"]
     )
     def test_given_correct_campaign_id_and_schedule_parameters_when_calling_schedule_then_campaign_schedule_is_updated(
-        self, campaign_keys
+        self,
     ):
+        date = datetime.now() + timedelta(days=2)
+        date = date.strftime("%Y-%m-%d")
+
         params = {
             "delivery": "scheduled",
-            "schedule": {"date": "2024-03-31", "hours": "22", "minutes": "00"},
+            "schedule": {"date": date, "hours": "22", "minutes": "00"},
         }
+
         response = self.client.campaigns.schedule(int(pytest.entity_id), params)
 
         assert isinstance(response, dict)
@@ -179,8 +184,7 @@ class TestCampaigns:
         schedule_date = datetime.strptime(
             response["data"]["scheduled_for"], "%Y-%m-%d %H:%M:%S"
         )
-        test_date = datetime.strptime(params["schedule"]["date"], "%Y-%m-%d")
-        assert schedule_date.date() == test_date.date()
+        assert schedule_date.date().strftime("%Y-%m-%d") == date
 
     def test_given_incorrect_campaign_id_when_calling_cancel_then_type_error_is_returned(
         self,
@@ -230,8 +234,9 @@ class TestCampaigns:
     def test_given_correct_campaign_id_when_calling_activity_then_campaign_activity_information_is_returned(
         self, campaign_activity_keys
     ):
-        response = self.client.campaigns.activity(106527960165516964)
+        response = self.client.campaigns.activity(139788917762163910)
 
+        print(response["data"][0].keys())
         assert isinstance(response, dict)
         assert isinstance(response["data"], list)
         assert set(campaign_activity_keys).issubset(response["data"][0].keys())

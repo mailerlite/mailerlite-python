@@ -80,7 +80,7 @@ def group_keys():
 
 class TestSubscribers:
     # Set static import_id
-    import_id = 75127888126412443
+    import_id = 139791107607233967
 
     @classmethod
     def setup_class(self):
@@ -166,12 +166,25 @@ class TestSubscribers:
             self.client.subscribers.get("abcdefgh")
 
     @vcr.use_cassette(
-        "tests/vcr_cassettes/subscribers-get.yml", filter_headers=["Authorization"]
+        "tests/vcr_cassettes/subscribers-get-email.yml",
+        filter_headers=["Authorization"],
     )
-    def test_given_correct_params_when_calling_update_then_subscirber_is_returned(
+    def test_given_subscriber_email_calling_get_then_subscirber_is_returned(
         self, subscriber_keys
     ):
         response = self.client.subscribers.get(pytest.entity_email)
+
+        assert isinstance(response, dict)
+        assert isinstance(response["data"], dict)
+        assert set(subscriber_keys).issubset(response["data"].keys())
+
+    @vcr.use_cassette(
+        "tests/vcr_cassettes/subscribers-get-id.yml", filter_headers=["Authorization"]
+    )
+    def test_given_subscriber_id_calling_get_then_subscirber_is_returned(
+        self, subscriber_keys
+    ):
+        response = self.client.subscribers.get(pytest.entity_id)
 
         assert isinstance(response, dict)
         assert isinstance(response["data"], dict)
@@ -185,8 +198,6 @@ class TestSubscribers:
         self, import_keys
     ):
         response = self.client.subscribers.get_import(self.import_id)
-
-        print(response)
 
         assert isinstance(response, dict)
         assert isinstance(response["data"], dict)

@@ -15,25 +15,23 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: POST
-    uri: https://connect.mailerlite.com/api/campaigns/106527960165516964/reports/subscriber-activity
+    uri: https://connect.mailerlite.com/api/campaigns/139788917762163910/reports/subscriber-activity
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA7xTTY/bIBD9K6s57ImuTeqPmqrqP6h6X68igrFDg8EdhnQrK/+9gqTNbnPPiZmH
-        HvPmDbPCIEmCeF7BDCCA803Zdrxtq5qXVbOpWmDgF+3CVvnoCETJQFmjDlfgxG7I1aeu6sru4/9k
-        fkt+YWCNOwQQK4wGA4GAPdESRF/0hfLOaUVPszRWozWkn5Sf+0Iupi+UnBdpJhf6gpdNvWm7puRN
-        XfOma6q+QL14pNAXIe6CQrPT+EEqMkdDv78uctJfODCw8u4lF9RHEC5ay8DpVzrHJwazTrNYQUVE
-        7WibGNm0Ef2cg6T2Cl+Me14hov37opU7bUHAo5U/o//88B310fgYgEGWokGM0gadxpZpd7b7rI6/
-        kUMYr2reN/FNv9LDI+ZObhp4YbBI2t+lgzQ2jRfr65IBeRCbdJC0OZLThHqSZLzLn1naM54WQA95
-        XtG9SfIipLhMF/9KnoHR4y+JwyXbSxx2Pjp1yYMf6X2ujLRb40hjEuxdhn9Ed0grdjr9AQAA//8D
-        AL2U32HnAwAA
+        H4sIAAAAAAAAA7xTwW7bMAz9lYKHnrTaTtLY1lD0D4bd6yJgZNrRIkueRGUdgvz7YMVt1uaek8gn
+        PPE9UjxCi4wgX46gW5BQLOuyqvOqWJWrxbIsVzkIcCPZsFEuWgaZC1BGq/0FOIkrclXX6/WyevxK
+        Lq7JrwKMtvsA8gid9oFBwo55DLLJmkw5a0nxw4DakDea6UG5oclw1E2mcBhR9zY0WSpd1UVZrhfF
+        elkXeZN5Gp3n0GQhboPyekv+GyrWB81/n0fs6akAAQZvXnL0dABpozECLL3xOT4JGGiaxRFU9J4s
+        byZGalrn3ZCCSe0Fnhv3coTozfuLBrdkQMK9wd/Rfb/76emgXQwgIEkhkB2aQNPYEu3G7T6rK/6T
+        wz5e1Hw28YPe+O7eJydXBl4FjMi7mziYxkZ+bv1jLoAdyMV0MJoUYd976pG1s+kzoznj0wJQmxYn
+        2vdkMS/Cx8VHyTPQOf8HfTtnO/Tt1kWr5jy4jj/nSqPZaMvkJ8HOJvhXtPtpxU6nfwAAAP//AwC3
+        F1jH5wMAAA==
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 84f38f4bbc1bb33f-PRG
+      - 8ecb9cd12f70e295-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -43,19 +41,23 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 02 Feb 2024 15:45:11 GMT
+      - Wed, 04 Dec 2024 11:56:20 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '109'
+      x-ratelimit-remaining:
+      - '111'
     status:
       code: 200
       message: OK

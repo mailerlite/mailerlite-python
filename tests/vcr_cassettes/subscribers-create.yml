@@ -20,19 +20,17 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA4SQwWoDIRCGXyXM2QR1d1nw1ENPfYVSxKhthroqOhbakHcvptkklELx4vf7z4z/
-        HMEZMqCOgA4UzBPn8zxOwzSNYp6GARj4xWAABeQrTQ9n2tm0AINKhloFBcYSfviupFas70rGjj4S
-        KM4gZR+rtqld2Aa07/dCN+hiyN+eb4hZG+eKr32W2J1P79721Rbce6cNgQLJpdwKuZV8I7gapRo5
-        MGjxly+2EBjY4g39U5ndHxaxkUINsxLd8oo+uNrXF83Scz+lQwQGwVTSF+kx9c3YtGQTP6/je/Jy
-        Q6TrPR9S9Cv0FV/hS6POP3Bi8FZSyxXU8wuDkKwhTHF1ptw/jvEucMqEUeNaf/oGAAD//wMAMCeT
-        WvoBAAA=
+        H4sIAAAAAAAAA4SRwU4DIRCGX8XMmW1gy7aWkwdPvoIxhAJtibtAYDDRpu9uprbbxsQYLnzDzwAf
+        R3AGDagjBAcKxHKz3nC5knIYHrmUmx4Y+MmEERSgrzg8nWlh0wQMKhpsFRQYi+HDUyW1Yj1VciD0
+        EUFxBin7WLVN7cJ2DPb9vkABXQz62/INQ9bGueIrnSUW50Hd27baErbeaYOgoOe97ETfcfkgeiVW
+        SgzAoMVfudjGkYEt3uA/O7P7K9KvFSc3u1T2HufE0HHR8eU5IdWSmuyCH10lw9FMZOYlHSIwGE1F
+        fSk9J3Jn05RN/JwvSG7KDQPO83xI0V+BPmGGLx10/oETg31JLVdQr28kmJ4S4p2ClDFEHa750zcA
+        AAD//wMA1rlfGg0CAAA=
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d3c1e9cb53c2b1-VIE
+      - 8ecbc9ca0c9fe291-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -42,18 +40,22 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 21:37:10 GMT
+      - Wed, 04 Dec 2024 12:27:02 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
       - '118'
     status:
       code: 200

@@ -15,33 +15,35 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: DELETE
-    uri: https://connect.mailerlite.com/api/subscribers/75007745355417533
+    uri: https://connect.mailerlite.com/api/subscribers/139790464455804492
   response:
     body:
       string: ''
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d3c2046ec57876-VIE
+      - 8ecbc9e1cc5771a3-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
       Date:
-      - Wed, 21 Dec 2022 21:37:15 GMT
+      - Wed, 04 Dec 2024 12:27:06 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '106'
+      x-ratelimit-remaining:
+      - '102'
     status:
       code: 204
       message: No Content
@@ -65,15 +67,13 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6rmUlBQUFDKTS0uTkxPVbJSUPLLVygsTS2qVChKLS7NKSlWSMsvUsjNT0nNUYh2
-        LCiIifEFsYtjYoJLk4qTizKTUouQ2bF6Sly1AAAAAP//AwCoGehYVgAAAA==
+        H4sIAAAAAAAAA6pWyk0tLk5MT1WyUgpKLc4vLUpOVcjLL1FIyy/NS9FTqgUAAAD//wMAZiyhmiEA
+        AAA=
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d3c206ae94c21e-VIE
+      - 8ecbc9e368dde297-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -83,17 +83,21 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 21:37:15 GMT
+      - Wed, 04 Dec 2024 12:27:06 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-RateLimit-Limit:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '105'
+      x-ratelimit-remaining:
+      - '101'
     status:
       code: 404
       message: Not Found

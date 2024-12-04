@@ -13,38 +13,41 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/campaigns/112080931966158193
+    uri: https://connect.mailerlite.com/api/campaigns/139789204514145550
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA7xWTW/jNhD9K8Jge9MmtrPOJjoV6KUodoOizW0dEGNqLM+aIhVy6MQ1/N8LSrL8
-        UXcToEBPIh/ffPKR4hZKFIRiC1xCAePxZHQ3ur8Z39/ejqd34/sbyAG1dtGKahl3N9PxCHKwWBMU
-        8EAv2S9YN8iVzR4SloNsmrTkqYoGPeQQBCUGKKD0uBDIoeYQ2Faqi/0NtLNCVuAph0AibKsAxben
-        HBZshPzxWC2cV8tYo+0pJRlek9+ooJdURkNQ2GhMDgZtFbGiLu8xHJBDuSm5pfOiXZlSNik5Du72
-        5r6dffzyeCj1C5PENc/iaHw7XiFDDiV70sLOtmwPuxy0JxQqFQoUMBlNPn0cTT6OJtl4WnyaFqNb
-        yCE25Y8on1NSfS1lKndf0HOk2Jt1QBD0coIs2HJYnpFc05wgJS0wGlFUIxt1su+T0c39dHo3Hack
-        2vXU5TNxnJAuiqO1xLkh9e+qOnB6veheRmGQUF+TdzUUIBQkBvI/JzvyhoWutKuhI6h+kx4pSPYV
-        LeTgqTEbJQ4K4MpdsOtM+i7F+XfSaUMelxwyDhlmKWK2zwryQaW9SWOQrRJ6TVZ/rolXnM/szP7W
-        KmQesgrXTijbfuh7tMssxu9M1uBeRekzWVxlj5hGo5IxZnv79Pl8k5G5yhrs+OKyxrvKY42HgaUG
-        DfLKZb8+fv2SLZyvUdxVSuXhcryswtSGzGMQzvaRi2Sx/RC92aXR71ihnzOmog4lpJW2SOIqZijE
-        svlOmaU5WeeT0wqj8IWiu3LyLDQYwyoxjwJvP0Qb4jxoz3PazWx7BDyRDUsnKnozNN3Tmumlg2Ap
-        0oRidj277vGro01mN8Cz61aZs+tO0rPri1L+70c3UbRhvVI1Nt31xEGVFLiyVEKxQBPo7GYa/z/3
-        Egf1wtamy7TPIt3KIYUMrahHObiGbFDttrXzaPk5kjqH01x5lDbfhXHYwUE82woKGP3UXoSpDxe8
-        /QPvGvamvyOBnHod4Ld9hAbrI9t2+qbREn2p5i5afRL4CH5HYLeQCz6O4Ld9LJx/QV8e2/fQe+Jr
-        RqPYCnlslXGaxvnqO7dXiVPvUUPKgGypcNH+zbujLB71qhMXFOIj5RADBRWiX9NmkGmLPUf+a0Aa
-        T0vCcu9p99SSSsVWYRRXY1vfQE//kpNXA/wxvEw4qP7/ONCXeDgpXaLdTK3Jh9SawdXZeqowPWqE
-        69N4ZyxDOl0hNdqIxmyOfsw6+dz2l8y+JyUZOsxSkP1Yu2azH3vqVtoidn3XSLu6Jq9pKG5A1HD6
-        xQka5XxJPrQ71wGN52QH6XdeRyOsdPSerN6cBTnbLo1WzWl4jB36mlpdo5ehT2xLelWuafW2f7gc
-        07FpDHdPoB+YDhYv6O3h5ehJc8NkZRD6JAdLr6KCULPvOIe+LDGbwbuLcl6Odg3T0PgkkTkG1mr/
-        Pu3wY+xEAVtgq00sqVSVd7Hpc6TXC+DADFTVKf8z7imMxqh0ZNekhnvQ9+dpt9v9DQAA//8DAB3x
-        kj3fCwAA
+        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
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 84f38f37ad4db33f-PRG
+      - 8ecb9cc41833b311-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -54,19 +57,23 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 02 Feb 2024 15:45:07 GMT
+      - Wed, 04 Dec 2024 11:56:18 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '115'
+      x-ratelimit-remaining:
+      - '117'
     status:
       code: 200
       message: OK
