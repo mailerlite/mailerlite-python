@@ -13,24 +13,25 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/subscribers?limit=10&page=1
+    uri: https://connect.mailerlite.com/api/subscribers?limit=10&cursor=eyJpZCI6MTM5ODAyNDM1NjQyMTk3NDcxLCJfcG9pbnRzVG9OZXh0SXRlbXMiOnRydWV9
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA8yUTY/aMBCG/wqacwDb+faph172NyyV5XW8YJHYlj9QW8R/rxxKyCLaRXviNu+b
-        mfFknsRH6HjgQF+PoDqggPO2bjHGDS7aCtd5nUMGcuCqBwrqwDX/tnNC7lfOQwY+8BA9UOAiqINM
-        jolOyJQ7WONCcqQOQFEGxkrtmTDxrxa9Evu5kRKY40FeH1+lsox3nZPeA9Wx7zPw8c0Lp95kx3gA
-        CgSRYonJEhULTCipaN5CBlHf5J2LhZM8fFJpu89S3pXsOw/0CJoP8tK75z6wuSHMYLn+dZVRB3eV
-        Kkyx3Rk9laXtTuI3U8yexSmtKk2m9OyNjA1KMzXlXICiuipw2eKalA1um3HuCejWuAd5DlxH3k88
-        yQ1P8n+eGH2RaJ6WjssFLmmR0wI/TvRe5b+IYloWtGjuEIXvLm7V4mVrHDwZ2bKpUYmKFjctalFZ
-        oVuwKZauV0GuhBmeEi9ZompJ8pFAQ3H9ON57lV/A+0xgf2TQK70fx3tXzof5hTId5+ThEmv5M0z9
-        B5nu8SNYHnZAYReC9XSz3qyF0VqKsPr4OWzW3KrNetr1+P9b6Zjl25HouT0T0Xnj5qd/sE6nPwAA
-        AP//AwDp9tQ9QgYAAA==
+        H4sIAAAAAAAAA+zYXW+bMBQG4L8ynWva8B2wVG1TI3WrRqJkURtlmZAxTuMFjGWbtmmU/z6xbCQr
+        2qJN20URd5zDMbz2c4HEFlKsMaBPW2ApILCcMDBt1/F817bCvts3wQCaY5YBglJRGYbmm6qkMmOa
+        npMiBwOUxrpUgAATze5p1SlKSSggYLkopK46lGtApgGFoFzFpCi/1yRjZH3cqAZiiTU93D6UTMQ4
+        TSVVChAvs8wAVSaKSJbQNMYaENim7Z5Z9pnpvrI8ZPvIscGAkj+b2y8mkmJ9YqVIT40sGc1SBWgL
+        HOf0x7MzrHR83CBFLjDfHMqSa3koma6vxarg9bLqdOviKWax2Be76qiqZIwf7agQmvGY1TO/gPXD
+        57BB2MG2ATZowAYdbBtg+w3YfgfbBli/Aet3sG2A9RqwXgfbBli3Aet2sG2AdRqwTgfbBli7AWt3
+        sC8b1rLcIAia31irg31BsJ8NyBhffwu3ZFLp43T16yS9BwQrrYVCi96iRwrOKdHnP0sveliwRa8+
+        SKlek1KqQl7QzbWYX773o2nkjQZvN8NBZA2/jDfRdO0MB+Thw+X1klyFIuGTp5urcDSfrcyPs0mW
+        zCI2yuer5N0wW47BAE4f9f9I8hhNx+5ocGf9NgmfbNLbmxB2BuS0+m+3BYH16q8CgQGCyljgOwrI
+        Mvdbi/cpAcE/ybmXO/nQP2XY7b4CAAD//wMA59oxwbgUAAA=
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8ecbc9c879d0e292-BEG
+      - 8eccdc2b6875e296-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -40,7 +41,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 12:27:02 GMT
+      - Wed, 04 Dec 2024 15:34:20 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -56,7 +57,7 @@ interactions:
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '119'
+      - '97'
     status:
       code: 200
       message: OK

@@ -95,10 +95,10 @@ class TestSubscribers:
         "tests/vcr_cassettes/subscribers-list.yml", filter_headers=["Authorization"]
     )
     def test_list_of_all_subscribers_should_be_returned(self, subscriber_keys):
-        response = self.client.subscribers.list(limit=10, page=1)
+        response = self.client.subscribers.list(limit=10)
 
         assert isinstance(response, dict)
-        assert isinstance(response["data"], list)
+        assert isinstance(response["dataa"], list)
         assert isinstance(response["data"][0], dict)
         assert set(subscriber_keys).issubset(response["data"][0].keys())
 
