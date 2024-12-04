@@ -80,7 +80,7 @@ def group_keys():
 
 class TestSubscribers:
     # Set static import_id
-    import_id = 75127888126412443
+    import_id = 139791107607233967
 
     @classmethod
     def setup_class(self):
@@ -198,8 +198,6 @@ class TestSubscribers:
         self, import_keys
     ):
         response = self.client.subscribers.get_import(self.import_id)
-
-        print(response)
 
         assert isinstance(response, dict)
         assert isinstance(response["data"], dict)

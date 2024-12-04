@@ -13,17 +13,21 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/subscribers/import/75127888126412443
+    uri: https://connect.mailerlite.com/api/subscribers/import/139791107607233967
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA6pWyk0tLk5MT1WyUgpKLc4vLUpOVcjLL1FIyy/NS9FTqgUAAAD//wMAZiyhmiEA
-        AAA=
+        H4sIAAAAAAAAA3SQ22rEIBCG32Wu3aJJuml8jr1qKWLU7QpGxUOhLPvuJebkUuqV38w3/MzcQfLE
+        gd5BS6BA2qEfCMH9GfdN2w7nHhBwIVy2iRXjrX0lGBAkl7gBShD44ISKUclCevIupBWyl7z8MQIV
+        ggvr36sglE1ACcYIpLMKaApZIdD2m5s56ONzB1biy+CkY/rxau1vVAnixu3X1l+hamf7JOz4pMQ8
+        RhH0eFhHpRKDM4qNPG7awZUUc/RaaJcju7ow8bS4f8rViMzeaMGTWtQdK2Xk1irJllszNXFtYr3C
+        cnY2p0GDm+5EmhPuLqShzZl23Qsu7x3m3ebrF9NmYxDE5LxfZ5fKrLCYeEhP5au2Ot7+TWmHPeXx
+        +AUAAP//AwCpxjFlZgIAAA==
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 8ecbc6213d25e291-BEG
+      - 8ecbc9d04932b30f-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -33,7 +37,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 12:24:32 GMT
+      - Wed, 04 Dec 2024 12:27:03 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -44,11 +48,13 @@ interactions:
       - h3=":443"; ma=86400
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-locale:
+      - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '92'
+      - '114'
     status:
-      code: 404
-      message: Not Found
+      code: 200
+      message: OK
 version: 1
