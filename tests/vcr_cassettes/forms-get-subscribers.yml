@@ -13,22 +13,19 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/forms/75017795259074408/subscribers?page=1&limit=20
+    uri: https://connect.mailerlite.com/api/forms/139883342944274178/subscribers?page=1&limit=20&filter%5Bstatus%5D=active
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA7SRwWrDMAyGX6Xo0JNpktKQ1WXsDcbudRmOp6xmjp3JciiEvPvImpKNXdebQPr1
-        f/o1wJtmDfJ4EuCs/4ggB2gsRQYJZ+YuSpWpzATv0fCm1dYhOcu4MaFVme6syppAbVRZVeZFVe3L
-        bbnPq90uf1BZTHU0ZGuk+NTpd3wsQIDTd1zeEfYgfXJOgMcLX+tRQIvTmQOYRISeXycFyEJAQ6G9
-        KSa0pTPncRwgkVtGanQgYe30ZwqH1Qthb0OKIEAbtj2CbLSLOIpZdrcUrxzFD2OmtPj+xn3GC6/W
-        9M38B/UkoNN8/mfW6RtIc5zbXACHGxUH1g5kPo5fAAAA//8DALxj6VmAAgAA
+        H4sIAAAAAAAAA1SOWwrCMBQF93K/Q2PbQNtsxUhJ460N5sVNKkLp3kVU1L9hPs6cDc66aJDHEwNn
+        wzWD3GC2lAvIsDrHwOkvJ8LbhwPe335n4PE5skHSZQEJSykpS8UVNzEENKXy2jokZwtWJnrFdbKK
+        z5F8Vrxuh75vW9EMQjSdqLte8bxO2ZCdkDIwSEhj0hcE2Rxe5dGslCP9HvtT+/4AAAD//wMAnHEz
+        utoAAAA=
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 77d1fa908adbc298-VIE
+      - 8ed43310aeefe290-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -38,18 +35,22 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 16:26:19 GMT
+      - Thu, 05 Dec 2024 12:57:00 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
       - '116'
     status:
       code: 200
