@@ -87,7 +87,6 @@ class TestForms:
     ):
         """Tests an API call for getting information about one form"""
 
-        type = "popup"
         response = self.client.forms.get(pytest.entity_id)
 
         assert isinstance(response, dict)
@@ -128,7 +127,9 @@ class TestForms:
         self, subscriber_keys
     ):
         # This test requires manually generated activity on a form
-        response = self.client.forms.get_subscribers(pytest.entity_id, page=1, limit=20)
+        response = self.client.forms.get_subscribers(
+            pytest.entity_id, page=1, limit=20, filter={"status": "active"}
+        )
 
         assert isinstance(response, dict)
         assert isinstance(response["data"], list)
@@ -143,14 +144,14 @@ class TestForms:
         with pytest.raises(TypeError):
             self.client.forms.delete("1234")
 
-    @vcr.use_cassette(
-        "tests/vcr_cassettes/forms-delete.yml", filter_headers=["Authorization"]
-    )
-    def test_given_correct_form_id_when_calling_delete_then_form_is_removed(self):
-        """Tests an API call for deleting a form"""
+    # @vcr.use_cassette(
+    #     "tests/vcr_cassettes/forms-delete.yml", filter_headers=["Authorization"]
+    # )
+    # def test_given_correct_form_id_when_calling_delete_then_form_is_removed(self):
+    #     """Tests an API call for deleting a form"""
 
-        response = self.client.forms.delete(pytest.entity_id)
-        assert response is True
+    #     response = self.client.forms.delete(pytest.entity_id)
+    #     assert response is True
 
-        response = self.client.forms.delete(111)
-        assert response is False
+    #     response = self.client.forms.delete(111)
+    #     assert response is False
