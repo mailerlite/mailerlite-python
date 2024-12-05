@@ -719,6 +719,21 @@ response = client.forms.get_subscribers(form_id, page=1, limit=10, filter={'stat
 ### Create a new batch
 <a name="create-a-new-batch"></a>
 
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+params = [
+    {"method": "GET", "path": "api/subscribers/list"},
+    {"method": "GET", "path": "api/campaigns/list"},
+]
+
+response = self.client.batches.request(params)
+```
+
 ## Webhooks
 <a name="webhooks"></a>
 
