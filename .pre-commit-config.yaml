@@ -31,13 +31,13 @@ repos:
         files: .py$
   - repo: git@github.com:mailergroup/pre-commit-conventional-commits.git
     # renovate: datasource=github-releases depName=mailergroup/pre-commit-conventional-commits
-    rev: v1.0.1
+    rev: v1.0.2
     hooks:
       - id: pre-commit-conventional-commits
         stages: [commit-msg]
   - repo: git@github.com:mailergroup/pre-commit-branch-name-validation.git
     # renovate: datasource=github-releases depName=mailergroup/pre-commit-branch-name-validation
-    rev: v1.1.0
+    rev: v1.1.1
     hooks:
       - id: pre-commit-branch-validation
         stages: [post-commit, post-checkout]
