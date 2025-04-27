@@ -119,7 +119,7 @@ class Groups(object):
         Ref: https://developers.mailerlite.com/docs/groups.html#get-subscribers-belonging-to-a-group
 
         :param group_id: int Group ID
-        :param **kwargs: You can pass additional arguments - page, limit, sort or to filter by status
+        :param **kwargs: You can pass additional arguments - cursor, limit, sort or to filter by status
         :raises: :class: `TypeError` : Got an unknown argument
         :raises: :class: `TypeError` : `group_id` type is not valid
         :return: JSON array
@@ -131,7 +131,7 @@ class Groups(object):
                 f"`group_id` type is not valid. Expected `int`, got {type(group_id)}."
             )
 
-        available_params = ["filter", "limit", "page"]
+        available_params = ["filter", "limit", "cursor"]
 
         params = locals()
         query_params = {}
