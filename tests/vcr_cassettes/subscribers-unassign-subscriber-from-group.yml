@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"email": "KGQMsLtfNf@email.com", "fields": {"name": "John", "last_name":
+    body: '{"email": "MNMnxYoVFs@email.com", "fields": {"name": "John", "last_name":
       "Doe"}, "ip_address": "1.1.1.1"}'
     headers:
       Accept:
@@ -19,14 +19,12 @@ interactions:
     uri: https://connect.mailerlite.com/api/subscribers
   response:
     body:
-      string: '{"data":{"id":"139803134816946067","email":"kgqmsltfnf@email.com","status":"active","source":"api","sent":0,"opens_count":0,"clicks_count":0,"open_rate":0,"click_rate":0,"ip_address":"1.1.1.1","subscribed_at":"2024-12-04
-        15:37:39","unsubscribed_at":null,"created_at":"2024-12-04 15:37:39","updated_at":"2024-12-04
-        15:37:39","fields":{"name":"John","last_name":"Doe","company":null,"country":null,"city":null,"phone":null,"state":null,"z_i_p":null},"groups":[],"opted_in_at":null,"optin_ip":null}}'
+      string: '{"data":{"id":"165968864817972707","email":"mnmnxyovfs@email.com","status":"active","source":"api","sent":0,"opens_count":0,"clicks_count":0,"open_rate":0,"click_rate":0,"ip_address":"1.1.1.1","subscribed_at":"2025-09-19
+        11:10:43","unsubscribed_at":null,"created_at":"2025-09-19 11:10:43","updated_at":"2025-09-19
+        11:10:43","fields":{"name":"John","last_name":"Doe","company":null,"country":null,"city":null,"phone":null,"state":null,"z_i_p":null},"groups":[],"opted_in_at":null,"optin_ip":null}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce1020c55e296-BEG
+      - 9818a3621b680db0-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -34,7 +32,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:37:39 GMT
+      - Fri, 19 Sep 2025 11:10:43 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -43,19 +41,25 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '86'
+      - '81'
+      x-user_id:
+      - '106223'
     status:
       code: 201
       message: Created
 - request:
-    body: '{"name": "KGQMsLtfNf"}'
+    body: '{"name": "MNMnxYoVFs"}'
     headers:
       Accept:
       - application/json
@@ -73,13 +77,11 @@ interactions:
     uri: https://connect.mailerlite.com/api/groups
   response:
     body:
-      string: '{"data":{"id":"139803135097964490","name":"KGQMsLtfNf","active_count":0,"sent_count":0,"opens_count":0,"open_rate":{"float":0,"string":"0%"},"clicks_count":0,"click_rate":{"float":0,"string":"0%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2024-12-04
-        15:37:39"}}'
+      string: '{"data":{"id":"165968865095845582","name":"MNMnxYoVFs","active_count":0,"sent_count":0,"opens_count":0,"open_rate":{"float":0,"string":"0%"},"clicks_count":0,"click_rate":{"float":0,"string":"0%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2025-09-19
+        11:10:43"}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce103dd0be297-BEG
+      - 9818a3642f5d0db0-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -87,7 +89,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:37:39 GMT
+      - Fri, 19 Sep 2025 11:10:43 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -96,14 +98,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '85'
+      - '80'
+      x-user_id:
+      - '106223'
     status:
       code: 201
       message: Created
@@ -123,19 +131,14 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: POST
-    uri: https://connect.mailerlite.com/api/subscribers/139803134816946067/groups/139803135097964490
+    uri: https://connect.mailerlite.com/api/subscribers/165968864817972707/groups/165968865095845582
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA4SNSwrCMBgGryIfuKuQNq2aXMCFD/AEJU1Tia1/JA830ruL4qJ143IGhnmiVVFB
-        PmFbSORcbBnPecXERqzLUjBkIHUzkNjvzsdwiN2pQwalo32YWrtEEZJlCIbiBN3dUPjh2qto3qtu
-        cOpbRW/pAgm2xJhBD1b30+wj/neJQmqC9rYx7aROpB111t9mtnGJ9MxcE/XTqTcqmrZ+v1Cwolzl
-        xYqVi7ySfCO5wDi+AAAA//8DAN/2oo43AQAA
+      string: '{"data":{"id":"165968865095845582","name":"MNMnxYoVFs","active_count":0,"sent_count":0,"opens_count":0,"open_rate":{"float":0,"string":"0%"},"clicks_count":0,"click_rate":{"float":0,"string":"0%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2025-09-19
+        11:10:43"}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce104f80ce28f-BEG
+      - 9818a3651ebac239-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -145,7 +148,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:37:39 GMT
+      - Fri, 19 Sep 2025 11:10:44 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -154,14 +157,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '84'
+      - '79'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK
@@ -181,35 +190,39 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: DELETE
-    uri: https://connect.mailerlite.com/api/subscribers/139803134816946067/groups/139803135097964490
+    uri: https://connect.mailerlite.com/api/subscribers/165968864817972707/groups/165968865095845582
   response:
     body:
       string: ''
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce1064e24e296-BEG
+      - 9818a3667b5be294-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
       Date:
-      - Wed, 04 Dec 2024 15:37:39 GMT
+      - Fri, 19 Sep 2025 11:10:44 GMT
       Server:
       - cloudflare
       access-control-allow-origin:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '83'
+      - '78'
+      x-user_id:
+      - '106223'
     status:
       code: 204
       message: No Content
@@ -229,35 +242,39 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: DELETE
-    uri: https://connect.mailerlite.com/api/subscribers/139803134816946067
+    uri: https://connect.mailerlite.com/api/subscribers/165968864817972707
   response:
     body:
       string: ''
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce107783be290-BEG
+      - 9818a367997db30c-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
       Date:
-      - Wed, 04 Dec 2024 15:37:39 GMT
+      - Fri, 19 Sep 2025 11:10:44 GMT
       Server:
       - cloudflare
       access-control-allow-origin:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '82'
+      - '77'
+      x-user_id:
+      - '106223'
     status:
       code: 204
       message: No Content
@@ -277,35 +294,39 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: DELETE
-    uri: https://connect.mailerlite.com/api/groups/139803135097964490
+    uri: https://connect.mailerlite.com/api/groups/165968865095845582
   response:
     body:
       string: ''
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce108ce22e294-BEG
+      - 9818a3691fa7e294-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
       Date:
-      - Wed, 04 Dec 2024 15:37:40 GMT
+      - Fri, 19 Sep 2025 11:10:44 GMT
       Server:
       - cloudflare
       access-control-allow-origin:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '81'
+      - '76'
+      x-user_id:
+      - '106223'
     status:
       code: 204
       message: No Content

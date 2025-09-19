@@ -15,29 +15,17 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: PUT
-    uri: https://connect.mailerlite.com/api/forms/139883342944274178
+    uri: https://connect.mailerlite.com/api/forms/141163052291589265
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA4RUTY/bOAz9KwGB3pyJ7cSdRLcCxe5tbsUeJoWgyIzDHVlyRWqyQZH/Xigf40w6
-        u3sxzKdHUXrk009ojRhQP4FaUFDNV8vlfL6oV4tF/bioHpdQgLE2JC/6xFjOm6qEAuQwICgYwpAG
-        KIBd6kDB0zf6+tcXKMCbPi8/4X7yR4j95CnHBdiIRrDVRkBBXdaLaVVPy2ZS1aqp1bzKlOBfMTIF
-        z/pUF1RZQBjwXTyydDSC+QJbF8x5kSWSz8cpP8Hxgx01eetSS77Tdkeujejvi/wb5a7uh7T/OAqj
-        CPmOM6kNaeNQh0HIg5KYsIAuhnAWui6bclmtmgK2Ifb6Tm6J1HUYGdQzCPUYksD34vqrGW3wLYNq
-        CmAbg3N6wGjRi+kQVFMWsI34I6G3B1DVTaSTp9ybPnjZMRTwSkwbciQHUGDc3hwymqLTjlhAPX8f
-        I51vawWUT84VsKMWdfBnDtsdtskhqK1xjMcCnGHRETtiiUayouYt1Vih1yu3AGK9ieEli3tB9ib6
-        rHqPzKZDPhfZmdw+L5in5KyoNaeOpKE9jUkGjwUkxlaT1yZJ6E/F+X7ry5YfdYltRPS8C6JTdKBg
-        JzKwWs/WM5YQTYcPXQidQzMQP9jQr2e9IYfRkeB0zObpEEO7no3Iepa7zevZ70Zcz6p6ufgnf0bj
-        TM/GaeYPg+/gLEBPzFmaLoY0jNe6hs9Xq5dluZp/bppqVVX14+dlPdr2z5gGM6ng2oir8ao8wV6u
-        YX3ny0t878jqxgZVefGkI/vyztAZ+H8vJ89pwzbSBtub7ORt8FuK/Tt0E5K375C/k3+5LXr3HM2n
-        5WpazyflUlW1qpdwvAwVD45EC7KMgo6Y3pIn3mH70Rp6s3G/Ld3asTwN+E3KnrzH+JYxvix5IAcT
-        8fIYn70SInXkjdPn5l0M5I07CFnWERnlxlqJkTWn+IqHtwonzONebxK59q308fgLAAD//wMANK9t
-        AB8GAAA=
+      string: '{"data":{"id":"141163052291589265","account_id":"83510","type":"popup","slug":"2HLgfJ","name":"New
+        Form Name","created_at":"2024-12-19 15:52:57","conversions_count":0,"opens_count":0,"conversion_rate":{"float":0,"string":"0%"},"conversions_count_including_children":0,"opens_count_including_children":0,"conversion_rate_including_children":{"float":0,"string":"0%"},"settings":{"double_optin":true,"groot_id":20939090,"form_type":"popup","triggers":["timeout"],"timeout_seconds":5,"scroll_percentage":50,"frequency":1,"frequency_unit":"months","visibility":"always","url_list":[],"url_list_strict":null,"hide_on":[],"schedule":false,"needs_content_refresh":false},"last_registration_at":null,"active":false,"is_broken":false,"warning_messages":[],"has_content":true,"can_choose_template":false,"can":{"update":true},"used_in_automations":false,"warnings":[],"double_optin":true,"screenshot_url":"https:\/\/storage.googleapis.com\/mailerlite-screenshots-prod\/screenshot\/forms\/141163052291589265\/1284x12842024-12-19-15:56:53.png","has_missing_groups":false,"groups":[{"id":"100093655191127682","name":"Grupa
+        1","active_count":1,"sent_count":4,"opens_count":4,"open_rate":{"float":1,"string":"100%"},"clicks_count":2,"click_rate":{"float":0.5,"string":"50%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-09-23
+        08:12:28"},{"id":"107641605251400900","name":"Grupa2","active_count":9,"sent_count":8,"opens_count":7,"open_rate":{"float":0.875,"string":"87.5%"},"clicks_count":2,"click_rate":{"float":0.25,"string":"25%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-12-15
+        15:43:54"}],"has_split_tests":false,"split_test_finished":false,"split_test_enabled":false,"split_percentage":0,"is_split_test_winner":false,"children":[],"parent_id":null,"original_name":null,"analytics_reset_at":null,"uses_survey":false,"uses_new_builder":false}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ed4330f2d92e297-BEG
+      - 9818a3434d3fe28f-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -47,7 +35,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Dec 2024 12:57:00 GMT
+      - Fri, 19 Sep 2025 11:10:38 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -56,14 +44,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '117'
+      - '104'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

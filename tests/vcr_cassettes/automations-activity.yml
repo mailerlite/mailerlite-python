@@ -16,19 +16,12 @@ interactions:
     uri: https://connect.mailerlite.com/api/automations/112078014094771336/activity?filter%5Bstatus%5D=active
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA7SRwU7DMBBEf6XaQ09WHdNCwAjxB4h7XaElbFoLxw72OiqK8u8obaqAOPe20u5o
-        3s708IGMoLc7Ac76zwS6h9rGxKDhwNwmbaSRVfCeKl41aB1FZ5lWVWiMxNYaiZlDg2yDT0YqdVOU
-        94XaFA+bslTr9Z2RWLHtLH8/t7inJwUCHF7ZoI3UgfbZOQGejnyeBwENje/2UOUYyfPbqACtBNQx
-        NBfFiDdvply2PeTo5pN3cqBh6fArh8fFa6TOhpxAwImGQNfoEg1ikl01zTOL+mXOMc/ef5Ff6MiL
-        ZTxx/8PdCWiRD1fgHVuhOMV6WwjgcCHjwOhAF8PwAwAA//8DAHDbHFqQAgAA
+      string: '{"data":[],"links":{"first":"https:\/\/connect.mailerlite.com\/api\/automations\/112078014094771336\/activity?page=1","last":"https:\/\/connect.mailerlite.com\/api\/automations\/112078014094771336\/activity?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":null,"last_page":1,"links":[{"url":null,"label":"&laquo;
+        Previous","active":false},{"url":"https:\/\/connect.mailerlite.com\/api\/automations\/112078014094771336\/activity?page=1","label":"1","active":true},{"url":null,"label":"Next
+        &raquo;","active":false}],"path":"https:\/\/connect.mailerlite.com\/api\/automations\/112078014094771336\/activity","per_page":50,"to":null,"total":0}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 84f37bdc2bf22788-PRG
+      - 9818a331592296e0-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -38,19 +31,29 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 02 Feb 2024 15:31:55 GMT
+      - Fri, 19 Sep 2025 11:10:35 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
       - '117'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

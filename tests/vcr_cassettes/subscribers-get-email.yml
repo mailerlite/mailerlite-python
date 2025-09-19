@@ -16,18 +16,12 @@ interactions:
     uri: https://connect.mailerlite.com/api/subscribers/test5@email.com
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA4SR0U7DIBSGX8Wca7pASzfHlRe+gZfGEAaoxBYIHEx02bubM2u3GBPDTb+fj9Py
-        9wjOoAF1hOBAgRj2uz2XWynH8ZZLue+BgZ9NmEAB+orj3Zk2Ns3AoKLBVkGBsRjePSWpFespyYHQ
-        RwTFGaTsY9U2tYXtFOzbdUCCLgb9ZfuCIWvjXPGV3iU250XT26HaEg7eaYOgoOe97ETfcXkjeiW2
-        SozAoMVfXmzTxMAWb/Cfk9n9rYxq2KlhBwyeU3nxuBpjx0XHh8Xoz0bwk6vUcDQzNfOQZp8ilTWZ
-        inpJ7xMlNs3ZxI/1G6mecsGA63N+pRkL0H9Y4VMHnb/hxOClpJYrqMcn6phuE+JVCyljiDr8+Kcv
-        AAAA//8DAC7tTrEQAgAA
+      string: '{"data":{"id":"165968862226941797","email":"test5@email.com","status":"active","source":"api","sent":0,"opens_count":0,"clicks_count":0,"open_rate":0,"click_rate":0,"ip_address":"1.1.1.1","subscribed_at":"2025-09-19
+        11:10:41","unsubscribed_at":null,"created_at":"2025-09-19 11:10:41","updated_at":"2025-09-19
+        11:10:41","fields":{"name":"Someone","last_name":"Doe","company":null,"country":null,"city":null,"phone":null,"state":null,"z_i_p":null},"groups":[],"opted_in_at":null,"optin_ip":null}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce0f71ccbe290-BEG
+      - 9818a356ad04b01d-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -37,7 +31,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:37:37 GMT
+      - Fri, 19 Sep 2025 11:10:41 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -46,14 +40,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '94'
+      - '89'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

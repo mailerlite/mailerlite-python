@@ -16,13 +16,10 @@ interactions:
     uri: https://connect.mailerlite.com/api/subscribers?limit=0
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA6pWKskvScxRsjI0MDCuBQAAAP//AwCdOk0fDgAAAA==
+      string: '{"total":1004}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce10d0f83b01e-BEG
+      - 9818a36cba663267-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -32,7 +29,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:37:40 GMT
+      - Fri, 19 Sep 2025 11:10:45 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -41,14 +38,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '78'
+      - '73'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

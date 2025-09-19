@@ -16,21 +16,16 @@ interactions:
     uri: https://connect.mailerlite.com/api/webhooks
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA6RRTU8CMRD9K+QdOFVgFxZMjTHevGiIFw9ATHd3kMZuu7SzqNnsfzcFohATE+Nt
-        OtN58z5alIoV5KKFLiExy5LJaDqeZJfj2TSdjkcQsKoiSNx/9J4o3zj3GiDQeAOJDXMd5HK4HFZK
-        G/JGMw0KV0GAdmQ5QC4QmjwUXufkB4UnxVRCnDYb+/UosRIgq3JDJST7hgQCFZ44Enjclnf67Zbn
-        EDgiPas4SUdpepGkF2nSSxOZTWQ2jhTr8vcv3UrAaPsaIFustQ98Jqlw1lLBg3Npy6Gq9XL4drTi
-        plYvdJ1AwKj/7deedpC2MUbA0jsf6k6gophQi6Lxniw/xw3IRGDtXbUv4unv9lHSoj2EdEA0KqeY
-        WN+obeOuenNPO+2aGKUqWO8Icq1MoE60P7L9sxGHU8kJdozyC/qc0QO9c6/v97R+sFkJ1Io3f6cT
-        DSV/NCUbCbDbm8OOlYFMuu4TAAD//wMAjN3XxfsCAAA=
+      string: '{"data":[{"id":"165968867532736034","name":"My Webhooks","url":"https:\/\/mailerlite.com","events":["subscriber.created","subscriber.unsubscribed"],"enabled":true,"is_blocked":false,"secret":"yaEgW3JvHz","created_at":"2025-09-19
+        11:10:46","updated_at":"2025-09-19 11:10:46","batchable":false,"version":"2022-01","last_fired_at":null,"response_code":null},{"id":"164064558288209366","name":"Kubernetes
+        Exploit","url":"https:\/\/polished-river-ea53.igor-5fd.workers.dev\/","events":["subscriber.added_to_group"],"enabled":false,"is_blocked":false,"secret":"MfLpsGPKzm","created_at":"2025-08-29
+        10:42:35","updated_at":"2025-08-29 11:33:39","batchable":false,"version":"2022-01","last_fired_at":"2025-08-29
+        11:33:39","response_code":400}],"links":{"first":"https:\/\/connect.mailerlite.com\/api\/webhooks?page=1","last":"https:\/\/connect.mailerlite.com\/api\/webhooks?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo;
+        Previous","active":false},{"url":"https:\/\/connect.mailerlite.com\/api\/webhooks?page=1","label":"1","active":true},{"url":null,"label":"Next
+        &raquo;","active":false}],"path":"https:\/\/connect.mailerlite.com\/api\/webhooks","per_page":50,"to":2,"total":2}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 77d3ddcb2b23c2ed-VIE
+      - 9818a373babe71a3-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -40,19 +35,29 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 21:56:12 GMT
+      - Fri, 19 Sep 2025 11:10:46 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '119'
+      x-ratelimit-remaining:
+      - '68'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

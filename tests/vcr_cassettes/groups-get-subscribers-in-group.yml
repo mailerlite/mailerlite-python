@@ -13,22 +13,13 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/groups/75121902033569657/subscribers?limit=5&page=1
+    uri: https://connect.mailerlite.com/api/groups/165971156405323676/subscribers?limit=5&cursor=1
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA7SRwWrDMAyGX6Xo0JOpk5a01GXsDcbudRlOprRmjp3JciiEvPvImpKNXdebQPr1
-        f/rVw7thA+p4EuCs/4igeqgtRQYFF+Y2Ki21rIL3WPGqMdYhOcu4qkKjpWmtlmcKqY1a7op8ne+z
-        dbbZFNv9tthpGVMZK7IlUnxuzRmfchDgzCO3t4QdKJ+cE+Dxyrd6ENDgeGgPVSJCz2+jAlQuoKbQ
-        3BUj29yZEjn2kMjNIyU6ULB05jOFw+KVsLMhRRBgKrYdgqqNiziISfa4HG8g+Q9npjQb/+Z9wSsv
-        lvQN/Yf1JKA1fPlv2PEfSFOghQAOdyoObByobBi+AAAA//8DANCgGcuDAgAA
+      string: '{"data":[],"links":{"first":null,"last":null,"prev":null,"next":null},"meta":{"path":"https:\/\/connect.mailerlite.com\/api\/groups\/165971156405323676\/subscribers","per_page":5,"next_cursor":null,"prev_cursor":null}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 77d227b91e767888-VIE
+      - 9818d8c0c8e9562e-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -38,19 +29,29 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 16:57:09 GMT
+      - Fri, 19 Sep 2025 11:47:09 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
       - '116'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

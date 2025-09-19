@@ -16,24 +16,16 @@ interactions:
     uri: https://connect.mailerlite.com/api/segments/139794711363717070/subscribers
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA+xVXWvbMBT9K+XC3txG8kccC8Y22lE61oZ1pStdilFkJVFjS0IfpW3Ifx+OG8cJ
-        3VrG9jDYm871PZbuOT7WAgrqKJDvCxAFEMBRlmYY4wGOsz5OozSCAHhFRQkExB2V9P3MMD4/MBYC
-        sI46b4EAZU7c8bqivGG87q20Mq6ucOmAoACU5tLmTPknzErB5t1C3ZAb6vjm8QYKndOiMNxaINKX
-        ZQDWjy0zYsyLnDogEKIw3sfhPor3cEjCPokyCMDLnb6GzAyn7gWmLl5qmQheFhbIAiSt+PrdJbUu
-        7xaYqjSVDxvopTMbKFy71jMlW1qtbgsec5HrBiwDmBrlte3YhtJ+jPsoCRMcI5QhBMHTmeDYeE1D
-        CJ5MWgseNdasYbxjULzlxwImpaqFwPWxjJDT1aboDSyfMbJrXctEHWbD27Jmw/aSKTkRptqqjpWX
-        bKty6+W8u+mOo1FtF072cELiiCQxLG/qkeoWITtfgtJOyFy02m4pmmQ4DZMBzgYrv9sgTJV5ZQ4q
-        Kj0t2xyEOzKHv84BRr+ZhO3pY/z6JDzH/FkSMEliEg+eSQIcGT8VeydTZeB/Iv7pRNwEUAo5X5k7
-        Eca67n+utcnwu/Va8vt6x5lz2pJRb9RjSkrO3EGdHm5K4fgBU9WoR7UY9SyfVlw6O+qt7p44xTjq
-        RylOUYpGvVYPY98xb6wyb/nDJ319eNI/vfgQnd1+uT+7mN+fPZ7g4dHHZHh0mnw+/DRhx5key/PH
-        y+NseH01Q1+vzsvx1akYyvOH4ttlVotd8friW4CmbvYXjgsBaG5yTaccSIIaWfJmBiDwR6ZodG9f
-        urJr+QMAAP//AwABmgHp0wcAAA==
+      string: '{"data":[{"id":"139791118149617373","email":"ivana@hrcek.rs","status":"active","source":"import","sent":1,"opens_count":0,"clicks_count":0,"open_rate":0,"click_rate":0,"ip_address":null,"subscribed_at":"2024-12-04
+        12:26:39","unsubscribed_at":null,"created_at":"2024-12-04 12:26:39","updated_at":"2025-05-13
+        06:34:09","fields":{"name":null,"last_name":null,"company":null,"country":null,"city":null,"phone":null,"state":null,"z_i_p":null},"groups":[{"id":"107641605251400900","name":"Grupa2","active_count":9,"sent_count":8,"opens_count":7,"open_rate":{"float":0.875,"string":"87.5%"},"clicks_count":2,"click_rate":{"float":0.25,"string":"25%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-12-15
+        15:43:54"}],"opted_in_at":null,"optin_ip":null},{"id":"107641591725819839","email":"igor@hrcek.rs","status":"active","source":"manual","sent":3,"opens_count":3,"clicks_count":0,"open_rate":100,"click_rate":0,"ip_address":null,"subscribed_at":"2023-12-15
+        15:43:41","unsubscribed_at":null,"created_at":"2023-12-15 15:43:41","updated_at":"2025-05-13
+        06:34:09","fields":{"name":"Drugi Igor","last_name":null,"company":null,"country":null,"city":null,"phone":null,"state":null,"z_i_p":null},"groups":[{"id":"107641605251400900","name":"Grupa2","active_count":9,"sent_count":8,"opens_count":7,"open_rate":{"float":0.875,"string":"87.5%"},"clicks_count":2,"click_rate":{"float":0.25,"string":"25%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-12-15
+        15:43:54"}],"opted_in_at":null,"optin_ip":null}],"links":{"first":null,"last":null,"prev":null,"next":"https:\/\/connect.mailerlite.com\/api\/segments\/139794711363717070\/subscribers?cursor=eyJpZCI6MTA3NjQxNTkxNzI1ODE5ODM5LCJfcG9pbnRzVG9OZXh0SXRlbXMiOnRydWV9"},"meta":{"path":"https:\/\/connect.mailerlite.com\/api\/segments\/139794711363717070\/subscribers","per_page":50,"next_cursor":"eyJpZCI6MTA3NjQxNTkxNzI1ODE5ODM5LCJfcG9pbnRzVG9OZXh0SXRlbXMiOnRydWV9","prev_cursor":null}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecc2c3c2af6e290-BEG
+      - 9818a34eab500380-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -43,7 +35,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 13:34:14 GMT
+      - Fri, 19 Sep 2025 11:10:40 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -52,14 +44,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '117'
+      - '95'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

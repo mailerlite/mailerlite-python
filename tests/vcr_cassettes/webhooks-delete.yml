@@ -15,33 +15,39 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: DELETE
-    uri: https://connect.mailerlite.com/api/webhooks/75140634583762630
+    uri: https://connect.mailerlite.com/api/webhooks/165968867532736034
   response:
     body:
       string: ''
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 77d3ddd01ce3c22b-VIE
+      - 9818a3767be9fa43-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
       Date:
-      - Wed, 21 Dec 2022 21:56:13 GMT
+      - Fri, 19 Sep 2025 11:10:46 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '116'
+      x-ratelimit-remaining:
+      - '65'
+      x-user_id:
+      - '106223'
     status:
       code: 204
       message: No Content
@@ -64,16 +70,11 @@ interactions:
     uri: https://connect.mailerlite.com/api/webhooks/121212
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA6rmUlBQUFDKTS0uTkxPVbJSUPLLVygsTS2qVChKLS7NKSlWSMsvUsjNT0nNUYh2
-        LCiIifEFsYtjYsJTkzLy87NjFQyNQFCJqxYAAAD//wMA0awiXE0AAAA=
+      string: "{\n    \"message\": \"No query results for model [App\\\\Models\\\\Webhook]
+        121212\"\n}"
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 77d3ddd1d9d277f1-VIE
+      - 9818a377682fe294-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -83,17 +84,27 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 21:56:13 GMT
+      - Fri, 19 Sep 2025 11:10:47 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-RateLimit-Limit:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '115'
+      x-ratelimit-remaining:
+      - '64'
+      x-user_id:
+      - '106223'
     status:
       code: 404
       message: Not Found

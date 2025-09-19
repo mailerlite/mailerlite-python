@@ -16,18 +16,10 @@ interactions:
     uri: https://connect.mailerlite.com/api/subscribers/import/139791107607233967
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA3SQ22rEIBCG32Wu3aJJuml8jr1qKWLU7QpGxUOhLPvuJebkUuqV38w3/MzcQfLE
-        gd5BS6BA2qEfCMH9GfdN2w7nHhBwIVy2iRXjrX0lGBAkl7gBShD44ISKUclCevIupBWyl7z8MQIV
-        ggvr36sglE1ACcYIpLMKaApZIdD2m5s56ONzB1biy+CkY/rxau1vVAnixu3X1l+hamf7JOz4pMQ8
-        RhH0eFhHpRKDM4qNPG7awZUUc/RaaJcju7ow8bS4f8rViMzeaMGTWtQdK2Xk1irJllszNXFtYr3C
-        cnY2p0GDm+5EmhPuLqShzZl23Qsu7x3m3ebrF9NmYxDE5LxfZ5fKrLCYeEhP5au2Ot7+TWmHPeXx
-        +AUAAP//AwCpxjFlZgIAAA==
+      string: '{"data":{"id":"139791107607233967","account_id":"83510","total":1,"processed":1,"imported":1,"updated":0,"errored":0,"percent":100,"done":true,"invalid":[],"invalid_count":0,"mistyped":[],"mistyped_count":0,"changed":[],"changed_count":0,"unchanged":[],"unchanged_count":0,"unsubscribed":[],"unsubscribed_count":0,"role_based":[],"role_based_count":0,"suspicious_format":[],"suspicious_format_count":0,"duplicate":[],"duplicate_count":0,"banned_import_emails_count":0,"updated_at":"2024-12-04T12:26:44.000000Z","undone_at":null,"stopped_at":null,"undo_started_at":null,"finished_at":"2024-12-04T12:26:39.000000Z"}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce0f9d8c6e290-BEG
+      - 9818a3591e32b30c-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -37,7 +29,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:37:37 GMT
+      - Fri, 19 Sep 2025 11:10:42 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -46,14 +38,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '92'
+      - '87'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

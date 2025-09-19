@@ -15,35 +15,39 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: DELETE
-    uri: https://connect.mailerlite.com/api/subscribers/139790464455804492
+    uri: https://connect.mailerlite.com/api/subscribers/165968862226941797
   response:
     body:
       string: ''
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce10a7c1fe290-BEG
+      - 9818a36a9be00db0-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
       Date:
-      - Wed, 04 Dec 2024 15:37:40 GMT
+      - Fri, 19 Sep 2025 11:10:45 GMT
       Server:
       - cloudflare
       access-control-allow-origin:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '80'
+      - '75'
+      x-user_id:
+      - '106223'
     status:
       code: 204
       message: No Content
@@ -66,14 +70,10 @@ interactions:
     uri: https://connect.mailerlite.com/api/subscribers/123123
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA6pWyk0tLk5MT1WyUgpKLc4vLUpOVcjLL1FIyy/NS9FTqgUAAAD//wMAZiyhmiEA
-        AAA=
+      string: "{\n    \"message\": \"No query results for model [App\\\\Models\\\\Subscriber\\\\Subscriber].\"\n}"
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce10bcd72e293-BEG
+      - 9818a36bd8cb9857-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -83,7 +83,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:37:40 GMT
+      - Fri, 19 Sep 2025 11:10:45 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -92,12 +92,18 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '79'
+      - '74'
+      x-user_id:
+      - '106223'
     status:
       code: 404
       message: Not Found

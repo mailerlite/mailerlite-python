@@ -78,7 +78,7 @@ class TestCampaigns:
                 {
                     "subject": "This is a test campaign",
                     "from_name": "Test Man",
-                    "from": "testuser@mailerlite.com",
+                    "from": "sdk@igor.fail",
                     "content": "<html><body><h1>Test</h1></body></html>",
                 }
             ],
@@ -113,7 +113,7 @@ class TestCampaigns:
                 {
                     "subject": "This is a new test campaign subject",
                     "from_name": "Test Man",
-                    "from": "testuser@mailerlite.com",
+                    "from": "sdk@igor.fail",
                 }
             ],
         }

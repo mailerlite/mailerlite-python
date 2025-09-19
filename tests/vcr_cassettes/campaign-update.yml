@@ -1,7 +1,7 @@
 interactions:
 - request:
     body: '{"name": "New Campaign Name", "language_id": 1, "emails": [{"subject":
-      "This is a new test campaign subject", "from_name": "Test Man", "from": "testuser@mailerlite.com"}]}'
+      "This is a new test campaign subject", "from_name": "Test Man", "from": "sdk@igor.fail"}]}'
     headers:
       Accept:
       - application/json
@@ -10,47 +10,35 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '171'
+      - '161'
       Content-Type:
       - application/json
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: PUT
-    uri: https://connect.mailerlite.com/api/campaigns/139789204514145550
+    uri: https://connect.mailerlite.com/api/campaigns/165969226036676056
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA6xXbW/bNhD+KyzRARsgx1aa9EXLigHdhmFou2HLl2EaiLN0lq+hSJU8JvEM//eB
-        1Ivt1F3zYZ9EPvd+PPJOW1kDgyy2kmpZyPzZqxcvX50vLi7zi/zi8vJyITMJVWWDYZU4Xj67zCNo
-        oEVZyPd4J95A2wE1RryPWCZ500WSwyZocDKTnoGDl4WsHaxYZrIl78k0qrf919+Z9MhMpvHRE3ZQ
-        3SjbofGyYBcwk8GjaqxtNCowoDdMlZfFCrTHTGJl2xZdhSpJkmkG0i6TK9KMrrfRr9XKOrUOLUTt
-        Ea5R0y26jfLVGuugURYmaJ1JDaYJ0GAfeC4zWTkExloBy0KeL84vZvn5bHEh8ry4fF7kFzKToav/
-        i+VFTMdgp46ujMY+BgyDWA94BsdHyIoM+fUDJtt1R0iNKwiaFbZAWj041Mv85auL85fRiUSPGfjk
-        5A+YTp58koSlRvX5ktnzDMVQDTXi9/WxDKRrdGrNrZaZXDnbykIyeg4e3fdRAzpNjGeVbQcGNZTd
-        NXoW78DITDrs9EaxlYWkxp6Q60WGfIXlB6zi0VyvyQvyAoTBOxGtitFHMXJlsrKG0UT+qyc//Prm
-        +s/ffhTR39eluRq+QlytEeq0EuLqyWy2fRoBxbbbzWavD5ClZbZtBAdmJtb4+hGuXJXznjfZK+eT
-        xaulrTei0uD9d6UspfC80ZiWRx5FtmOPDpGBc50PKyFigge0nK/zQ5lPokgmRTzV70rJeM/lvPJ+
-        cuCs1T9Zy+hEt23BNWSKxe77FmsCYY3eCF85RCPA1OLrFu5nd1Tzunh+sejuv9metfpNfwjXsZ62
-        PTFfLL56Qm1nHYPhb1sys5FwhA/mDqCVtsCFsQb34G5v5NfA6LYd1DWZZtaHeiQ/kjSuuMgvu/sT
-        NEfN+rNEtt2hwt1uSnPK4+czfVXOIxpLr5yn4pOZ7DSQUTHpspB/3CLdUFaa0vxShkX+fOlFA7eW
-        UWyfDnd5JwyED4RGAyWe/CZ+zldn4hrialETBDHKx8+LZwL1meig52crOmcbBy3sFwY70EA3Vvx8
-        /e6tWFnXAtuz6Mr70/ZEA/GSCgeeSYyWiyixfRqc3sXVb9CAWxLEoPYhREoKEqkJAhiJNx9QGFyi
-        sS4qbSAwnQi6DycTvoPgbyLngeHt02B8WPrK0RJ3pUlPdSxNv7asgtPjK9I5vCW86yG5Zu58Uc7L
-        +YCfHTxBZCe4nKcXtJz3T285P/nk/j8thryq0VNjsB5b6FE3y/f7fe+P8a6t48rW8Y3VnBTZ589e
-        pd3s7fW+778l5HA7niiQzGRNDismaxK3k7vkxh0ZExvw0KvjKJCavE/P6iKTqc+rdExpHwx9DKge
-        wnGvHHDyN13iBHt2qd/LxVfRYKWpujmh7RM8AV/Wd1AQx1on+Ms6fAftgWzaflFoDS72i2CqI8MH
-        8CMM2xWf0HEAf1nHyro7cPWh/AA9xn5FoBUZRgepMo7deEh95PEqtuox1RA9QFMrWKUJsL+6p2dL
-        r3xwt7iZyjRhHwP9MyGdw9h0R027vxNTrcgoCGxbSPFN7LEbHk2a8vdpHCavhrltYl/D/qb0jvY7
-        dYvOx9RMqh7QY4RxkmZqj+094NJYxSejBRNA683BwFhFndvhURlzUqPG/S4aGdeV7Tbj2mFPGYft
-        lLVpGj8xnw+3vzd8Ku8VGLXEaRLfWwVjLB+RlEPwdspHTGoLjqeMkKnxXtkuVdY4Ok+GyCvoOk39
-        EP4fopPEHTjT/6HEnwaHFXWEhqeSPs+kwXtWnrE7cKoKzqFhvZm028AP461sR/tgYzEswVOlxr+X
-        Hj/Ejs56K8lUOtRYq8bZ0A0+4v0JcOL02LTR/we8xzBoreLlvEU1vXhuuDn9+46aGoqDfkpjH+Lo
-        sEGsvXLYAY0dYLf7FwAA//8DAHQmOZByDgAA
+      string: '{"data":{"id":"165969226036676056","account_id":"83510","name":"New
+        Campaign Name","type":"regular","status":"draft","missing_data":[],"settings":{"track_opens":true,"use_google_analytics":false,"ecommerce_tracking":false},"filter":[],"filter_for_humans":[],"delivery_schedule":null,"language_id":"1","created_at":"2025-09-19
+        11:16:28","updated_at":"2025-09-19 11:16:31","scheduled_for":null,"queued_at":null,"started_at":null,"finished_at":null,"stopped_at":null,"default_email_id":"165969226051356122","emails":[{"id":"165969226051356122","account_id":"83510","emailable_id":"165969226036676056","emailable_type":"campaigns","type":"builder_html","from":"sdk@igor.fail","from_name":"Test
+        Man","reply_to":"test@igor.fail","name":null,"subject":"This is a new test
+        campaign subject","content":"<!DOCTYPE html>\n<html>\n  <head>\n    <!--{$head_top}--><!--{$head_bottom}-->\n    <title>This
+        is a new test campaign subject<\/title>\n  <\/head>\n  <body class=\"\" style=\"\">\n    <!--{$body_top}-->\n    <!--{$body_top}-->\n    <h1>\n      Test\n    <\/h1><!--{$body_bottom}-->\n    <style
+        type=\"text\/css\">\n    .mlFooter p {\n    margin: 0;\n    }\n\n    @media
+        only screen and (max-width: 640px) {\n    .mlContentTable{\n      width: 100%!important;\n      min-width:
+        10%!important;\n      margin: 0!important;\n      float: none!important;\n    }\n\n    .mlContentOuter{\n      padding-bottom:
+        0!important;\n      padding-left: 15px!important;\n      padding-right: 15px!important;\n      padding-top:
+        0!important;\n    }\n    }\n    <\/style><!--{$body_bottom}-->\n  <\/body>\n<\/html>","plain_text":"Sveiki,\n\nJ\u016bs
+        gavote {$account} naujienlai\u0161k\u012f. Ta\u010diau J\u016bs\u0173 el.
+        pa\u0161to programa nepalaiko HTML formato.\n\nNaujienlai\u0161k\u012f galite
+        rasti \u010dia:\n\n{$url}\n\nPagarbiai,\n{$account}\n\n\n\nJeigu ateityje
+        nebenorite gauti {$account} naujien\u0173, spauskite \u010dia:\n{$unsubscribe}\n","screenshot_url":null,"generate_screenshot_timestamp":"2025-09-19
+        11:16:31","preview_url":"https:\/\/preview.mailerlite.io\/preview\/83510\/emails\/165969226051356122","created_at":"2025-09-19
+        11:16:28","updated_at":"2025-09-19 11:16:31","is_designed":true,"language_id":1,"language":{"id":"1","shortcode":"lt","iso639":"lt-LT","name":"Lietuvi\u0161kai","direction":"ltr"},"is_winner":false,"stats":{"sent":0,"opens_count":0,"open_rate":{"float":0,"string":"0%"},"clicks_count":0,"click_rate":{"float":0,"string":"0%"},"unsubscribes_count":0,"unsubscribe_rate":{"float":0,"string":"0%"},"spam_count":0,"spam_rate":{"float":0,"string":"0%"},"hard_bounces_count":0,"hard_bounce_rate":{"float":0,"string":"0%"},"soft_bounces_count":0,"soft_bounce_rate":{"float":0,"string":"0%"},"forwards_count":0,"forward_rate":{"float":0,"string":"0%"},"social_interactions_count":0,"social_interaction_rate":{"float":0,"string":"0%"},"click_to_open_rate":{"float":0,"string":"0%"}},"send_after":null,"track_opens":true,"uses_survey":false,"uses_quiz":false,"preheader":null}],"used_in_automations":false,"type_for_humans":"Regular","is_stopped":false,"has_winner":null,"winner_version_for_human":null,"winner_sending_time_for_humans":null,"winner_selected_manually_at":null,"can":{"update":true,"delete":true,"send":true,"copy":true,"resend":false},"uses_ecommerce":false,"ecommerce_stats":null,"uses_survey":false,"can_be_scheduled":true,"cannot_be_scheduled_reason":null,"is_smart_sending_index_option_finished":false,"is_applied_for_smart_sending_index_option":false,"warnings":[],"recipients_count":1004,"next_step":null,"is_currently_sending_out":false,"can_be_copied":true,"has_basic_filter":true,"basic_filter_for_humans":{"included_groups":[],"excluded_groups":[],"included_segments":[],"excluded_segments":[],"all_active_subscribers":true},"is_eligible_for_sending":true,"needs_repair":false}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecb9cbedbe1e298-BEG
+      - 9818abe22a46b30c-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -60,7 +48,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 11:56:17 GMT
+      - Fri, 19 Sep 2025 11:16:31 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -69,14 +57,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
       - '118'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

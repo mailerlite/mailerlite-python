@@ -19,28 +19,20 @@ interactions:
     uri: https://connect.mailerlite.com/api/subscribers
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA4SRzU4DIRRGX8XcNdPADNNaVi5c+QrGEApYiTNA4GKiTd/d3NpOG2NiZsP5OMPP
-        xwGcQQPqAMGBAjFsN1su11KO4z2XctsDAz+bMIEC9BXHhxOtbJqBQUWDrYICYzF8eEpSK9ZTkgOh
-        jwiKM0jZx6ptame2U7DvtwEJuhj01+krhqyNc8VX2kusTh+t3nbVlrDzThsEBT3vZSf6jss70Sux
-        VmIEBi3+8mKbJga2eIP//Jnd38qoho0a1sDgNZW9x8UYOy46PpyNfkNG8JOr1HA0MzXzlN4iMJhM
-        RX2OHhN1Z9OcTfxcDkjdlCsGXMb5LUV/AXqEBb500PkHjgz2JbVcQT2/UMF0lRBvKkgZQ9Th4h+/
-        AQAA//8DAFbFuXINAgAA
+      string: '{"data":{"id":"165968862226941797","email":"test5@email.com","status":"active","source":"api","sent":0,"opens_count":0,"clicks_count":0,"open_rate":0,"click_rate":0,"ip_address":"1.1.1.1","subscribed_at":"2025-09-19
+        11:10:41","unsubscribed_at":null,"created_at":"2025-09-19 11:10:41","updated_at":"2025-09-19
+        11:10:41","fields":{"name":"John","last_name":"Doe","company":null,"country":null,"city":null,"phone":null,"state":null,"z_i_p":null},"groups":[],"opted_in_at":null,"optin_ip":null}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce0f39e5ee290-BEG
+      - 9818a352c8895165-BEG
       Cache-Control:
       - no-cache, private
       Connection:
       - keep-alive
-      Content-Encoding:
-      - gzip
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:37:36 GMT
+      - Fri, 19 Sep 2025 11:10:41 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -49,15 +41,21 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '96'
+      - '91'
+      x-user_id:
+      - '106223'
     status:
-      code: 200
-      message: OK
+      code: 201
+      message: Created
 version: 1

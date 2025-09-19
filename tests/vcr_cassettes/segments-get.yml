@@ -16,15 +16,11 @@ interactions:
     uri: https://connect.mailerlite.com/api/segments/139794711363717070
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA1zMMQqDQBBG4avID+lWmNndZMnU6VJ6AFl0IhJdg5lOvHsQUoTU7+Nt6LNlyIax
-        h4DDNV1jYg6XkDhRIjiUPCsEze1eNTrMWgwOtlieIN5heWlp12x6XB7Tkg3CDm9bxzIcT6ITdodu
-        GrvnP6Qf+GWrZtO+PSo8+VizrylWHMQHiWfs+wcAAP//AwB/Dyb5tQAAAA==
+      string: '{"data":{"id":"139794711363717070","name":"New Name","total":2,"open_rate":{"float":0.75,"string":"75%"},"click_rate":{"float":0,"string":"0%"},"created_at":"2024-12-04
+        13:23:45"}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecc2c3a9cf8e290-BEG
+      - 9818a34cee14b01b-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -34,7 +30,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 13:34:14 GMT
+      - Fri, 19 Sep 2025 11:10:40 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -43,14 +39,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '118'
+      - '96'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK
