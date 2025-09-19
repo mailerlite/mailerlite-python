@@ -19,18 +19,12 @@ interactions:
     uri: https://connect.mailerlite.com/api/batch
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA4SNsQrCMBBAf+W4udginbL5AbroZjqkyaUG0l7MJUMp/Xepk5vbgwfvbVi4mIjq
-        3KBUa0nE14iqa9CbEMl9TSZJvAgJqueGlh2h6ru+wZHdimrDmUTMRKjwxvCulFfIJDUWAc8ZZnYU
-        4XlJSevrwaL1vY5icxgp//Jwwn1v/jweL4LMtRCYFHRrzZxMmBbRbQxSwHKNDhYuMBJ4ros7osP+
-        AQAA//8DAMYAq4DsAAAA
+      string: '{"total":2,"successful":0,"failed":2,"responses":[{"code":404,"body":{"message":"No
+        query results for model [App\\Models\\Subscriber\\Subscriber]."}},{"code":404,"body":{"message":"The
+        route api\/campaigns\/list could not be found."}}]}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 77d96ab559c5c21e-VIE
+      - 9818b28488b3f339-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -40,19 +34,29 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 22 Dec 2022 14:06:13 GMT
+      - Fri, 19 Sep 2025 11:21:03 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
       - '118'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

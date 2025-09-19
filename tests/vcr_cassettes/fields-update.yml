@@ -15,20 +15,13 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: PUT
-    uri: https://connect.mailerlite.com/api/fields/90917
+    uri: https://connect.mailerlite.com/api/fields/947147
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAAyzKQQrDIBBG4avIv3aRrko8QHbNFWRgRhiqpuBIKyF3D0K333snmIwQTigjYF3W
-        xxMelYog4DXcLl+3qWR2+zSPtwwElBHTVHjY+MzX5Gfw0BZZEvVsCIlyE4/ehKPWSN2OQqZHbf92
-        XTcAAAD//wMAyv1DtIAAAAA=
+      string: '{"data":{"id":"947147","name":"My New Field Name","key":"my_field","type":"text","is_default":false}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 77d1d4c8fc2ec2cd-VIE
+      - 9818a33d7d4d562e-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -38,19 +31,29 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 16:00:32 GMT
+      - Fri, 19 Sep 2025 11:10:37 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '116'
+      x-ratelimit-remaining:
+      - '109'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

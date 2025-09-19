@@ -19,15 +19,11 @@ interactions:
     uri: https://connect.mailerlite.com/api/webhooks
   response:
     body:
-      string: '{"data":{"id":"75140634583762630","name":"My Webhooks","url":"https:\/\/mailerlite.com","events":["subscriber.created","subscriber.unsubscribed"],"enabled":true,"secret":"MRqdHiwAtP","created_at":"2022-12-21
-        21:54:53","updated_at":"2022-12-21 21:54:53"}}'
+      string: '{"data":{"id":"165968867532736034","name":"My Webhooks","url":"https:\/\/mailerlite.com","events":["subscriber.created","subscriber.unsubscribed"],"enabled":true,"is_blocked":false,"secret":"yaEgW3JvHz","created_at":"2025-09-19
+        11:10:46","updated_at":"2025-09-19 11:10:46","batchable":false,"version":"2022-01","last_fired_at":null,"response_code":null}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 77d3dbdaa98cc2fa-VIE
+      - 9818a372a9b2e292-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -35,19 +31,29 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 21:54:53 GMT
+      - Fri, 19 Sep 2025 11:10:46 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '119'
+      x-ratelimit-remaining:
+      - '69'
+      x-user_id:
+      - '106223'
     status:
       code: 201
       message: Created

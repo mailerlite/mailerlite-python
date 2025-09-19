@@ -18,15 +18,11 @@ interactions:
     uri: https://connect.mailerlite.com/api/segments/139794711363717070
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA1zMQQrCMBCF4auUB+5SmEmioXOIXqEMbZRibaUOuCi5uwRciLsH7+M/MKkp5MA8
-        QcChS11MzOESEidKBIdVHxmCPr+bvk4H20wXiHfYnnkddrVcE9dlU4Oww8v2eb3VINEJxWFc5vH+
-        D+kHftme1fI01BeefGzZtxQbDuKDxDNK+QAAAP//AwAgRZxfsgAAAA==
+      string: '{"data":{"id":"139794711363717070","name":"New Name","total":2,"open_rate":{"float":0.75,"string":"75%"},"click_rate":{"float":0,"string":"0%"},"created_at":"2024-12-04
+        13:23:45"}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecc2c3d88d9b30c-BEG
+      - 9818a34ffb02c239-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -36,7 +32,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 13:34:14 GMT
+      - Fri, 19 Sep 2025 11:10:40 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -45,14 +41,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '116'
+      - '94'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK
@@ -75,14 +77,11 @@ interactions:
     uri: https://connect.mailerlite.com/api/segments/123123
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA6pWyk0tLk5MT1WyUgpKLc4vLUpOVcjLL1FIyy/NS9FTqgUAAAD//wMAZiyhmiEA
-        AAA=
+      string: "{\n    \"message\": \"No query results for model [App\\\\Models\\\\Segment]
+        123123\"\n}"
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecc2c3f2e44e292-BEG
+      - 9818a350de98126d-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -92,7 +91,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 13:34:15 GMT
+      - Fri, 19 Sep 2025 11:10:40 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -101,12 +100,18 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '115'
+      - '93'
+      x-user_id:
+      - '106223'
     status:
       code: 404
       message: Not Found

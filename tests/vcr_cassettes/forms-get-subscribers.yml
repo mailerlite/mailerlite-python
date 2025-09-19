@@ -13,19 +13,13 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/forms/139883342944274178/subscribers?page=1&limit=20&filter%5Bstatus%5D=active
+    uri: https://connect.mailerlite.com/api/forms/141163052291589265/subscribers?page=1&limit=20&filter%5Bstatus%5D=active
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA1SOWwrCMBQF93K/Q2PbQNtsxUhJ460N5sVNKkLp3kVU1L9hPs6cDc66aJDHEwNn
-        wzWD3GC2lAvIsDrHwOkvJ8LbhwPe335n4PE5skHSZQEJSykpS8UVNzEENKXy2jokZwtWJnrFdbKK
-        z5F8Vrxuh75vW9EMQjSdqLte8bxO2ZCdkDIwSEhj0hcE2Rxe5dGslCP9HvtT+/4AAAD//wMAnHEz
-        utoAAAA=
+      string: '{"data":[],"links":{"first":null,"last":null,"prev":null,"next":null},"meta":{"path":"https:\/\/connect.mailerlite.com\/api\/forms\/141163052291589265\/subscribers","per_page":20,"next_cursor":null,"prev_cursor":null}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ed43310aeefe290-BEG
+      - 9818a3448c70b018-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -35,7 +29,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 05 Dec 2024 12:57:00 GMT
+      - Fri, 19 Sep 2025 11:10:38 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -44,14 +38,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '116'
+      - '103'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

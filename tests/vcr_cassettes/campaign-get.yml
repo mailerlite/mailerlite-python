@@ -13,41 +13,29 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: GET
-    uri: https://connect.mailerlite.com/api/campaigns/139789204514145550
+    uri: https://connect.mailerlite.com/api/campaigns/165969226036676056
   response:
     body:
-      string: !!binary |
-        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
+      string: '{"data":{"id":"165969226036676056","account_id":"83510","name":"New
+        Campaign Name","type":"regular","status":"draft","missing_data":[],"settings":{"track_opens":true,"use_google_analytics":false,"ecommerce_tracking":false},"filter":[],"filter_for_humans":[],"delivery_schedule":null,"language_id":"1","language":{"id":"1","shortcode":"lt","iso639":"lt-LT","name":"Lietuvi\u0161kai","direction":"ltr"},"created_at":"2025-09-19
+        11:16:28","updated_at":"2025-09-19 11:16:31","scheduled_for":null,"queued_at":null,"started_at":null,"finished_at":null,"stopped_at":null,"default_email_id":"165969226051356122","emails":[{"id":"165969226051356122","account_id":"83510","emailable_id":"165969226036676056","emailable_type":"campaigns","type":"builder_html","from":"sdk@igor.fail","from_name":"Test
+        Man","reply_to":"test@igor.fail","name":null,"subject":"This is a new test
+        campaign subject","content":"<!DOCTYPE html>\n<html>\n  <head>\n    <!--{$head_top}--><!--{$head_bottom}-->\n    <title>This
+        is a new test campaign subject<\/title>\n  <\/head>\n  <body class=\"\" style=\"\">\n    <!--{$body_top}-->\n    <!--{$body_top}-->\n    <h1>\n      Test\n    <\/h1><!--{$body_bottom}-->\n    <style
+        type=\"text\/css\">\n    .mlFooter p {\n    margin: 0;\n    }\n\n    @media
+        only screen and (max-width: 640px) {\n    .mlContentTable{\n      width: 100%!important;\n      min-width:
+        10%!important;\n      margin: 0!important;\n      float: none!important;\n    }\n\n    .mlContentOuter{\n      padding-bottom:
+        0!important;\n      padding-left: 15px!important;\n      padding-right: 15px!important;\n      padding-top:
+        0!important;\n    }\n    }\n    <\/style><!--{$body_bottom}-->\n  <\/body>\n<\/html>","plain_text":"Sveiki,\n\nJ\u016bs
+        gavote {$account} naujienlai\u0161k\u012f. Ta\u010diau J\u016bs\u0173 el.
+        pa\u0161to programa nepalaiko HTML formato.\n\nNaujienlai\u0161k\u012f galite
+        rasti \u010dia:\n\n{$url}\n\nPagarbiai,\n{$account}\n\n\n\nJeigu ateityje
+        nebenorite gauti {$account} naujien\u0173, spauskite \u010dia:\n{$unsubscribe}\n","screenshot_url":null,"generate_screenshot_timestamp":"2025-09-19
+        11:16:31","preview_url":"https:\/\/preview.mailerlite.io\/preview\/83510\/emails\/165969226051356122","created_at":"2025-09-19
+        11:16:28","updated_at":"2025-09-19 11:16:31","click_map":[],"is_designed":true,"language_id":1,"language":{"id":"1","shortcode":"lt","iso639":"lt-LT","name":"Lietuvi\u0161kai","direction":"ltr"},"is_winner":false,"stats":{"sent":0,"opens_count":0,"open_rate":{"float":0,"string":"0%"},"clicks_count":0,"click_rate":{"float":0,"string":"0%"},"unsubscribes_count":0,"unsubscribe_rate":{"float":0,"string":"0%"},"spam_count":0,"spam_rate":{"float":0,"string":"0%"},"hard_bounces_count":0,"hard_bounce_rate":{"float":0,"string":"0%"},"soft_bounces_count":0,"soft_bounce_rate":{"float":0,"string":"0%"},"forwards_count":0,"forward_rate":{"float":0,"string":"0%"},"social_interactions_count":0,"social_interaction_rate":{"float":0,"string":"0%"},"click_to_open_rate":{"float":0,"string":"0%"}},"send_after":null,"track_opens":true,"uses_survey":false,"uses_quiz":false,"preheader":null}],"used_in_automations":false,"type_for_humans":"Regular","is_stopped":false,"has_winner":null,"winner_version_for_human":null,"winner_sending_time_for_humans":null,"winner_selected_manually_at":null,"can":{"update":true,"delete":true,"send":true,"copy":true,"resend":false},"uses_ecommerce":false,"ecommerce_stats":null,"uses_survey":false,"can_be_scheduled":true,"cannot_be_scheduled_reason":null,"is_smart_sending_index_option_finished":false,"is_applied_for_smart_sending_index_option":false,"warnings":[],"recipients_count":1004,"next_step":null,"is_currently_sending_out":false,"can_be_copied":true,"has_basic_filter":true,"basic_filter_for_humans":{"included_groups":[],"excluded_groups":[],"included_segments":[],"excluded_segments":[],"all_active_subscribers":true},"is_eligible_for_sending":true,"needs_repair":false}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecb9cc41833b311-BEG
+      - 9818abe4182e1778-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -57,7 +45,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 11:56:18 GMT
+      - Fri, 19 Sep 2025 11:16:32 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -66,14 +54,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
       - '117'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

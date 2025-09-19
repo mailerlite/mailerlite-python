@@ -16,22 +16,15 @@ interactions:
     uri: https://connect.mailerlite.com/api/groups?limit=10&page=1
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA9STTW8TMRCG/8rqlejJbez9SIgR4sgJxIFbU0WOM0lNvPbij6go2v+OdkOatCAh
-        yqknj0fzzrx+bB+wVklB3h5g1pCYNVyIup5XM17XTVU1YHCqJUh8+lF8DD53YFA6mT0ttc8uQQqG
-        SC6dtpzBd+Tis/0yqESQB2ysV8d0TMG4LST4G/QM2hq9u5SNib/rsot5FXUwK1pfqLPT3m1MaM/Z
-        imHls9NP6r5lt7scGkglWi+HWSh5WV6L8rrkhRCyFrIq0bNHVqIUc17yqmqm82kzO7P6SjEV2z/S
-        4q+GFn8xLVGIqWxmkr9Ff8dgjdvF0ZQJcSi8T6mLcjFZTLR3jnS6aZWxFKxJdKN9u5ioziwmI8D4
-        oVNbei/AYNX/qLtAe0iXrWVw9JCOcc/Q0vADDtA5hOFmBsX4qjfBt2MwDD6nfx3n9oAc7KmjVSuy
-        kLiy6nv274ovgfbG5/h4/5AbZSMNr2eUvRzCcZC46JxCPjd+6uczPaTiKoymfvNyx9CpdP+vZgaY
-        FE5AOEPykOWwJGUhy77/CQAA//8DAMDRzX1XBAAA
+      string: '{"data":[{"id":"100093655191127682","name":"Grupa 1","active_count":1,"sent_count":4,"opens_count":4,"open_rate":{"float":1,"string":"100%"},"clicks_count":2,"click_rate":{"float":0.5,"string":"50%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-09-23
+        08:12:28"},{"id":"107641605251400900","name":"Grupa2","active_count":9,"sent_count":8,"opens_count":7,"open_rate":{"float":0.875,"string":"87.5%"},"clicks_count":2,"click_rate":{"float":0.25,"string":"25%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2023-12-15
+        15:43:54"},{"id":"165971156405323676","name":"Test group","active_count":0,"sent_count":0,"opens_count":0,"open_rate":{"float":0,"string":"0%"},"clicks_count":0,"click_rate":{"float":0,"string":"0%"},"unsubscribed_count":0,"unconfirmed_count":0,"bounced_count":0,"junk_count":0,"created_at":"2025-09-19
+        11:47:09"}],"links":{"first":"https:\/\/connect.mailerlite.com\/api\/groups?page=1","last":"https:\/\/connect.mailerlite.com\/api\/groups?page=1","prev":null,"next":null},"meta":{"current_page":1,"from":1,"last_page":1,"links":[{"url":null,"label":"&laquo;
+        Previous","active":false},{"url":"https:\/\/connect.mailerlite.com\/api\/groups?page=1","label":"1","active":true},{"url":null,"label":"Next
+        &raquo;","active":false}],"path":"https:\/\/connect.mailerlite.com\/api\/groups","per_page":10,"to":3,"total":3}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 77d227b5688fc2eb-VIE
+      - 9818d8be6896e291-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -41,19 +34,29 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 16:57:08 GMT
+      - Fri, 19 Sep 2025 11:47:09 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
+      x-ratelimit-remaining:
       - '118'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

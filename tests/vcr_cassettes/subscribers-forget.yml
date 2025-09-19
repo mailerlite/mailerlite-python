@@ -19,18 +19,12 @@ interactions:
     uri: https://connect.mailerlite.com/api/subscribers
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA4SRwU4DIRCGX8XMmW1gy7aWkwdPvoIxhAK2pLtAYDDRpu9uprbbxpgYLnzDBww/
-        R3AGDagjBAcKxHKz3nC5knIYHrmUmx4Y+MmEERSgrzg8nWlh0wQMKhpsFRQYi+HDUyW1Yj1VciD0
-        EUFxBin7WLVN7cJ2DPZwXyBBF4P+tnzDkLVxrvhKd4nFedDpbVttCVvvtEFQ0PNedqLvuHwQvRIr
-        JQZg0OIvL7ZxZGCLN/jPzuz+Vga1XCtJLbynsvM4G0PHRceXF6NfkxH86ColHM1EybykfQQGo6mo
-        L6XnRNnZNGUTP+cGKZtyw4DzPO9T9FegT5jhSwedf+DEYFdSyxXU6xsFTE8J8S6ClDFEHa7+6RsA
-        AP//AwC7bHK1DQIAAA==
+      string: '{"data":{"id":"165968862226941797","email":"test5@email.com","status":"active","source":"api","sent":0,"opens_count":0,"clicks_count":0,"open_rate":0,"click_rate":0,"ip_address":"1.1.1.1","subscribed_at":"2025-09-19
+        11:10:41","unsubscribed_at":null,"created_at":"2025-09-19 11:10:41","updated_at":"2025-09-19
+        11:10:45","fields":{"name":"John","last_name":"Doe","company":null,"country":null,"city":null,"phone":null,"state":null,"z_i_p":null},"groups":[],"opted_in_at":null,"optin_ip":null}}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce10e3a78e298-BEG
+      - 9818a36ddce70380-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -40,7 +34,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:37:41 GMT
+      - Fri, 19 Sep 2025 11:10:45 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -49,14 +43,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '77'
+      - '72'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK
@@ -76,22 +76,16 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: POST
-    uri: https://connect.mailerlite.com/api/subscribers/139790464455804492/forget
+    uri: https://connect.mailerlite.com/api/subscribers/165968862226941797/forget
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA4SSMW/DIBCF/wq62Ylsx04apg6dunasKovANUHFgODcKI3y36tLEzutKkUsfI8H
-        HO84glGkQB7BGpBQLdarddksm6ZtH8qmWddQAPbKOpBAmKl9PNNchx4KyKRoyCBBabKfyEoYkkZW
-        omVETyDLAkJEnzsdhgtrZ/XHrcCGLinCaXlCGztlTMLMd1Xz8+DTh03WyW7QdIpAQl3WzayqZ2Uj
-        qlpWS1m1UMDg//j84FwBOqGiOzuj+d/SysVKNlyCQYd3LO8hbZFGRzsrq1m5+OWw6EzmJnjVc3jP
-        YeehAKcydRfpKXC8OvRR+cP4Bo4vTWhpnMdd8HgF7tMIX53t4g+cCtimMMQM8vWNe8BPsf4mpRDJ
-        +s5O/h5zVluu6OWaahL8h8TeOic2KLhGDsUdxCUdobwRHEMgQi/2lnbWi0UpjDrkOZy+AQAA//8D
-        AKCB13GFAgAA
+      string: '{"data":{"id":"165968862226941797","email":"test5@email.com","status":"active","source":"api","sent":0,"opens_count":0,"clicks_count":0,"open_rate":0,"click_rate":0,"ip_address":"1.1.1.1","subscribed_at":"2025-09-19
+        11:10:41","unsubscribed_at":null,"created_at":"2025-09-19 11:10:41","updated_at":"2025-09-19
+        11:10:45","deleted_at":"2025-09-19 11:10:45","forget_at":"2025-10-19 11:10:45","fields":{"name":"John","last_name":"Doe","company":null,"country":null,"city":null,"phone":null,"state":null,"z_i_p":null},"groups":[],"location":null,"opted_in_at":null,"optin_ip":null},"message":"Subscriber
+        data will be completely deleted and forgotten within 30 days."}'
     headers:
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 8ecce10fe9d5e290-BEG
+      - 9818a36f9f700380-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -101,7 +95,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 04 Dec 2024 15:37:41 GMT
+      - Fri, 19 Sep 2025 11:10:45 GMT
       Server:
       - cloudflare
       Transfer-Encoding:
@@ -110,14 +104,20 @@ interactions:
       - '*'
       alt-svc:
       - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
       strict-transport-security:
       - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
       x-locale:
       - en
       x-ratelimit-limit:
       - '120'
       x-ratelimit-remaining:
-      - '76'
+      - '71'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

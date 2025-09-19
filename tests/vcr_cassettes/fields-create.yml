@@ -18,14 +18,10 @@ interactions:
     uri: https://connect.mailerlite.com/api/fields
   response:
     body:
-      string: '{"data":{"id":"90917","name":"My Field","key":"my_field","type":"text","is_default":false,"used_in_automations":false}}'
+      string: '{"data":{"id":"947147","name":"My Field","key":"my_field","type":"text","is_default":false}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 77d1d4c38d06c2e6-VIE
+      - 9818a33b0e7ef969-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -33,19 +29,29 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 16:00:31 GMT
+      - Fri, 19 Sep 2025 11:10:37 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '119'
+      x-ratelimit-remaining:
+      - '111'
+      x-user_id:
+      - '106223'
     status:
       code: 201
       message: Created

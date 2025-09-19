@@ -15,21 +15,14 @@ interactions:
       User-Agent:
       - MailerLite-Python-SDK-Client
     method: PUT
-    uri: https://connect.mailerlite.com/api/webhooks/75140634583762630
+    uri: https://connect.mailerlite.com/api/webhooks/165968867532736034
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAA3SOTYvCMBRF/0q566hN0lZ5O3dulGE2sxgHSZsHBvuhyevIIP53KcjgxuU993I5
-        N3gnDnRD8CAsS13klS3KlV1WprI5FHrXMQjbv2zH1+yL6+MwnLLdRBXG2IJwFDkn2i/2i86FlmMb
-        hOfN0EGBf7mXBPpGGuvUxFBznDeRnbCHeoVj/x88fhS4d3XLHiRxZIXETWSZRD4vfhOua/mAwvPp
-        4KbG5MbMtJkZnRlNZUGlnRTP/u2kIm1xvz8AAAD//wMA5EZ+3wYBAAA=
+      string: '{"data":{"id":"165968867532736034","name":"My New Webhook Name","url":"https:\/\/mailerlite.com","events":["subscriber.created","subscriber.unsubscribed"],"enabled":true,"is_blocked":false,"secret":"yaEgW3JvHz","created_at":"2025-09-19
+        11:10:46","updated_at":"2025-09-19 11:10:46","batchable":false,"version":"2022-01","last_fired_at":null,"response_code":null}}'
     headers:
-      Access-Control-Allow-Origin:
-      - '*'
-      CF-Cache-Status:
-      - DYNAMIC
       CF-RAY:
-      - 77d3ddce8e6efcad-VIE
+      - 9818a3757bdee291-BEG
       Cache-Control:
       - no-cache, private
       Connection:
@@ -39,19 +32,29 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 21 Dec 2022 21:56:13 GMT
+      - Fri, 19 Sep 2025 11:10:46 GMT
       Server:
       - cloudflare
-      Strict-Transport-Security:
-      - max-age=15724800; includeSubDomains
       Transfer-Encoding:
       - chunked
-      X-Locale:
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      strict-transport-security:
+      - max-age=31536000; includeSubDomains
+      x-account_id:
+      - '83510'
+      x-locale:
       - en
-      X-RateLimit-Limit:
+      x-ratelimit-limit:
       - '120'
-      X-RateLimit-Remaining:
-      - '117'
+      x-ratelimit-remaining:
+      - '66'
+      x-user_id:
+      - '106223'
     status:
       code: 200
       message: OK

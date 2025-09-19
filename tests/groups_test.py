@@ -124,7 +124,7 @@ class TestGroups:
     ):
         # This test requires at least one subscriber assigned to a group
         response = self.client.groups.get_group_subscribers(
-            pytest.entity_id, limit=5, page=1
+            pytest.entity_id, limit=5, cursor=1
         )
 
         assert isinstance(response, dict)
