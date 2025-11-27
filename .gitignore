@@ -93,3 +93,4 @@ ENV/
 .ropeproject
 .vscode
 toolset.py
+.direnv/
