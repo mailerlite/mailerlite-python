@@ -169,8 +169,8 @@ class TestCampaigns:
     def test_given_correct_campaign_id_and_schedule_parameters_when_calling_schedule_then_campaign_schedule_is_updated(
         self,
     ):
-        date = datetime.now() + timedelta(days=2)
-        date = date.strftime("%Y-%m-%d")
+        # Use fixed date that matches the VCR cassette recording
+        date = "2025-09-21"
 
         params = {
             "delivery": "scheduled",
