@@ -31,6 +31,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Update a group](#update-a-group)
     - [Delete a group](#delete-a-group)
     - [Get subscribers belonging to a group](#get-subscribers-belonging-to-a-group)
+    - [Import bulk subscribers to a group](#import-bulk-subscribers-to-a-group)
     - [Assign subscriber to a group](#assign-subscriber-to-a-group)
     - [Unassign subscriber from a group](#unassign-subscriber-from-a-group)
   - [Segments](#segments)
@@ -267,6 +268,25 @@ client = MailerLite.Client({
 group_id = 1234567
 
 response = client.groups.get_group_subscribers(group_id, page=1, limit=10, filter={'status': 'active'})
+```
+
+### Import bulk subscribers to a group
+<a name="import-bulk-subscribers-to-a-group"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+group_id = 1234567
+subscribers = [
+    {'email': 'subscriber1@example.com', 'name': 'Subscriber One'},
+    {'email': 'subscriber2@example.com', 'name': 'Subscriber Two'},
+]
+
+response = client.groups.import_subscribers_to_group(group_id, subscribers)
 ```
 
 ### Assign subscriber to a group
