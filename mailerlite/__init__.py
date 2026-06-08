@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from mailerlite.api_client import ApiClient
 from mailerlite.sdk.automations import Automations
 from mailerlite.sdk.batch import Batches
+
 # import all api files into api package
 from mailerlite.sdk.campaigns import Campaigns
 from mailerlite.sdk.fields import Fields

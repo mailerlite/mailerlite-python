@@ -10,10 +10,10 @@ from typing import Optional, Tuple
 class HttpMethods(object):
     """Allowed Http methods"""
 
-    GET: str = 'get'
-    POST: str = 'post'
-    PUT: str = 'put'
-    DELETE: str = 'delete'
+    GET: str = "get"
+    POST: str = "post"
+    PUT: str = "put"
+    DELETE: str = "delete"
 
     # Allowed methods
     ALLOWED: Tuple[str, ...] = (GET, POST, PUT, DELETE)
@@ -31,13 +31,13 @@ class HttpMethods(object):
 
 class ApiClient(object):
     # Base URL of the API
-    HOST = 'https://connect.mailerlite.com/'
+    HOST = "https://connect.mailerlite.com/"
 
     # Base headers
     DEFAULT_HEADERS = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'User-Agent': 'MailerLite-Python-SDK-Client',
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "User-Agent": "MailerLite-Python-SDK-Client",
     }
 
     # Base timeout between requests
@@ -45,7 +45,7 @@ class ApiClient(object):
 
     def __init__(self, config=None) -> None:
         self.headers: dict = self.DEFAULT_HEADERS.copy()
-        self.api_key: str = ''
+        self.api_key: str = ""
         self.api_version: Optional[str] = None
         self.timeout: Optional[int] = None
         if config is None:
@@ -56,32 +56,36 @@ class ApiClient(object):
         """API Client Configuration Setter"""
 
         # Authentication
-        self.api_key = config.get('api_key', '')
-        self.headers['Authorization'] = f'Bearer {self.api_key}'
+        self.api_key = config.get("api_key", "")
+        self.headers["Authorization"] = f"Bearer {self.api_key}"
 
         # API version
-        self.api_version = config.get('api_version')
+        self.api_version = config.get("api_version")
         if self.api_version is not None:
-            self.headers['X-Version'] = self.api_version
+            self.headers["X-Version"] = self.api_version
 
         # Request timeout
-        self.timeout = config.get('timeout', self.DEFAULT_TIMEOUT)
+        self.timeout = config.get("timeout", self.DEFAULT_TIMEOUT)
 
     def request(
-        self, method: str, path: str, query_params: Optional[dict] = None, body: Optional[dict] = None
+        self,
+        method: str,
+        path: str,
+        query_params: Optional[dict] = None,
+        body: Optional[dict] = None,
     ) -> requests.models.Response:
         """Requests Wrapper"""
 
         method = method.lower()
         if method not in HttpMethods.ALLOWED:
-            raise ValueError('http method must be `POST`, `GET`, `PUT` or `DELETE`.')
+            raise ValueError("http method must be `POST`, `GET`, `PUT` or `DELETE`.")
 
         kwargs = {
-            'method': method,
-            'url': urljoin(self.HOST, path),
-            'params': query_params,
-            'headers': self.headers,
-            'timeout': self.timeout,
+            "method": method,
+            "url": urljoin(self.HOST, path),
+            "params": query_params,
+            "headers": self.headers,
+            "timeout": self.timeout,
         }
         if HttpMethods.is_get(method):
             kwargs.update(allow_redirects=True)
