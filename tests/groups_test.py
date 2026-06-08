@@ -109,6 +109,30 @@ class TestGroups:
         assert set(group_keys).issubset(response["data"].keys())
         assert response["data"]["name"] == name
 
+    def test_given_incorrect_group_id_when_calling_import_subscribers_then_type_error_is_returned(
+        self,
+    ):
+        with pytest.raises(TypeError):
+            self.client.groups.import_subscribers("1234", [])
+
+    def test_given_incorrect_subscribers_when_calling_import_subscribers_then_type_error_is_returned(
+        self,
+    ):
+        with pytest.raises(TypeError):
+            self.client.groups.import_subscribers(1234, "not-a-list")
+
+    @vcr.use_cassette(
+        "tests/vcr_cassettes/groups-import-subscribers.yml",
+        filter_headers=["Authorization"],
+    )
+    def test_given_correct_parameters_when_calling_import_subscribers_then_import_is_queued(
+        self,
+    ):
+        subscribers = [{"email": "test@example.com", "name": "Test User"}]
+        response = self.client.groups.import_subscribers(pytest.entity_id, subscribers)
+
+        assert isinstance(response, dict)
+
     def test_given_incorrect_group_id_when_calling_get_group_subscribers_then_type_error_is_returned(
         self,
     ):

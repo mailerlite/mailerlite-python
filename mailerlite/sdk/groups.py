@@ -111,6 +111,37 @@ class Groups(object):
 
         return True if response.status_code == 204 else False
 
+    def import_subscribers(self, group_id, subscribers):
+        """
+        Import bulk subscribers to a group
+
+        Provides an ability to import bulk subscribers to a group.
+        Ref: https://developers.mailerlite.com/api/groups#import-bulk-subscribers-to-group
+
+        :param group_id: int Group ID
+        :param subscribers: list List of subscriber objects to import
+        :raises: :class: `TypeError` : `group_id` type is not valid
+        :raises: :class: `TypeError` : `subscribers` type is not valid
+        :return: JSON array
+        :rtype: dict
+        """
+
+        if not isinstance(group_id, int):
+            raise TypeError(
+                f"`group_id` type is not valid. Expected `int`, got {type(group_id)}."
+            )
+
+        if not isinstance(subscribers, list):
+            raise TypeError(
+                f"`subscribers` type is not valid. Expected `list`, got {type(subscribers)}."
+            )
+
+        return self.api_client.request(
+            "POST",
+            f"{self.base_api_url}/{group_id}/subscribers/import",
+            body={"subscribers": subscribers},
+        ).json()
+
     def get_group_subscribers(self, group_id, **kwargs):
         """
         Get subscribers belonging to a group
