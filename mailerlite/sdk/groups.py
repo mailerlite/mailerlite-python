@@ -111,7 +111,7 @@ class Groups(object):
 
         return True if response.status_code == 204 else False
 
-    def import_subscribers(self, group_id, subscribers):
+    def import_subscribers_to_group(self, group_id, subscribers):
         """
         Import bulk subscribers to a group
 

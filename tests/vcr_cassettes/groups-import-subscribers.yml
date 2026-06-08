@@ -1,0 +1,48 @@
+interactions:
+- request:
+    body: '{"subscribers": [{"email": "test@example.com", "name": "Test User"}]}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '69'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - MailerLite-Python-SDK-Client
+    method: POST
+    uri: https://connect.mailerlite.com/api/groups/165971156405323676/subscribers/import
+  response:
+    body:
+      string: '{"message":"Unauthenticated."}'
+    headers:
+      CF-RAY:
+      - a08656bc39a6278a-PRG
+      Cache-Control:
+      - no-cache, private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 08 Jun 2026 07:56:14 GMT
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+      access-control-allow-origin:
+      - '*'
+      alt-svc:
+      - h3=":443"; ma=86400
+      cf-cache-status:
+      - DYNAMIC
+      x-envoy-upstream-service-time:
+      - '22'
+    status:
+      code: 401
+      message: Unauthorized
+version: 1
