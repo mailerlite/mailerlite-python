@@ -4,6 +4,7 @@ import string
 
 import mailerlite as MailerLite
 import pytest
+import requests
 import vcr
 from dotenv import load_dotenv
 from pytest import fixture
@@ -124,10 +125,8 @@ class TestSegments:
 
         assert response is True
 
-        segment_id = 123123
-        response = self.client.segments.update(segment_id, name)
-
-        assert response is False
+        with pytest.raises(requests.HTTPError):
+            self.client.segments.update(123123, name)
 
     def test_given_incorrect_segment_id_when_calling_delete_then_type_error_is_returned(
         self,

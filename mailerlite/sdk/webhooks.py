@@ -124,8 +124,6 @@ class Webhooks(object):
                 f"`webhook_id` type is not valid. Expected `int`, got {type(webhook_id)}."
             )
 
-        response = self.api_client.request(
-            "DELETE", f"{self.base_api_url}/{webhook_id}"
-        )
+        self.api_client.request("DELETE", f"{self.base_api_url}/{webhook_id}")
 
-        return True if response.status_code == 204 else False
+        return True

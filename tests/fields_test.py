@@ -4,6 +4,7 @@ import string
 
 import mailerlite as MailerLite
 import pytest
+import requests
 import vcr
 from dotenv import load_dotenv
 from pytest import fixture
@@ -104,5 +105,5 @@ class TestFields:
         response = self.client.fields.delete(pytest.entity_id)
         assert response is True
 
-        response = self.client.fields.delete(121212)
-        assert response is False
+        with pytest.raises(requests.HTTPError):
+            self.client.fields.delete(121212)

@@ -91,4 +91,6 @@ class ApiClient(object):
             kwargs.update(allow_redirects=True)
         if HttpMethods.is_post(method) or HttpMethods.is_put(method):
             kwargs.update(data=json.dumps(body))
-        return requests.request(**kwargs)
+        response = requests.request(**kwargs)
+        response.raise_for_status()
+        return response

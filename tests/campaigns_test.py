@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 
 import mailerlite as MailerLite
 import pytest
+import requests
 import vcr
 from dotenv import load_dotenv
 from pytest import fixture
@@ -218,9 +219,8 @@ class TestCampaigns:
 
         assert response is True
 
-        response = self.client.campaigns.delete(121212)
-
-        assert response is False
+        with pytest.raises(requests.HTTPError):
+            self.client.campaigns.delete(121212)
 
     def test_given_incorrect_campaign_id_when_calling_activity_then_type_error_is_returned(
         self,

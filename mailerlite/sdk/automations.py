@@ -37,7 +37,6 @@ class Automations(object):
             else:
                 query_params[key] = val
 
-        print(query_params)
         return self.api_client.request("GET", self.base_api_url, query_params).json()
 
     def get(self, automation_id):
