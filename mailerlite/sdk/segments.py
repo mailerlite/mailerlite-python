@@ -119,8 +119,9 @@ class Segments(object):
         :param name: str Maximum length of 255 characters
         :raises: :class: `ValueError` : `name` cannot exceed 255 characters
         :raises: :class: `TypeError` : `segment_id` type is not valid
-        :return: JSON array
-        :rtype: dict
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. segment was not found
+        :return: `true` if action was successful
+        :rtype: bool
         """
 
         if not isinstance(segment_id, int):
@@ -131,14 +132,13 @@ class Segments(object):
         if len(name) > 255:
             raise ValueError("`name` cannot exceed 255 characters.")
 
-        params = locals()
         body_params = {"name": name}
 
-        response = self.api_client.request(
+        self.api_client.request(
             "PUT", f"{self.base_api_url}/{segment_id}", body=body_params
         )
 
-        return True if response.status_code == 200 else False
+        return True
 
     def delete(self, segment_id):
         """
@@ -149,7 +149,8 @@ class Segments(object):
 
         :param segment_id: int Segment ID
         :raises: :class: `TypeError` : `segment_id` type is not valid
-        :return: `true` if action was successful, `false` if form was not found
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. segment was not found
+        :return: `true` if action was successful
         :rtype: bool
         """
 
@@ -158,8 +159,6 @@ class Segments(object):
                 f"`segment_id` type is not valid. Expected `int`, got {type(segment_id)}."
             )
 
-        response = self.api_client.request(
-            "DELETE", f"{self.base_api_url}/{segment_id}"
-        )
+        self.api_client.request("DELETE", f"{self.base_api_url}/{segment_id}")
 
-        return True if response.status_code == 204 else False
+        return True

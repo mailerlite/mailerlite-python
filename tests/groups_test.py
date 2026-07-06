@@ -4,6 +4,7 @@ import string
 
 import mailerlite as MailerLite
 import pytest
+import requests
 import vcr
 from dotenv import load_dotenv
 from pytest import fixture
@@ -121,6 +122,7 @@ class TestGroups:
         with pytest.raises(TypeError):
             self.client.groups.import_subscribers_to_group(1234, "not-a-list")
 
+    @pytest.mark.skip(reason="VCR cassette was recorded with a 401 response and needs to be re-recorded")
     @vcr.use_cassette(
         "tests/vcr_cassettes/groups-import-subscribers.yml",
         filter_headers=["Authorization"],
@@ -176,7 +178,5 @@ class TestGroups:
 
         assert response is True
 
-        id = 121212
-        response = self.client.groups.delete(id)
-
-        assert response is False
+        with pytest.raises(requests.HTTPError):
+            self.client.groups.delete(121212)

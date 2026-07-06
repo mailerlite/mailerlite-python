@@ -18,6 +18,7 @@ For more information how to obtain an API key visit the [following link](https:/
   - [Installation](#installation)
   - [Usage](#usage)
     - [MailerLite Client](#mailerlite-client)
+    - [Error handling](#error-handling)
   - [Subscribers](#subscribers)
     - [List all subscribers](#list-all-subscribers)
     - [Create a subscriber](#create-a-subscriber)
@@ -107,6 +108,31 @@ client = MailerLite.Client({
   'api_version': '2038-01-19'
 })
 ```
+
+### Error handling
+
+API responses with a 4xx or 5xx status code raise a `requests.HTTPError` exception. The exception includes the full response, so you can inspect the status code and error body:
+
+```python
+import requests
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+try:
+    response = client.subscribers.get('some@email.com')
+except requests.HTTPError as e:
+    print(e.response.status_code)  # e.g. 404
+    print(e.response.json())       # error body from the API
+```
+
+Network-level failures (DNS errors, connection resets, timeouts) raise the standard `requests` exceptions such as `requests.ConnectionError` and `requests.Timeout`. Catch `requests.RequestException` to handle both HTTP and network errors with a single handler.
+
+**Note:** the batch endpoint (`client.batch.request()`) returns HTTP 200 even when individual sub-requests fail, so no exception is raised for them — check the per-request status codes in the returned body.
+
+**Upgrading from 0.1.x:** methods that previously returned `False` or a raw status code on failure now raise `requests.HTTPError` instead. In particular, `subscribers.delete()` and `subscribers.forget()` used to return `204`/`200` and now return `True` on success.
 
 ## Subscribers
 <a name="subscribers"></a>
