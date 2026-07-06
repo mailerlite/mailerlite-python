@@ -106,6 +106,6 @@ class Fields(object):
         :rtype: bool
         """
 
-        response = self.api_client.request("DELETE", f"{self.base_api_url}/{field_id}")
+        self.api_client.request("DELETE", f"{self.base_api_url}/{field_id}")
 
-        return True if response.status_code == 204 else False
+        return True

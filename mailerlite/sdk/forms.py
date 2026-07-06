@@ -134,6 +134,6 @@ class Forms(object):
                 f"`form_id` type is not valid. Expected `int`, got {type(form_id)}."
             )
 
-        response = self.api_client.request("DELETE", f"{self.base_api_url}/{form_id}")
+        self.api_client.request("DELETE", f"{self.base_api_url}/{form_id}")
 
-        return True if response.status_code == 204 else False
+        return True

@@ -3,6 +3,7 @@ import random
 import string
 
 import pytest
+import requests
 import vcr
 from dotenv import load_dotenv
 from pytest import fixture
@@ -269,10 +270,10 @@ class TestSubscribers:
         self,
     ):
         response = self.client.subscribers.delete(pytest.entity_id)
-        assert response == 204
+        assert response is True
 
-        response = self.client.subscribers.delete(123123)
-        assert response == 404
+        with pytest.raises(requests.HTTPError):
+            self.client.subscribers.delete(123123)
 
     @vcr.use_cassette(
         "tests/vcr_cassettes/subscribers-count.yml", filter_headers=["Authorization"]
@@ -297,4 +298,4 @@ class TestSubscribers:
 
         response = self.client.subscribers.forget(int(user["data"]["id"]))
 
-        assert response == 200
+        assert response is True

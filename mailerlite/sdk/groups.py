@@ -107,9 +107,9 @@ class Groups(object):
                 f"`group_id` type is not valid. Expected `int`, got {type(group_id)}."
             )
 
-        response = self.api_client.request("DELETE", f"{self.base_api_url}/{group_id}")
+        self.api_client.request("DELETE", f"{self.base_api_url}/{group_id}")
 
-        return True if response.status_code == 204 else False
+        return True
 
     def import_subscribers_to_group(self, group_id, subscribers):
         """

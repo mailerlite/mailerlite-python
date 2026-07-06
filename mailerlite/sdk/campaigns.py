@@ -153,11 +153,9 @@ class Campaigns(object):
                 f"`campaign_id` type is not valid. Expected `int`, got {type(campaign_id)}."
             )
 
-        response = self.api_client.request(
-            "DELETE", f"{self.base_api_url}/{campaign_id}"
-        )
+        self.api_client.request("DELETE", f"{self.base_api_url}/{campaign_id}")
 
-        return True if response.status_code == 204 else False
+        return True
 
     def activity(self, campaign_id):
         """

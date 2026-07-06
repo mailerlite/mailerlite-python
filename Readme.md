@@ -18,6 +18,7 @@ For more information how to obtain an API key visit the [following link](https:/
   - [Installation](#installation)
   - [Usage](#usage)
     - [MailerLite Client](#mailerlite-client)
+    - [Error handling](#error-handling)
   - [Subscribers](#subscribers)
     - [List all subscribers](#list-all-subscribers)
     - [Create a subscriber](#create-a-subscriber)
@@ -106,6 +107,25 @@ client = MailerLite.Client({
   'api_key': 'your-api-key',
   'api_version': '2038-01-19'
 })
+```
+
+### Error handling
+
+All unsuccessful API responses raise a `requests.HTTPError` exception. The exception includes the full response, so you can inspect the status code and error body:
+
+```python
+import requests
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+try:
+    response = client.subscribers.get('some@email.com')
+except requests.HTTPError as e:
+    print(e.response.status_code)  # e.g. 404
+    print(e.response.json())       # error body from the API
 ```
 
 ## Subscribers

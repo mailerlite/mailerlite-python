@@ -2,6 +2,7 @@ import os
 
 import mailerlite as MailerLite
 import pytest
+import requests
 import vcr
 from dotenv import load_dotenv
 from pytest import fixture
@@ -117,5 +118,5 @@ class TestWebhooks:
         response = self.client.webhooks.delete(int(pytest.entity_id))
         assert response is True
 
-        response = self.client.webhooks.delete(121212)
-        assert response is False
+        with pytest.raises(requests.HTTPError):
+            self.client.webhooks.delete(121212)

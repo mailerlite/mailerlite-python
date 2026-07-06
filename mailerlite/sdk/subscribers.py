@@ -185,11 +185,9 @@ class Subscribers(object):
                 f"`subscriber_id` type is not valid. Expected `int`, got {type(subscriber_id)}."
             )
 
-        response = self.api_client.request(
-            "DELETE", f"{self.base_api_url}/{subscriber_id}"
-        )
+        self.api_client.request("DELETE", f"{self.base_api_url}/{subscriber_id}")
 
-        return response.status_code
+        return True
 
     def get_import(self, import_id):
         """
@@ -267,11 +265,11 @@ class Subscribers(object):
                 f"`group_id` type is not valid. Expected `int`, got {type(group_id)}."
             )
 
-        response = self.api_client.request(
+        self.api_client.request(
             "DELETE", f"{self.base_api_url}/{subscriber_id}/groups/{group_id}"
         )
 
-        return True if response.status_code == 204 else False
+        return True
 
     def count(self):
         """
@@ -304,8 +302,6 @@ class Subscribers(object):
                 f"`subscriber_id` type is not valid. Expected `int`, got {type(subscriber_id)}."
             )
 
-        response = self.api_client.request(
-            "POST", f"{self.base_api_url}/{subscriber_id}/forget"
-        )
+        self.api_client.request("POST", f"{self.base_api_url}/{subscriber_id}/forget")
 
-        return response.status_code
+        return True
