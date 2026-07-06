@@ -176,7 +176,8 @@ class Subscribers(object):
 
         :param subscriber_id: int Susbscriber ID
         :raises: :class: `TypeError` : `subscriber_id` type is not valid
-        :return: `true` if action was successful, `false` if subscriber was not found
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. subscriber was not found
+        :return: `true` if action was successful
         :rtype: bool
         """
 
@@ -293,7 +294,8 @@ class Subscribers(object):
 
         :param subscriber_id: int Susbscriber ID
         :raises: :class: `TypeError` : `subscriber_id` type is not valid
-        :return: `true` if action was successful, `false` if subscriber was not found
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. subscriber was not found
+        :return: `true` if action was successful
         :rtype: bool
         """
 
