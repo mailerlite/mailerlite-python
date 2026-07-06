@@ -119,8 +119,9 @@ class Segments(object):
         :param name: str Maximum length of 255 characters
         :raises: :class: `ValueError` : `name` cannot exceed 255 characters
         :raises: :class: `TypeError` : `segment_id` type is not valid
-        :return: JSON array
-        :rtype: dict
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. segment was not found
+        :return: `true` if action was successful
+        :rtype: bool
         """
 
         if not isinstance(segment_id, int):
@@ -131,7 +132,6 @@ class Segments(object):
         if len(name) > 255:
             raise ValueError("`name` cannot exceed 255 characters.")
 
-        params = locals()
         body_params = {"name": name}
 
         self.api_client.request(
@@ -149,7 +149,8 @@ class Segments(object):
 
         :param segment_id: int Segment ID
         :raises: :class: `TypeError` : `segment_id` type is not valid
-        :return: `true` if action was successful, `false` if form was not found
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. segment was not found
+        :return: `true` if action was successful
         :rtype: bool
         """
 

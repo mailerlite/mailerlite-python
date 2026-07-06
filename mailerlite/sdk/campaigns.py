@@ -144,8 +144,10 @@ class Campaigns(object):
         Ref: https://developers.mailerlite.com/docs/campaigns.html#delete-a-campaign
 
         :param campaign_id: int Id of the campaign
-        :return: JSON array
-        :rtype: dict
+        :raises: :class: `TypeError` : `campaign_id` type is not valid
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. campaign was not found
+        :return: `true` if action was successful
+        :rtype: bool
         """
 
         if not isinstance(campaign_id, int):

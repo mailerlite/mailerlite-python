@@ -98,7 +98,8 @@ class Groups(object):
 
         :param group_id: int Group ID
         :raises: :class: `TypeError` : `group_id` type is not valid
-        :return: `true` if action was successful, `false` if form was not found
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. group was not found
+        :return: `true` if action was successful
         :rtype: bool
         """
 

@@ -115,7 +115,8 @@ class Webhooks(object):
 
         :param webhook_id: int Webhook URL
         :raises: :class: `TypeError` : `webhook_id` type is not valid
-        :return: `true` if action was successful, `false` if form was not found
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. webhook was not found
+        :return: `true` if action was successful
         :rtype: bool
         """
 

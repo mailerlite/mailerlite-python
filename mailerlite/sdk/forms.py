@@ -90,8 +90,8 @@ class Forms(object):
         :param form_id: int Form ID
         :param **kwargs: dict You can pass additional arguments - page, limit or to filter by status
         :raises: :class: `TypeError` : Got an unknown argument
-        :return: `true` if action was successful, `false` if field was not found
-        :rtype: bool
+        :return: JSON array
+        :rtype: dict
         """
 
         if not isinstance(form_id, int):
@@ -125,7 +125,8 @@ class Forms(object):
         Ref: https://developers.mailerlite.com/docs/forms.html#delete-a-form
 
         :param form_id: int Form ID
-        :return: `true` if action was successful, `false` if form was not found
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. form was not found
+        :return: `true` if action was successful
         :rtype: bool
         """
 

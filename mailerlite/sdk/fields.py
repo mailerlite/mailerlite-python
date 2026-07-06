@@ -102,7 +102,8 @@ class Fields(object):
         Ref: https://developers.mailerlite.com/docs/fields.html#update-a-field
 
         :param field_id: int Field ID.
-        :return: `true` if action was successful, `false` if field was not found
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. field was not found
+        :return: `true` if action was successful
         :rtype: bool
         """
 
