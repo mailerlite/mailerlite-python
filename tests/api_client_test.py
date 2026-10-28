@@ -67,3 +67,14 @@ class TestApiClient:
         )
         assert mock_api.last_request.headers["Authorization"] == "Bearer 1234567890"
         assert mock_api.last_body is None
+
+    def test_patch_request_sends_the_json_body(self, mock_api):
+        """Tests that a PATCH request sends the body as JSON"""
+
+        mock_api.add_response(200, {"data": {}})
+        client = ApiClient({})
+
+        client.request("PATCH", "api/emails/1/settings", body={"etag": "42"})
+
+        assert mock_api.last_request.method == "PATCH"
+        assert mock_api.last_body == {"etag": "42"}

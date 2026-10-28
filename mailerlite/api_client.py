@@ -13,10 +13,11 @@ class HttpMethods(object):
     GET: str = "get"
     POST: str = "post"
     PUT: str = "put"
+    PATCH: str = "patch"
     DELETE: str = "delete"
 
     # Allowed methods
-    ALLOWED: Tuple[str, ...] = (GET, POST, PUT, DELETE)
+    ALLOWED: Tuple[str, ...] = (GET, POST, PUT, PATCH, DELETE)
 
     @classmethod
     def _is_method(cls, method: str, target: str) -> bool:
@@ -26,6 +27,7 @@ class HttpMethods(object):
     is_get: partialmethod = partialmethod(_is_method, target=GET)
     is_post: partialmethod = partialmethod(_is_method, target=POST)
     is_put: partialmethod = partialmethod(_is_method, target=PUT)
+    is_patch: partialmethod = partialmethod(_is_method, target=PATCH)
     is_delete: partialmethod = partialmethod(_is_method, target=DELETE)
 
 
@@ -78,7 +80,9 @@ class ApiClient(object):
 
         method = method.lower()
         if method not in HttpMethods.ALLOWED:
-            raise ValueError("http method must be `POST`, `GET`, `PUT` or `DELETE`.")
+            raise ValueError(
+                "http method must be `POST`, `GET`, `PUT`, `PATCH` or `DELETE`."
+            )
 
         kwargs = {
             "method": method,
@@ -89,7 +93,11 @@ class ApiClient(object):
         }
         if HttpMethods.is_get(method):
             kwargs.update(allow_redirects=True)
-        if HttpMethods.is_post(method) or HttpMethods.is_put(method):
+        if (
+            HttpMethods.is_post(method)
+            or HttpMethods.is_put(method)
+            or HttpMethods.is_patch(method)
+        ):
             kwargs.update(data=json.dumps(body))
         response = requests.request(**kwargs)
         response.raise_for_status()
