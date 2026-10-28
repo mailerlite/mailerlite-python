@@ -3,6 +3,7 @@
 from __future__ import absolute_import
 
 from mailerlite.api_client import ApiClient
+from mailerlite.exceptions import ApiError  # noqa: F401
 from mailerlite.sdk.automations import Automations
 from mailerlite.sdk.batch import Batches
 

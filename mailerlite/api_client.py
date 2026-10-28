@@ -6,6 +6,8 @@ from urllib.parse import urljoin
 from functools import partialmethod
 from typing import Optional, Tuple
 
+from mailerlite.exceptions import ApiError
+
 
 class HttpMethods(object):
     """Allowed Http methods"""
@@ -102,5 +104,6 @@ class ApiClient(object):
         if HttpMethods.is_delete(method) and body is not None:
             kwargs.update(data=json.dumps(body))
         response = requests.request(**kwargs)
-        response.raise_for_status()
+        if 400 <= response.status_code < 600:
+            raise ApiError(response)
         return response

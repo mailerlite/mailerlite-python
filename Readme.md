@@ -111,10 +111,18 @@ client = MailerLite.Client({
 
 ### Error handling
 
-API responses with a 4xx or 5xx status code raise a `requests.HTTPError` exception. The exception includes the full response, so you can inspect the status code and error body:
+API responses with a 4xx or 5xx status code raise a `mailerlite.ApiError` exception. `ApiError` is a subclass of `requests.HTTPError`, so `except requests.HTTPError` continues to work. The exception has these attributes:
+
+- `status_code`: the HTTP status code.
+- `message`: the error message of the API.
+- `code`: a machine-readable error code, if the API sends one. For example, `version_conflict`.
+- `etag`: the current etag of the email, if the API sends one. The API sends it with `version_conflict`.
+- `errors`: the validation errors for each field, if the API sends them.
+- `response`: the full `requests.Response`.
+
+The attributes are `None` when the response does not have them.
 
 ```python
-import requests
 import mailerlite as MailerLite
 
 client = MailerLite.Client({
@@ -123,9 +131,11 @@ client = MailerLite.Client({
 
 try:
     response = client.subscribers.get('some@email.com')
-except requests.HTTPError as e:
-    print(e.response.status_code)  # e.g. 404
-    print(e.response.json())       # error body from the API
+except MailerLite.ApiError as e:
+    print(e.status_code)      # e.g. 404
+    print(e.message)          # error message from the API
+    print(e.errors)           # validation errors, if any
+    print(e.response.json())  # full error body from the API
 ```
 
 Network-level failures (DNS errors, connection resets, timeouts) raise the standard `requests` exceptions such as `requests.ConnectionError` and `requests.Timeout`. Catch `requests.RequestException` to handle both HTTP and network errors with a single handler.
