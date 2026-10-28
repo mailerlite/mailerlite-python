@@ -78,3 +78,25 @@ class TestApiClient:
 
         assert mock_api.last_request.method == "PATCH"
         assert mock_api.last_body == {"etag": "42"}
+
+    def test_delete_request_sends_the_json_body(self, mock_api):
+        """Tests that a DELETE request with a body sends the body as JSON"""
+
+        mock_api.add_response(200, {"etag": "43"})
+        client = ApiClient({})
+
+        client.request("DELETE", "api/emails/1/blocks/2", body={"etag": "42"})
+
+        assert mock_api.last_request.method == "DELETE"
+        assert mock_api.last_body == {"etag": "42"}
+
+    def test_delete_request_without_a_body_sends_no_body(self, mock_api):
+        """Tests that a DELETE request without a body sends no body"""
+
+        mock_api.add_response(204)
+        client = ApiClient({})
+
+        client.request("DELETE", "api/groups/1")
+
+        assert mock_api.last_request.method == "DELETE"
+        assert mock_api.last_request.body is None

@@ -99,6 +99,8 @@ class ApiClient(object):
             or HttpMethods.is_patch(method)
         ):
             kwargs.update(data=json.dumps(body))
+        if HttpMethods.is_delete(method) and body is not None:
+            kwargs.update(data=json.dumps(body))
         response = requests.request(**kwargs)
         response.raise_for_status()
         return response
