@@ -10,6 +10,9 @@ _ID_PATTERN = re.compile(r"[0-9]+")
 # The error code of a write with an etag that is not the current etag of the email
 VERSION_CONFLICT = "version_conflict"
 
+# The value of `editor` in the emails of `campaigns.create()` for the simple editor
+EDITOR_SIMPLE = "simple"
+
 
 class BlockType(object):
     """Block types. The API can also return types that are not in this list."""

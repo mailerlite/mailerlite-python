@@ -17,6 +17,7 @@ from mailerlite.sdk.brand_styles import BrandStyles
 # import all api files into api package
 from mailerlite.sdk.campaigns import Campaigns
 from mailerlite.sdk.emails import (  # noqa: F401
+    EDITOR_SIMPLE,
     VERSION_CONFLICT,
     BlockPosition,
     BlockType,

@@ -54,6 +54,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [List all campaigns](#list-all-campaigns)
     - [Get a campaign](#get-a-campaign)
     - [Create a campaign](#create-a-campaign)
+    - [Create a simple editor campaign](#create-a-simple-editor-campaign)
     - [Update a campaign](#update-a-campaign)
     - [Schedule a campaign](#schedule-a-campaign)
     - [Cancel a campaign](#cancel-a-campaign)
@@ -616,6 +617,38 @@ params = {
 }
 
 response = client.campaigns.create(params)
+```
+
+### Create a simple editor campaign
+<a name="create-a-simple-editor-campaign"></a>
+
+To build the email with the simple editor, set `editor` to `MailerLite.EDITOR_SIMPLE`, and do not send `content`. Then edit the email with [the email methods](#emails).
+
+- `template_id` is optional. It is a shared template of the simple editor that the email starts from. It needs `editor`.
+- All emails of a campaign must have the same `editor` and `template_id`.
+- Only `create` accepts `editor` and `template_id`. `update` does not.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+params = {
+    "name": "Test Campaign",
+    "type": "regular",
+    "emails": [{
+        "subject": "This is a test campaign",
+        "from_name": "Test Man",
+        "from": "testuser@mailerlite.com",
+        "editor": MailerLite.EDITOR_SIMPLE,
+    }]
+}
+
+response = client.campaigns.create(params)
+
+email_id = response['data']['emails'][0]['id']
 ```
 
 ### Update a campaign
