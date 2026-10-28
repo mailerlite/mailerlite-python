@@ -439,3 +439,37 @@ class TestEmails:
         assert BrandMode.TEMPLATE == "template"
         assert BrandMode.CUSTOM == "custom"
         assert mailerlite.BrandMode is BrandMode
+
+    def test_validate_settings_sends_the_settings_without_an_etag(
+        self, client, mock_api
+    ):
+        mock_api.add_response(200, load_fixture("email_settings_validation.json"))
+
+        response = client.emails.validate_settings("123", {"layout": {"width": "700"}})
+
+        assert mock_api.last_request.method == "POST"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/settings/validate"
+        assert mock_api.last_body == {"layout": {"width": "700"}}
+        assert response.status_code == 200
+        assert response["valid"] is False
+        assert response["errors"] == {
+            "layout.width": ["The layout.width field cannot be changed."]
+        }
+        assert response["schema"]["version"] == "2.73.2"
+        assert response["rejected"]["keys"] == ["footer.social_links[0].url"]
+
+    @pytest.mark.parametrize(
+        "email_id, settings, error",
+        [
+            (None, {}, EmptyIdError),
+            ("1.5", {}, InvalidIdError),
+            ("123", [], TypeError),
+        ],
+    )
+    def test_validate_settings_rejects_invalid_arguments(
+        self, client, mock_api, email_id, settings, error
+    ):
+        with pytest.raises(error):
+            client.emails.validate_settings(email_id, settings)
+
+        assert mock_api.requests == []

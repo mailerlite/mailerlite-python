@@ -69,6 +69,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Move a block](#move-a-block)
     - [Validate a block](#validate-a-block)
     - [Update the design settings](#update-the-design-settings)
+    - [Validate the design settings](#validate-the-design-settings)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -922,6 +923,28 @@ response = client.emails.update_settings(email_id, etag, {
 etag = response['etag']
 if response.get('rejected'):
     print(response['rejected']['keys'])
+```
+
+### Validate the design settings
+<a name="validate-the-design-settings"></a>
+
+Checks a change with the rules of the update, and saves nothing. It needs no etag. Invalid settings do not raise an error: the response has `valid` set to `False` and the `errors` for each field.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.validate_settings(email_id, {
+    'button': {'border_radius': '8'},
+})
+
+if not response['valid']:
+    print(response['errors'])
 ```
 
 ## Forms

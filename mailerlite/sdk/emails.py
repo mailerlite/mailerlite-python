@@ -311,6 +311,35 @@ class Emails(object):
             )
         )
 
+    def validate_settings(self, email_id, settings):
+        """
+        Validate a change to the design settings of an email
+
+        Checks the settings with the rules of `update_settings()` and saves nothing.
+        It needs no etag. Invalid settings are not an error: the response has
+        `valid` set to false and the `errors`.
+
+        :param email_id: str|int Email ID
+        :param settings: dict The settings that you want to send to `update_settings()`
+        :raises: :class: `TypeError` : an argument type is not valid
+        :raises: :class: `EmptyIdError` : `email_id` is empty
+        :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
+        :raises: :class: `ApiError` : API request failed
+        :return: JSON object with `valid`, `errors`, `schema` and maybe `rejected`
+        :rtype: ApiResponse
+        """
+
+        email_id = _path_id(email_id, "email_id")
+        _require_dict(settings, "settings")
+
+        return ApiResponse(
+            self.api_client.request(
+                "POST",
+                f"{self.base_api_url}/{email_id}/settings/validate",
+                body=settings,
+            )
+        )
+
 
 def _path_id(value, name):
     """Returns the ID as a string for the URL path, or raises if it is not valid"""
