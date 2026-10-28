@@ -1,6 +1,6 @@
 [project]
 name = "mailerlite"
-version = "0.2.0"
+version = "0.3.0"
 description = "The official MailerLite Python SDK"
 authors = [{name = "MailerLite", email = "tech@mailerlite.com"}]
 requires-python = ">=3.10"
