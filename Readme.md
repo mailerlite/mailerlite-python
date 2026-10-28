@@ -67,6 +67,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Update a block](#update-a-block)
     - [Delete a block](#delete-a-block)
     - [Move a block](#move-a-block)
+    - [Validate a block](#validate-a-block)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -868,6 +869,27 @@ response = client.emails.move_block(
 )
 
 etag = response['etag']
+```
+
+### Validate a block
+<a name="validate-a-block"></a>
+
+Checks a block before you insert it. It needs no email and no etag. An invalid block does not raise an error: the response has `valid` set to `False` and the `errors` for each field.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+response = client.emails.validate_block(
+    MailerLite.BlockType.BUTTON,
+    {'attrs': {'href': 'https://example.com'}, 'content': [{'type': 'text', 'text': 'Buy now'}]},
+)
+
+if not response['valid']:
+    print(response['errors'])
 ```
 
 ## Forms

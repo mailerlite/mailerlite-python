@@ -336,3 +336,43 @@ class TestEmails:
             client.emails.move_block("123", block_id, etag, placement)
 
         assert mock_api.requests == []
+
+    def test_validate_block_sends_the_block_without_an_etag(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email_block_validation_valid.json"))
+
+        response = client.emails.validate_block(
+            BlockType.HEADING,
+            {"attrs": {"level": 2}},
+            placement={"position": BlockPosition.END},
+        )
+
+        assert mock_api.last_request.method == "POST"
+        assert mock_api.last_request.url == f"{BASE_URL}/blocks/validate"
+        assert mock_api.last_body == {
+            "type": "heading",
+            "editor_content": {"attrs": {"level": 2}},
+            "placement": {"position": "end"},
+        }
+        assert response["valid"] is True
+        assert response["errors"] == {}
+        assert response["schema"] == {"version": "2.73.2", "hash": "0f3a9c"}
+
+    def test_validate_block_returns_the_errors_of_an_invalid_block(
+        self, client, mock_api
+    ):
+        mock_api.add_response(200, load_fixture("email_block_validation_invalid.json"))
+
+        response = client.emails.validate_block("table", {})
+
+        assert mock_api.last_body == {"type": "table", "editor_content": {}}
+        assert response.status_code == 200
+        assert response["valid"] is False
+        assert response["errors"] == {"type": ["The selected type is invalid."]}
+
+    def test_validate_block_rejects_editor_content_of_the_wrong_type(
+        self, client, mock_api
+    ):
+        with pytest.raises(TypeError):
+            client.emails.validate_block(BlockType.HEADING, [])
+
+        assert mock_api.requests == []

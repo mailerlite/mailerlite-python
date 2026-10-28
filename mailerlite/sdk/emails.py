@@ -245,6 +245,30 @@ class Emails(object):
             )
         )
 
+    def validate_block(self, block_type, editor_content, placement=None):
+        """
+        Validate a block
+
+        Checks a block without an email and without an etag. An invalid block
+        is not an error: the response has `valid` set to false and the `errors`.
+
+        :param block_type: str Block type, see `BlockType`
+        :param editor_content: dict The content of the block
+        :param placement: dict Optional. `{"position": ..., "block_id": ...}`
+        :raises: :class: `TypeError` : an argument type is not valid
+        :raises: :class: `ApiError` : API request failed
+        :return: JSON object with `valid`, `errors` and `schema`
+        :rtype: ApiResponse
+        """
+
+        body = _block_body(block_type, editor_content, placement)
+
+        return ApiResponse(
+            self.api_client.request(
+                "POST", f"{self.base_api_url}/blocks/validate", body=body
+            )
+        )
+
 
 def _path_id(value, name):
     """Returns the ID as a string for the URL path, or raises if it is not valid"""
