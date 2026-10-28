@@ -128,6 +128,11 @@ class Automations(object):
                 f"`automation_id` type is not valid. Expected `int`, got {type(automation_id)}."
             )
 
+        if not isinstance(email_id, int):
+            raise TypeError(
+                f"`email_id` type is not valid. Expected `int`, got {type(email_id)}."
+            )
+
         query_params = {}
         for key, val in kwargs.items():
             if key not in ["shop_id", "start_date", "end_date"]:

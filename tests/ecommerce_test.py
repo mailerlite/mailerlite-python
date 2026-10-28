@@ -303,6 +303,15 @@ REQUESTS = [
         [{"email": "a@b.test"}],
     ),
     (
+        lambda c: c.ecommerce_imports.orders(
+            1, [{"customer": {"email": "a@b.test"}, "cart": {"items": []}}]
+        ),
+        "post",
+        f"{SHOP}/orders/import",
+        None,
+        {"orders": [{"customer": {"email": "a@b.test"}, "cart": {"items": []}}]},
+    ),
+    (
         lambda c: c.campaigns.ecommerce_stats(2, 1),
         "get",
         f"{API}/campaigns/2/reports/ecommerce",
@@ -376,6 +385,10 @@ class TestEcommerce:
     def test_rejects_a_non_integer_id(self):
         with pytest.raises(TypeError):
             self.client.ecommerce_products.get(1, "7")
+
+    def test_rejects_a_non_integer_email_id(self):
+        with pytest.raises(TypeError):
+            self.client.automations.email_ecommerce_stats(8, "9")
 
     def test_rejects_an_unknown_list_argument(self):
         with pytest.raises(TypeError):
