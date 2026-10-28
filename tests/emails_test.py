@@ -76,3 +76,22 @@ class TestEmails:
     def test_id_errors_are_value_errors(self):
         assert issubclass(EmptyIdError, ValueError)
         assert issubclass(InvalidIdError, ValueError)
+
+    def test_get_html_returns_the_html(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email_html.json"))
+
+        response = client.emails.get_html("123")
+
+        assert mock_api.last_request.method == "GET"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/html"
+        assert mock_api.last_body is None
+        assert response["data"]["html"] == (
+            "<!doctype html><html><body><p>Hello</p></body></html>"
+        )
+        assert response["etag"] == "42"
+
+    def test_get_html_rejects_an_invalid_id(self, client, mock_api):
+        with pytest.raises(InvalidIdError):
+            client.emails.get_html("123/blocks")
+
+        assert mock_api.requests == []

@@ -43,6 +43,28 @@ class Emails(object):
             self.api_client.request("GET", f"{self.base_api_url}/{email_id}")
         )
 
+    def get_html(self, email_id):
+        """
+        Get the HTML of an email
+
+        Returns the HTML that the email sends, and the etag of the email.
+        The API can return a temporary `503` error.
+
+        :param email_id: str|int Email ID
+        :raises: :class: `TypeError` : `email_id` type is not valid
+        :raises: :class: `EmptyIdError` : `email_id` is empty
+        :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
+        :raises: :class: `ApiError` : API request failed, e.g. email was not found
+        :return: JSON object
+        :rtype: ApiResponse
+        """
+
+        email_id = _path_id(email_id, "email_id")
+
+        return ApiResponse(
+            self.api_client.request("GET", f"{self.base_api_url}/{email_id}/html")
+        )
+
 
 def _path_id(value, name):
     """Returns the ID as a string for the URL path, or raises if it is not valid"""

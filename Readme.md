@@ -61,6 +61,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Get subscribers activity for a campaign](#get-subscribers-activity-for-a-campaign)
   - [Emails](#emails)
     - [Get an email](#get-an-email)
+    - [Get the HTML of an email](#get-the-html-of-an-email)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -720,6 +721,25 @@ response = client.emails.get(email_id)
 
 email = response['data']
 etag = response['etag']
+```
+
+### Get the HTML of an email
+<a name="get-the-html-of-an-email"></a>
+
+Returns the HTML that the email sends. The API can return a temporary `503` error. If it does, try again later.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.get_html(email_id)
+
+html = response['data']['html']
 ```
 
 ## Forms
