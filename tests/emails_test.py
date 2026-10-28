@@ -247,3 +247,33 @@ class TestEmails:
         assert mailerlite.BlockType is BlockType
         assert mailerlite.BlockPosition is BlockPosition
         assert mailerlite.VERSION_CONFLICT == VERSION_CONFLICT
+
+    def test_update_block_replaces_the_editor_content(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email_block_updated.json"))
+        editor_content = {"content": [{"text": "Hello again", "type": "text"}]}
+
+        response = client.emails.update_block("123", "57", "43", editor_content)
+
+        assert mock_api.last_request.method == "PATCH"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/blocks/57"
+        assert mock_api.last_body == {"editor_content": editor_content, "etag": "43"}
+        assert response["etag"] == "44"
+        assert response["data"]["editor_content"] == editor_content
+        assert response["data"]["placement"] == {"after": "56", "before": "58"}
+
+    @pytest.mark.parametrize(
+        "block_id, etag, editor_content, error",
+        [
+            ("", "43", {}, EmptyIdError),
+            ("57/move", "43", {}, InvalidIdError),
+            ("57", "", {}, EmptyEtagError),
+            ("57", "43", None, TypeError),
+        ],
+    )
+    def test_update_block_rejects_invalid_arguments(
+        self, client, mock_api, block_id, etag, editor_content, error
+    ):
+        with pytest.raises(error):
+            client.emails.update_block("123", block_id, etag, editor_content)
+
+        assert mock_api.requests == []

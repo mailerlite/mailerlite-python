@@ -64,6 +64,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Get the HTML of an email](#get-the-html-of-an-email)
     - [Get a block](#get-a-block)
     - [Insert a block](#insert-a-block)
+    - [Update a block](#update-a-block)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -791,6 +792,32 @@ response = client.emails.create_block(
 )
 
 block_id = response['data']['id']
+etag = response['etag']
+```
+
+### Update a block
+<a name="update-a-block"></a>
+
+The new `editor_content` replaces the whole content of the block. The API removes the keys that you do not send.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+block_id = '57'
+etag = 'etag-from-the-last-response'
+
+response = client.emails.update_block(
+    email_id,
+    block_id,
+    etag,
+    {'attrs': {'textAlign': 'center'}, 'content': [{'type': 'text', 'text': 'Hello again'}]},
+)
+
 etag = response['etag']
 ```
 
