@@ -537,3 +537,26 @@ class TestEmails:
             client.emails.list_versions("123/blocks")
 
         assert mock_api.requests == []
+
+    @pytest.mark.parametrize("status_code", [201, 200])
+    def test_create_version_returns_the_version(self, client, mock_api, status_code):
+        mock_api.add_response(status_code, load_fixture("email_version.json"))
+
+        response = client.emails.create_version("123")
+
+        assert mock_api.last_request.method == "POST"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/versions"
+        assert mock_api.last_body is None
+        assert response.status_code == status_code
+        assert response["data"] == {
+            "id": "903",
+            "created_at": "2026-10-28 12:10:00",
+            "current": True,
+        }
+        assert "etag" not in response
+
+    def test_create_version_rejects_an_empty_id(self, client, mock_api):
+        with pytest.raises(EmptyIdError):
+            client.emails.create_version("")
+
+        assert mock_api.requests == []

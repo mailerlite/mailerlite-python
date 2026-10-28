@@ -72,6 +72,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Validate the design settings](#validate-the-design-settings)
     - [Save an email as a template](#save-an-email-as-a-template)
     - [List the versions of an email](#list-the-versions-of-an-email)
+    - [Save a version of an email](#save-a-version-of-an-email)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -983,6 +984,26 @@ client = MailerLite.Client({
 email_id = '123456'
 
 response = client.emails.list_versions(email_id, page=1, limit=10)
+```
+
+### Save a version of an email
+<a name="save-a-version-of-an-email"></a>
+
+Writes through the API do not save versions. If nothing changed after the last version, the API saves no new version and returns the last version. `response.status_code` is `201` for a new version and `200` for the last version.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.create_version(email_id)
+
+version_id = response['data']['id']
+is_new = response.status_code == 201
 ```
 
 ## Forms

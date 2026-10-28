@@ -396,6 +396,30 @@ class Emails(object):
             )
         )
 
+    def create_version(self, email_id):
+        """
+        Save a version of an email
+
+        Saves the content and the settings of the email as they are now.
+        If nothing changed after the last version, the API saves no new version
+        and returns the last version. The status code is `201` for a new version
+        and `200` for the last version. Both are a success.
+
+        :param email_id: str|int Email ID
+        :raises: :class: `TypeError` : `email_id` type is not valid
+        :raises: :class: `EmptyIdError` : `email_id` is empty
+        :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
+        :raises: :class: `ApiError` : API request failed
+        :return: JSON object
+        :rtype: ApiResponse
+        """
+
+        email_id = _path_id(email_id, "email_id")
+
+        return ApiResponse(
+            self.api_client.request("POST", f"{self.base_api_url}/{email_id}/versions")
+        )
+
 
 def _path_id(value, name):
     """Returns the ID as a string for the URL path, or raises if it is not valid"""
