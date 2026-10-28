@@ -12,6 +12,7 @@ from mailerlite.exceptions import (  # noqa: F401
 from mailerlite.response import ApiResponse  # noqa: F401
 from mailerlite.sdk.automations import Automations
 from mailerlite.sdk.batch import Batches
+from mailerlite.sdk.brand_styles import BrandStyles
 
 # import all api files into api package
 from mailerlite.sdk.campaigns import Campaigns
@@ -44,6 +45,7 @@ class Client(object):
         self.forms = Forms(self.api_client)
         self.campaigns = Campaigns(self.api_client)
         self.emails = Emails(self.api_client)
+        self.brand_styles = BrandStyles(self.api_client)
         self.timezones = Timezones(self.api_client)
         self.webhooks = Webhooks(self.api_client)
         self.automations = Automations(self.api_client)
