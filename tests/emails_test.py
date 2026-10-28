@@ -277,3 +277,30 @@ class TestEmails:
             client.emails.update_block("123", block_id, etag, editor_content)
 
         assert mock_api.requests == []
+
+    def test_delete_block_sends_the_etag_in_the_body(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email_etag.json"))
+
+        response = client.emails.delete_block("123", "57", "44")
+
+        assert mock_api.last_request.method == "DELETE"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/blocks/57"
+        assert mock_api.last_body == {"etag": "44"}
+        assert response == {"etag": "45"}
+        assert response.status_code == 200
+
+    @pytest.mark.parametrize(
+        "block_id, etag, error",
+        [
+            (None, "44", EmptyIdError),
+            ("57%2F", "44", InvalidIdError),
+            ("57", None, EmptyEtagError),
+        ],
+    )
+    def test_delete_block_rejects_invalid_arguments(
+        self, client, mock_api, block_id, etag, error
+    ):
+        with pytest.raises(error):
+            client.emails.delete_block("123", block_id, etag)
+
+        assert mock_api.requests == []

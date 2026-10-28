@@ -184,6 +184,35 @@ class Emails(object):
             )
         )
 
+    def delete_block(self, email_id, block_id, etag):
+        """
+        Delete a block of an email
+
+        Also deletes the blocks in it. Returns the new etag of the email,
+        so it returns the response and not `True` like the other deletes.
+
+        :param email_id: str|int Email ID
+        :param block_id: str|int Block ID
+        :param etag: str The etag from the last response for this email
+        :raises: :class: `TypeError` : an argument type is not valid
+        :raises: :class: `EmptyIdError` : `email_id` or `block_id` is empty
+        :raises: :class: `InvalidIdError` : an ID does not contain only digits
+        :raises: :class: `EmptyEtagError` : `etag` is empty
+        :raises: :class: `ApiError` : API request failed, e.g. the etag is old
+        :return: JSON object with only the new etag
+        :rtype: ApiResponse
+        """
+
+        email_id = _path_id(email_id, "email_id")
+        block_id = _path_id(block_id, "block_id")
+        body = {"etag": _etag(etag)}
+
+        return ApiResponse(
+            self.api_client.request(
+                "DELETE", f"{self.base_api_url}/{email_id}/blocks/{block_id}", body=body
+            )
+        )
+
 
 def _path_id(value, name):
     """Returns the ID as a string for the URL path, or raises if it is not valid"""

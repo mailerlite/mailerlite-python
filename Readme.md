@@ -65,6 +65,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Get a block](#get-a-block)
     - [Insert a block](#insert-a-block)
     - [Update a block](#update-a-block)
+    - [Delete a block](#delete-a-block)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -817,6 +818,27 @@ response = client.emails.update_block(
     etag,
     {'attrs': {'textAlign': 'center'}, 'content': [{'type': 'text', 'text': 'Hello again'}]},
 )
+
+etag = response['etag']
+```
+
+### Delete a block
+<a name="delete-a-block"></a>
+
+Also deletes the blocks in it. The response has only the new etag.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+block_id = '57'
+etag = 'etag-from-the-last-response'
+
+response = client.emails.delete_block(email_id, block_id, etag)
 
 etag = response['etag']
 ```
