@@ -192,3 +192,54 @@ class Campaigns(object):
         """
 
         return self.api_client.request("GET", f"{self.base_api_url}/languages").json()
+
+    def ecommerce_stats(self, campaign_id, shop_id):
+        """
+        Get the orders and revenue a campaign earned in one shop
+        Ref: https://developers.mailerlite.com/docs/ecommerce/shops
+
+        :param campaign_id: int Campaign ID
+        :param shop_id: int Shop ID
+        :return: JSON array
+        :rtype: dict
+        """
+
+        if not isinstance(campaign_id, int):
+            raise TypeError(
+                f"`campaign_id` type is not valid. Expected `int`, got {type(campaign_id)}."
+            )
+
+        return self.api_client.request(
+            "GET",
+            f"{self.base_api_url}/{campaign_id}/reports/ecommerce",
+            {"shop_id": shop_id},
+        ).json()
+
+    def ecommerce_orders(self, campaign_id, shop_id, **kwargs):
+        """
+        List the orders a campaign has in one shop
+        Ref: https://developers.mailerlite.com/docs/ecommerce/shops
+
+        :param campaign_id: int Campaign ID
+        :param shop_id: int Shop ID
+        :param **kwargs: You can pass additional arguments - page or limit
+        :return: JSON array
+        :rtype: dict
+        """
+
+        if not isinstance(campaign_id, int):
+            raise TypeError(
+                f"`campaign_id` type is not valid. Expected `int`, got {type(campaign_id)}."
+            )
+
+        query_params = {"shop_id": shop_id}
+        for key, val in kwargs.items():
+            if key not in ["page", "limit"]:
+                raise TypeError("Got an unknown argument '%s'" % key)
+            query_params[key] = val
+
+        return self.api_client.request(
+            "GET",
+            f"{self.base_api_url}/{campaign_id}/reports/ecommerce/orders",
+            query_params,
+        ).json()

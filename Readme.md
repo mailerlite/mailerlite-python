@@ -77,6 +77,13 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Get a list of timezones](#get-a-list-of-timezones)
   - [Campaign languages](#campaign-languages)
     - [Get a list of languages](#get-a-list-of-languages)
+  - [E-commerce](#e-commerce)
+    - [Shops](#shops)
+    - [Products and variants](#products-and-variants)
+    - [Categories](#categories)
+    - [Customers, orders and carts](#customers-orders-and-carts)
+    - [Imports](#imports)
+    - [Revenue reports and settings](#revenue-reports-and-settings)
 
 ## Installation
 <a name="installation"></a>
@@ -900,4 +907,114 @@ client = MailerLite.Client({
 })
 
 response = client.campaigns.languages()
+```
+
+## E-commerce
+<a name="e-commerce"></a>
+
+Every e-commerce call takes the shop ID first. The examples below assume:
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+```
+
+### Shops
+<a name="shops"></a>
+
+```python
+client.ecommerce_shops.list(limit=25)
+client.ecommerce_shops.get(1234)
+client.ecommerce_shops.create('My shop', 'https://shop.example.com', 'EUR')
+client.ecommerce_shops.update(1234, name='New name')
+client.ecommerce_shops.delete(1234)
+```
+
+### Products and variants
+<a name="products-and-variants"></a>
+
+```python
+client.ecommerce_products.list(1234, filter={'enabled': True}, sort='-created_at')
+client.ecommerce_products.get(1234, 5678)
+client.ecommerce_products.create(1234, 'Red T-shirt', price=19.99)
+client.ecommerce_products.update(1234, 5678, price=24.99)
+client.ecommerce_products.delete(1234, 5678)
+client.ecommerce_products.change_status(1234, 5678, False)
+client.ecommerce_products.assign_categories(1234, 5678, [91], replace=True)
+
+client.ecommerce_product_variants.list(1234, 5678)
+client.ecommerce_product_variants.sync(1234, 5678, [{'name': 'Large', 'attributes': {'size': 'L'}, 'resource_id': 'variant-l'}])
+client.ecommerce_product_variants.update(1234, 5678, 42, 'Extra large', {'size': 'XL'})
+client.ecommerce_product_variants.delete(1234, 5678, 42)
+```
+
+### Categories
+<a name="categories"></a>
+
+```python
+client.ecommerce_categories.list(1234)
+client.ecommerce_categories.get(1234, 91)
+client.ecommerce_categories.create(1234, 'Hats')
+client.ecommerce_categories.update(1234, 91, name='Caps')
+client.ecommerce_categories.delete(1234, 91)
+client.ecommerce_categories.products(1234, 91)
+client.ecommerce_categories.assign_product(1234, 91, 5678)
+client.ecommerce_categories.unassign_product(1234, 91, 5678)
+```
+
+### Customers, orders and carts
+<a name="customers-orders-and-carts"></a>
+
+```python
+client.ecommerce_customers.list(1234, filter={'email': 'customer@example.com'})
+client.ecommerce_customers.create(1234, 'customer@example.com', create_subscriber=True)
+client.ecommerce_customers.update(1234, 77, name='Jane')
+client.ecommerce_customers.delete(1234, 77)
+
+client.ecommerce_orders.list(1234, filter={'attributed': True, 'email_id': 555})
+client.ecommerce_orders.create(
+    1234,
+    {'email': 'customer@example.com'},
+    {'items': [{'ecommerce_product_id': 5678, 'quantity': 1, 'price': 19.99}]},
+    status='complete',
+)
+client.ecommerce_orders.update(1234, 99, status='complete')
+client.ecommerce_orders.delete(1234, 99)
+
+client.ecommerce_carts.list(1234)
+client.ecommerce_carts.update(1234, 33, checkout_url='https://shop.example.com/cart')
+client.ecommerce_cart_items.list(1234, 33)
+client.ecommerce_cart_items.update(1234, 33, 8, quantity=2)
+client.ecommerce_cart_items.delete(1234, 33, 8)
+```
+
+### Imports
+<a name="imports"></a>
+
+```python
+client.ecommerce_imports.products(1234, [{'name': 'Red T-shirt', 'price': 19.99}])
+client.ecommerce_imports.categories(1234, [{'name': 'Hats'}])
+client.ecommerce_imports.customers(1234, [{'email': 'customer@example.com'}])
+```
+
+### Revenue reports and settings
+<a name="revenue-reports-and-settings"></a>
+
+```python
+client.ecommerce_shops.stats(1234, '2026-10-01', '2026-10-31')
+
+client.campaigns.ecommerce_stats(1111, 1234)
+client.campaigns.ecommerce_orders(1111, 1234)
+
+client.subscribers.ecommerce_stats(2222, 1234)
+client.subscribers.ecommerce_orders(2222, 1234)
+
+client.automations.ecommerce_stats(3333)
+client.automations.email_ecommerce_stats(3333, 4444)
+client.automations.ecommerce_orders(3333, 'all_time')
+
+client.ecommerce_settings.get()
 ```
