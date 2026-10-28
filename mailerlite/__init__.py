@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from mailerlite.api_client import ApiClient
 from mailerlite.exceptions import (  # noqa: F401
     ApiError,
+    EmptyEtagError,
     EmptyIdError,
     InvalidIdError,
 )
@@ -14,7 +15,12 @@ from mailerlite.sdk.batch import Batches
 
 # import all api files into api package
 from mailerlite.sdk.campaigns import Campaigns
-from mailerlite.sdk.emails import Emails
+from mailerlite.sdk.emails import (  # noqa: F401
+    VERSION_CONFLICT,
+    BlockPosition,
+    BlockType,
+    Emails,
+)
 from mailerlite.sdk.fields import Fields
 from mailerlite.sdk.forms import Forms
 from mailerlite.sdk.groups import Groups

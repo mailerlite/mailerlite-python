@@ -63,6 +63,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Get an email](#get-an-email)
     - [Get the HTML of an email](#get-the-html-of-an-email)
     - [Get a block](#get-a-block)
+    - [Insert a block](#insert-a-block)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -703,6 +704,9 @@ These methods edit emails built with the simple editor. To create such an email,
 
 - IDs are strings of digits. You can also give them as `int`. An empty ID raises `mailerlite.EmptyIdError`, and an ID that does not contain only digits raises `mailerlite.InvalidIdError`. The SDK sends no request in these cases.
 - The methods return a `mailerlite.ApiResponse`. It is a `dict` with the response body, and it also has `status_code` and `headers`.
+- Each write needs the etag from the last response for the email, and returns a new etag. The etag covers the whole email, so send the writes to one email one after another. An empty etag raises `mailerlite.EmptyEtagError`, and the SDK sends no request.
+- If the email changed after you read it, the write raises `mailerlite.ApiError` with `code` equal to `mailerlite.VERSION_CONFLICT`. Its `etag` is the current etag. Get the email again, and then repeat the write with the current etag.
+- The keys of `editor_content` are camelCase, for example `textAlign`. The SDK sends them as you give them.
 
 ### Get an email
 <a name="get-an-email"></a>
@@ -761,6 +765,33 @@ block_id = '57'
 response = client.emails.get_block(email_id, block_id)
 
 block = response['data']
+```
+
+### Insert a block
+<a name="insert-a-block"></a>
+
+Use the block types in `MailerLite.BlockType`. `editor_content` can be empty. Without `placement`, the API puts the block at the end of the email. The `before` and `after` positions also need a `block_id`.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+etag = client.emails.get(email_id)['etag']
+
+response = client.emails.create_block(
+    email_id,
+    etag,
+    MailerLite.BlockType.PARAGRAPH,
+    {'attrs': {'textAlign': 'left'}, 'content': [{'type': 'text', 'text': 'Hello'}]},
+    placement={'position': MailerLite.BlockPosition.START},
+)
+
+block_id = response['data']['id']
+etag = response['etag']
 ```
 
 ## Forms

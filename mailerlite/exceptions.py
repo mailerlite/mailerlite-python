@@ -47,3 +47,7 @@ class EmptyIdError(ValueError):
 
 class InvalidIdError(ValueError):
     """An ID for the URL path does not contain only digits. The SDK sends no request."""
+
+
+class EmptyEtagError(ValueError):
+    """The etag of a write is empty. The SDK sends no request."""

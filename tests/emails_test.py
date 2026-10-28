@@ -1,7 +1,9 @@
 import pytest
+import mailerlite
 from mailerlite import Client
-from mailerlite.exceptions import EmptyIdError, InvalidIdError
+from mailerlite.exceptions import ApiError, EmptyEtagError, EmptyIdError, InvalidIdError
 from mailerlite.response import ApiResponse
+from mailerlite.sdk.emails import VERSION_CONFLICT, BlockPosition, BlockType
 
 from tests.conftest import load_fixture
 
@@ -128,3 +130,120 @@ class TestEmails:
             client.emails.get_block(email_id, block_id)
 
         assert mock_api.requests == []
+
+    def test_create_block_inserts_the_block(self, client, mock_api):
+        mock_api.add_response(201, load_fixture("email_block_created.json"))
+        editor_content = {
+            "attrs": {"textAlign": "center"},
+            "content": [{"text": "Hi", "type": "text"}],
+        }
+
+        response = client.emails.create_block(
+            "123", "42", BlockType.PARAGRAPH, editor_content
+        )
+
+        assert mock_api.last_request.method == "POST"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/blocks"
+        assert mock_api.last_body == {
+            "type": "paragraph",
+            "editor_content": editor_content,
+            "etag": "42",
+        }
+        assert response.status_code == 201
+        assert response["etag"] == "43"
+        assert response["data"]["id"] == "58"
+        assert response["data"]["editor_content"]["attrs"] == {"textAlign": "center"}
+        assert response["data"]["placement"] == {"after": "57", "before": None}
+
+    def test_create_block_sends_the_placement(self, client, mock_api):
+        mock_api.add_response(201, load_fixture("email_block_created.json"))
+
+        client.emails.create_block(
+            "123",
+            "42",
+            BlockType.DIVIDER,
+            {},
+            placement={"position": BlockPosition.AFTER, "block_id": "57"},
+        )
+
+        assert mock_api.last_body == {
+            "type": "divider",
+            "editor_content": {},
+            "placement": {"position": "after", "block_id": "57"},
+            "etag": "42",
+        }
+
+    @pytest.mark.parametrize("etag", ["", None])
+    def test_create_block_rejects_an_empty_etag(self, client, mock_api, etag):
+        with pytest.raises(EmptyEtagError):
+            client.emails.create_block("123", etag, BlockType.DIVIDER, {})
+
+        assert mock_api.requests == []
+
+    @pytest.mark.parametrize(
+        "etag, editor_content, placement",
+        [
+            (42, {}, None),
+            ("42", None, None),
+            ("42", "text", None),
+            ("42", {}, "end"),
+        ],
+    )
+    def test_create_block_rejects_arguments_of_the_wrong_type(
+        self, client, mock_api, etag, editor_content, placement
+    ):
+        with pytest.raises(TypeError):
+            client.emails.create_block(
+                "123", etag, BlockType.DIVIDER, editor_content, placement=placement
+            )
+
+        assert mock_api.requests == []
+
+    def test_create_block_rejects_an_invalid_email_id(self, client, mock_api):
+        with pytest.raises(InvalidIdError):
+            client.emails.create_block("123/html", "42", BlockType.DIVIDER, {})
+
+        assert mock_api.requests == []
+
+    def test_write_with_an_old_etag_raises_a_version_conflict(self, client, mock_api):
+        mock_api.add_response(
+            409,
+            {
+                "message": "The email has changed since you read it.",
+                "code": "version_conflict",
+                "etag": "44",
+            },
+        )
+
+        with pytest.raises(ApiError) as error:
+            client.emails.create_block("123", "42", BlockType.DIVIDER, {})
+
+        assert error.value.status_code == 409
+        assert error.value.code == VERSION_CONFLICT
+        assert error.value.etag == "44"
+        assert "version_conflict" in str(error.value)
+
+    def test_block_constants(self):
+        assert BlockType.BLOCKQUOTE == "blockquote"
+        assert BlockType.BULLETED_LIST == "bulleted_list"
+        assert BlockType.BUTTON == "button"
+        assert BlockType.CODE == "code"
+        assert BlockType.DIVIDER == "divider"
+        assert BlockType.HEADING == "heading"
+        assert BlockType.IMAGE == "image"
+        assert BlockType.NUMBERED_LIST == "numbered_list"
+        assert BlockType.PARAGRAPH == "paragraph"
+        assert BlockType.SOCIAL_ICON == "social_icon"
+        assert BlockType.TITLE == "title"
+        assert BlockType.VIDEO == "video"
+        assert BlockPosition.START == "start"
+        assert BlockPosition.END == "end"
+        assert BlockPosition.BEFORE == "before"
+        assert BlockPosition.AFTER == "after"
+        assert VERSION_CONFLICT == "version_conflict"
+
+    def test_write_names_are_exported_from_the_package(self):
+        assert mailerlite.EmptyEtagError is EmptyEtagError
+        assert mailerlite.BlockType is BlockType
+        assert mailerlite.BlockPosition is BlockPosition
+        assert mailerlite.VERSION_CONFLICT == VERSION_CONFLICT
