@@ -213,6 +213,38 @@ class Emails(object):
             )
         )
 
+    def move_block(self, email_id, block_id, etag, placement):
+        """
+        Move a block of an email
+
+        Returns the block, its new place in the email, and the new etag of the email.
+
+        :param email_id: str|int Email ID
+        :param block_id: str|int Block ID
+        :param etag: str The etag from the last response for this email
+        :param placement: dict `{"position": ..., "block_id": ...}`, see `BlockPosition`
+        :raises: :class: `TypeError` : an argument type is not valid
+        :raises: :class: `EmptyIdError` : `email_id` or `block_id` is empty
+        :raises: :class: `InvalidIdError` : an ID does not contain only digits
+        :raises: :class: `EmptyEtagError` : `etag` is empty
+        :raises: :class: `ApiError` : API request failed, e.g. the etag is old
+        :return: JSON object
+        :rtype: ApiResponse
+        """
+
+        email_id = _path_id(email_id, "email_id")
+        block_id = _path_id(block_id, "block_id")
+        _require_dict(placement, "placement")
+        body = {"placement": placement, "etag": _etag(etag)}
+
+        return ApiResponse(
+            self.api_client.request(
+                "POST",
+                f"{self.base_api_url}/{email_id}/blocks/{block_id}/move",
+                body=body,
+            )
+        )
+
 
 def _path_id(value, name):
     """Returns the ID as a string for the URL path, or raises if it is not valid"""

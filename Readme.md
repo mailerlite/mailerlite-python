@@ -66,6 +66,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Insert a block](#insert-a-block)
     - [Update a block](#update-a-block)
     - [Delete a block](#delete-a-block)
+    - [Move a block](#move-a-block)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -839,6 +840,32 @@ block_id = '57'
 etag = 'etag-from-the-last-response'
 
 response = client.emails.delete_block(email_id, block_id, etag)
+
+etag = response['etag']
+```
+
+### Move a block
+<a name="move-a-block"></a>
+
+The `before` and `after` positions also need a `block_id`.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+block_id = '57'
+etag = 'etag-from-the-last-response'
+
+response = client.emails.move_block(
+    email_id,
+    block_id,
+    etag,
+    {'position': MailerLite.BlockPosition.AFTER, 'block_id': '12'},
+)
 
 etag = response['etag']
 ```

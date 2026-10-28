@@ -304,3 +304,35 @@ class TestEmails:
             client.emails.delete_block("123", block_id, etag)
 
         assert mock_api.requests == []
+
+    def test_move_block_sends_the_placement(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email_block_moved.json"))
+
+        response = client.emails.move_block(
+            "123", "57", "45", {"position": BlockPosition.START}
+        )
+
+        assert mock_api.last_request.method == "POST"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/blocks/57/move"
+        assert mock_api.last_body == {"placement": {"position": "start"}, "etag": "45"}
+        assert response["etag"] == "46"
+        assert response["data"]["id"] == "57"
+        assert response["data"]["placement"] == {"after": None, "before": "1"}
+
+    @pytest.mark.parametrize(
+        "block_id, etag, placement, error",
+        [
+            ("", "45", {"position": "end"}, EmptyIdError),
+            ("57/x", "45", {"position": "end"}, InvalidIdError),
+            ("57", "", {"position": "end"}, EmptyEtagError),
+            ("57", "45", None, TypeError),
+            ("57", "45", "end", TypeError),
+        ],
+    )
+    def test_move_block_rejects_invalid_arguments(
+        self, client, mock_api, block_id, etag, placement, error
+    ):
+        with pytest.raises(error):
+            client.emails.move_block("123", block_id, etag, placement)
+
+        assert mock_api.requests == []
