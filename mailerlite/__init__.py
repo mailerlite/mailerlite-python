@@ -19,6 +19,7 @@ from mailerlite.sdk.emails import (  # noqa: F401
     VERSION_CONFLICT,
     BlockPosition,
     BlockType,
+    BrandMode,
     Emails,
 )
 from mailerlite.sdk.fields import Fields

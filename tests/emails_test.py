@@ -3,7 +3,12 @@ import mailerlite
 from mailerlite import Client
 from mailerlite.exceptions import ApiError, EmptyEtagError, EmptyIdError, InvalidIdError
 from mailerlite.response import ApiResponse
-from mailerlite.sdk.emails import VERSION_CONFLICT, BlockPosition, BlockType
+from mailerlite.sdk.emails import (
+    VERSION_CONFLICT,
+    BlockPosition,
+    BlockType,
+    BrandMode,
+)
 
 from tests.conftest import load_fixture
 
@@ -376,3 +381,61 @@ class TestEmails:
             client.emails.validate_block(BlockType.HEADING, [])
 
         assert mock_api.requests == []
+
+    def test_update_settings_sends_only_the_given_keys(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email_settings.json"))
+        settings = {
+            "brand": {"mode": BrandMode.CUSTOM, "background_color": "#f4f4f4"},
+            "footer": {"info_text": {"editor_content": {"content": []}}},
+            "typography": {"link": {"color": ""}},
+        }
+
+        response = client.emails.update_settings("123", "46", settings)
+
+        assert mock_api.last_request.method == "PATCH"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/settings"
+        assert mock_api.last_body == {
+            "brand": {"mode": "custom", "background_color": "#f4f4f4"},
+            "footer": {"info_text": {"editor_content": {"content": []}}},
+            "typography": {"link": {"color": ""}},
+            "etag": "46",
+        }
+        assert response["etag"] == "47"
+        assert response["data"]["brand"]["mode"] == "custom"
+        assert response["data"]["brand"]["background_color"] == "#f4f4f4"
+        assert response["data"]["footer"]["social_links"][0]["link_id"] == 7
+        assert response["rejected"] == {
+            "message": "Some attributes were rejected.",
+            "keys": ["footer.social_links[0].url"],
+        }
+
+    def test_update_settings_does_not_change_the_given_dict(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email_settings.json"))
+        settings = {"layout": {"alignment": "left"}}
+
+        client.emails.update_settings("123", "46", settings)
+
+        assert settings == {"layout": {"alignment": "left"}}
+
+    @pytest.mark.parametrize(
+        "email_id, etag, settings, error",
+        [
+            ("", "46", {}, EmptyIdError),
+            ("123/html", "46", {}, InvalidIdError),
+            ("123", "", {}, EmptyEtagError),
+            ("123", "46", None, TypeError),
+        ],
+    )
+    def test_update_settings_rejects_invalid_arguments(
+        self, client, mock_api, email_id, etag, settings, error
+    ):
+        with pytest.raises(error):
+            client.emails.update_settings(email_id, etag, settings)
+
+        assert mock_api.requests == []
+
+    def test_brand_mode_constants(self):
+        assert BrandMode.ACCOUNT == "account"
+        assert BrandMode.TEMPLATE == "template"
+        assert BrandMode.CUSTOM == "custom"
+        assert mailerlite.BrandMode is BrandMode

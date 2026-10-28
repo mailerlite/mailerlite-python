@@ -38,6 +38,14 @@ class BlockPosition(object):
     AFTER = "after"
 
 
+class BrandMode(object):
+    """Where the palette of an email comes from, in `settings["brand"]["mode"]`"""
+
+    ACCOUNT = "account"
+    TEMPLATE = "template"
+    CUSTOM = "custom"
+
+
 class Emails(object):
     """
     Emails built with the simple editor
@@ -266,6 +274,40 @@ class Emails(object):
         return ApiResponse(
             self.api_client.request(
                 "POST", f"{self.base_api_url}/blocks/validate", body=body
+            )
+        )
+
+    def update_settings(self, email_id, etag, settings):
+        """
+        Update the design settings of an email
+
+        Send only the keys to change, in the shape of `settings` in `get()`.
+        The API stores each value that you send, also a value that the email
+        inherits from the account. An empty string unsets a value.
+        `footer.social_links` replaces the whole list: keep the `link_id` of
+        each link to keep its click history.
+
+        The response can have `rejected` when the API removed unsafe values.
+
+        :param email_id: str|int Email ID
+        :param etag: str The etag from the last response for this email
+        :param settings: dict The settings to change
+        :raises: :class: `TypeError` : an argument type is not valid
+        :raises: :class: `EmptyIdError` : `email_id` is empty
+        :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
+        :raises: :class: `EmptyEtagError` : `etag` is empty
+        :raises: :class: `ApiError` : API request failed, e.g. the etag is old
+        :return: JSON object
+        :rtype: ApiResponse
+        """
+
+        email_id = _path_id(email_id, "email_id")
+        _require_dict(settings, "settings")
+        body = {**settings, "etag": _etag(etag)}
+
+        return ApiResponse(
+            self.api_client.request(
+                "PATCH", f"{self.base_api_url}/{email_id}/settings", body=body
             )
         )
 
