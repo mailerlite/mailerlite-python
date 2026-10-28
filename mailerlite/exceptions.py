@@ -39,3 +39,11 @@ def _json_or_none(response):
         return response.json()
     except ValueError:
         return None
+
+
+class EmptyIdError(ValueError):
+    """An ID for the URL path is empty. The SDK sends no request."""
+
+
+class InvalidIdError(ValueError):
+    """An ID for the URL path does not contain only digits. The SDK sends no request."""

@@ -59,6 +59,8 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Cancel a campaign](#cancel-a-campaign)
     - [Delete a campaign](#delete-a-campaign)
     - [Get subscribers activity for a campaign](#get-subscribers-activity-for-a-campaign)
+  - [Emails](#emails)
+    - [Get an email](#get-an-email)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -690,6 +692,34 @@ client = MailerLite.Client({
 campaign_id = 123456
 
 response = client.campaigns.activity(campaign_id)
+```
+
+## Emails
+<a name="emails"></a>
+
+These methods edit emails built with the simple editor. To create such an email, [create a simple editor campaign](#create-a-simple-editor-campaign). The ID of the email is in `response['data']['emails'][0]['id']`.
+
+- IDs are strings of digits. You can also give them as `int`. An empty ID raises `mailerlite.EmptyIdError`, and an ID that does not contain only digits raises `mailerlite.InvalidIdError`. The SDK sends no request in these cases.
+- The methods return a `mailerlite.ApiResponse`. It is a `dict` with the response body, and it also has `status_code` and `headers`.
+
+### Get an email
+<a name="get-an-email"></a>
+
+Returns the email with its settings and blocks, and the etag of the email.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.get(email_id)
+
+email = response['data']
+etag = response['etag']
 ```
 
 ## Forms
