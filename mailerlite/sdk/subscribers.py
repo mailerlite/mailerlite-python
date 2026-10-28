@@ -308,3 +308,54 @@ class Subscribers(object):
         self.api_client.request("POST", f"{self.base_api_url}/{subscriber_id}/forget")
 
         return True
+
+    def ecommerce_stats(self, subscriber_id, shop_id):
+        """
+        Get the orders and revenue a subscriber earned in one shop
+        Ref: https://developers.mailerlite.com/docs/ecommerce/shops
+
+        :param subscriber_id: int Subscriber ID
+        :param shop_id: int Shop ID
+        :return: JSON array
+        :rtype: dict
+        """
+
+        if not isinstance(subscriber_id, int):
+            raise TypeError(
+                f"`subscriber_id` type is not valid. Expected `int`, got {type(subscriber_id)}."
+            )
+
+        return self.api_client.request(
+            "GET",
+            f"{self.base_api_url}/{subscriber_id}/reports/ecommerce",
+            {"shop_id": shop_id},
+        ).json()
+
+    def ecommerce_orders(self, subscriber_id, shop_id, **kwargs):
+        """
+        List the orders a subscriber has in one shop
+        Ref: https://developers.mailerlite.com/docs/ecommerce/shops
+
+        :param subscriber_id: int Subscriber ID
+        :param shop_id: int Shop ID
+        :param **kwargs: You can pass additional arguments - page or limit
+        :return: JSON array
+        :rtype: dict
+        """
+
+        if not isinstance(subscriber_id, int):
+            raise TypeError(
+                f"`subscriber_id` type is not valid. Expected `int`, got {type(subscriber_id)}."
+            )
+
+        query_params = {"shop_id": shop_id}
+        for key, val in kwargs.items():
+            if key not in ["page", "limit"]:
+                raise TypeError("Got an unknown argument '%s'" % key)
+            query_params[key] = val
+
+        return self.api_client.request(
+            "GET",
+            f"{self.base_api_url}/{subscriber_id}/reports/ecommerce/orders",
+            query_params,
+        ).json()
