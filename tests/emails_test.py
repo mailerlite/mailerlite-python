@@ -506,3 +506,34 @@ class TestEmails:
             client.emails.create_template(email_id, name)
 
         assert mock_api.requests == []
+
+    def test_list_versions_without_options(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email_versions.json"))
+
+        response = client.emails.list_versions("123")
+
+        assert mock_api.last_request.method == "GET"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/versions"
+        assert mock_api.last_body is None
+        assert response["data"][0] == {
+            "id": "902",
+            "created_at": "2026-10-28 12:05:00",
+            "current": True,
+        }
+        assert response["data"][1]["current"] is False
+        assert response["links"]["next"] is None
+        assert response["meta"]["total"] == 2
+        assert "etag" not in response
+
+    def test_list_versions_sends_the_page_and_the_limit(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email_versions.json"))
+
+        client.emails.list_versions("123", page=2, limit=10)
+
+        assert mock_api.last_request.url == f"{BASE_URL}/123/versions?page=2&limit=10"
+
+    def test_list_versions_rejects_an_invalid_id(self, client, mock_api):
+        with pytest.raises(InvalidIdError):
+            client.emails.list_versions("123/blocks")
+
+        assert mock_api.requests == []
