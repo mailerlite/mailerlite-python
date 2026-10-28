@@ -7,6 +7,7 @@ from mailerlite.exceptions import (  # noqa: F401
     ApiError,
     EmptyEtagError,
     EmptyIdError,
+    InvalidIdempotencyKeyError,
     InvalidIdError,
 )
 from mailerlite.response import ApiResponse  # noqa: F401

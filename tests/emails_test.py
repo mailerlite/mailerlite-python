@@ -1,7 +1,13 @@
 import pytest
 import mailerlite
 from mailerlite import Client
-from mailerlite.exceptions import ApiError, EmptyEtagError, EmptyIdError, InvalidIdError
+from mailerlite.exceptions import (
+    ApiError,
+    EmptyEtagError,
+    EmptyIdError,
+    InvalidIdempotencyKeyError,
+    InvalidIdError,
+)
 from mailerlite.response import ApiResponse
 from mailerlite.sdk.emails import (
     VERSION_CONFLICT,
@@ -589,3 +595,103 @@ class TestEmails:
             client.emails.restore_version("123", version_id, etag)
 
         assert mock_api.requests == []
+
+
+# Each email write that accepts an idempotency key: (method, arguments, fixture)
+WRITES = [
+    ("create_block", ("123", "42", "divider", {}), "email_block_created.json"),
+    ("update_block", ("123", "57", "42", {}), "email_block_updated.json"),
+    ("delete_block", ("123", "57", "42"), "email_etag.json"),
+    ("move_block", ("123", "57", "42", {"position": "end"}), "email_block_moved.json"),
+    ("update_settings", ("123", "42", {}), "email_settings.json"),
+    ("create_template", ("123", "Newsletter"), "email_template.json"),
+    ("create_version", ("123",), "email_version.json"),
+    ("restore_version", ("123", "901", "42"), "email.json"),
+]
+
+
+class TestEmailIdempotencyKeys:
+    @pytest.mark.parametrize("method, args, fixture", WRITES)
+    def test_write_sends_the_idempotency_key(
+        self, client, mock_api, method, args, fixture
+    ):
+        mock_api.add_response(200, load_fixture(fixture))
+
+        getattr(client.emails, method)(*args, idempotency_key="insert-divider-0001")
+
+        assert mock_api.last_request.headers["Idempotency-Key"] == "insert-divider-0001"
+
+    @pytest.mark.parametrize("method, args, fixture", WRITES)
+    def test_write_without_a_key_sends_no_idempotency_key(
+        self, client, mock_api, method, args, fixture
+    ):
+        mock_api.add_response(200, load_fixture(fixture))
+
+        getattr(client.emails, method)(*args)
+
+        assert "Idempotency-Key" not in mock_api.last_request.headers
+
+    def test_replayed_write_is_an_idempotent_replay(self, client, mock_api):
+        mock_api.add_response(
+            201,
+            load_fixture("email_block_created.json"),
+            {"Idempotent-Replayed": "true"},
+        )
+
+        response = client.emails.create_block(
+            "123", "42", "divider", {}, idempotency_key="insert-divider-0001"
+        )
+
+        assert response.status_code == 201
+        assert response.is_idempotent_replay is True
+        assert response["data"]["id"] == "58"
+
+    def test_first_write_is_not_an_idempotent_replay(self, client, mock_api):
+        mock_api.add_response(201, load_fixture("email_block_created.json"))
+
+        response = client.emails.create_block(
+            "123", "42", "divider", {}, idempotency_key="insert-divider-0001"
+        )
+
+        assert response.is_idempotent_replay is False
+
+    @pytest.mark.parametrize(
+        "key",
+        [
+            "",
+            "k" * 256,
+            "line\nbreak",
+            "tab\there",
+            "caf\u00e9",
+            "delete\x7f",
+            " leading-space",
+            "trailing-space ",
+        ],
+    )
+    @pytest.mark.parametrize("method, args, fixture", WRITES)
+    def test_write_rejects_an_invalid_key(
+        self, client, mock_api, method, args, fixture, key
+    ):
+        with pytest.raises(InvalidIdempotencyKeyError):
+            getattr(client.emails, method)(*args, idempotency_key=key)
+
+        assert mock_api.requests == []
+
+    def test_write_rejects_a_key_of_the_wrong_type(self, client, mock_api):
+        with pytest.raises(TypeError):
+            client.emails.create_version("123", idempotency_key=1)
+
+        assert mock_api.requests == []
+
+    def test_write_accepts_a_key_of_255_printable_characters(self, client, mock_api):
+        key = "".join(chr(code) for code in range(0x21, 0x7F)) + " " + "k" * 160
+        assert len(key) == 255
+        mock_api.add_response(201, load_fixture("email_version.json"))
+
+        client.emails.create_version("123", idempotency_key=key)
+
+        assert mock_api.last_request.headers["Idempotency-Key"] == key
+
+    def test_idempotency_key_error_is_exported_from_the_package(self):
+        assert issubclass(InvalidIdempotencyKeyError, ValueError)
+        assert mailerlite.InvalidIdempotencyKeyError is InvalidIdempotencyKeyError

@@ -75,6 +75,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [List the versions of an email](#list-the-versions-of-an-email)
     - [Save a version of an email](#save-a-version-of-an-email)
     - [Restore a version of an email](#restore-a-version-of-an-email)
+    - [Retry a write with an idempotency key](#retry-a-write-with-an-idempotency-key)
   - [Brand styles](#brand-styles)
     - [Get the brand styles](#get-the-brand-styles)
   - [Files](#files)
@@ -1063,6 +1064,43 @@ etag = 'etag-from-the-last-response'
 response = client.emails.restore_version(email_id, version_id, etag)
 
 etag = response['etag']
+```
+
+### Retry a write with an idempotency key
+<a name="retry-a-write-with-an-idempotency-key"></a>
+
+If a write fails with a network error, you do not know if the API did the write. Give the write an `idempotency_key`, and retry it with the same key and the same arguments. If the first request succeeded, the API returns the stored response and does not do the write two times. Then `response.is_idempotent_replay` is `True`.
+
+- Use a new key for each write. The API keeps a key for 24 hours.
+- The key must be 1 to 255 printable ASCII characters, without a space at the start or the end. Otherwise the SDK raises `mailerlite.InvalidIdempotencyKeyError` and sends no request.
+- The same key with different arguments raises `ApiError` with status `422`. If the first request is still running, the API returns `409` without a `code`.
+- These methods accept a key: `create_block`, `update_block`, `delete_block`, `move_block`, `update_settings`, `create_template`, `create_version` and `restore_version`.
+
+```python
+import uuid
+
+import requests
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+etag = 'etag-from-the-last-response'
+key = str(uuid.uuid4())
+
+try:
+    response = client.emails.create_block(
+        email_id, etag, MailerLite.BlockType.DIVIDER, {}, idempotency_key=key
+    )
+except (requests.ConnectionError, requests.Timeout):
+    # Network error: retry with the same key and the same arguments.
+    response = client.emails.create_block(
+        email_id, etag, MailerLite.BlockType.DIVIDER, {}, idempotency_key=key
+    )
+
+print(response['data']['id'], response.is_idempotent_replay)
 ```
 
 ## Brand styles

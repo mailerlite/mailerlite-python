@@ -51,3 +51,11 @@ class InvalidIdError(ValueError):
 
 class EmptyEtagError(ValueError):
     """The etag of a write is empty. The SDK sends no request."""
+
+
+class InvalidIdempotencyKeyError(ValueError):
+    """
+    The idempotency key is empty, longer than 255 characters, contains a character
+    that is not printable ASCII, or starts or ends with a space.
+    The SDK sends no request.
+    """

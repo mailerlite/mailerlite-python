@@ -184,3 +184,20 @@ class TestApiClient:
         import mailerlite
 
         assert mailerlite.ApiError is ApiError
+
+    def test_request_adds_the_given_headers(self, mock_api):
+        """Tests that request() sends extra headers only for that request"""
+
+        mock_api.add_response(200, {"data": {}})
+        mock_api.add_response(200, {"data": {}})
+        client = ApiClient({"api_key": "1234567890"})
+
+        client.request(
+            "POST", "api/emails/1/versions", headers={"Idempotency-Key": "k1"}
+        )
+        assert mock_api.last_request.headers["Idempotency-Key"] == "k1"
+        assert mock_api.last_request.headers["Authorization"] == "Bearer 1234567890"
+
+        client.request("POST", "api/emails/1/versions")
+        assert "Idempotency-Key" not in mock_api.last_request.headers
+        assert "Idempotency-Key" not in client.headers

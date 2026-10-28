@@ -77,8 +77,12 @@ class ApiClient(object):
         path: str,
         query_params: Optional[dict] = None,
         body: Optional[dict] = None,
+        headers: Optional[dict] = None,
     ) -> requests.models.Response:
-        """Requests Wrapper"""
+        """Requests Wrapper
+
+        `headers` are added to the default headers for this request only.
+        """
 
         method = method.lower()
         if method not in HttpMethods.ALLOWED:
@@ -90,7 +94,7 @@ class ApiClient(object):
             "method": method,
             "url": urljoin(self.HOST, path),
             "params": query_params,
-            "headers": self.headers,
+            "headers": {**self.headers, **(headers or {})},
             "timeout": self.timeout,
         }
         if HttpMethods.is_get(method):

@@ -2,10 +2,17 @@ from __future__ import absolute_import
 
 import re
 
-from mailerlite.exceptions import EmptyEtagError, EmptyIdError, InvalidIdError
+from mailerlite.exceptions import (
+    EmptyEtagError,
+    EmptyIdError,
+    InvalidIdempotencyKeyError,
+    InvalidIdError,
+)
 from mailerlite.response import ApiResponse
 
 _ID_PATTERN = re.compile(r"[0-9]+")
+# The API accepts 1 to 255 printable ASCII characters
+_IDEMPOTENCY_KEY_PATTERN = re.compile(r"[\x20-\x7E]{1,255}")
 
 # The error code of a write with an etag that is not the current etag of the email
 VERSION_CONFLICT = "version_conflict"
@@ -55,6 +62,13 @@ class Emails(object):
 
     To create such an email, create a campaign with `"editor": "simple"`.
     IDs are strings of digits. You can also give them as int.
+
+    Idempotency keys: if a write fails with a network error, you do not know if
+    the API did the write. Give an `idempotency_key` to the write, and retry with
+    the same key and the same arguments. If the first request succeeded, the API
+    returns the stored response and does not do the write two times. Then
+    `is_idempotent_replay` of the response is true. Use a new key for each write.
+    The API keeps a key for 24 hours.
     """
 
     # Emails base API uri
@@ -131,7 +145,16 @@ class Emails(object):
             )
         )
 
-    def create_block(self, email_id, etag, block_type, editor_content, placement=None):
+    def create_block(
+        self,
+        email_id,
+        etag,
+        block_type,
+        editor_content,
+        placement=None,
+        *,
+        idempotency_key=None,
+    ):
         """
         Insert a block in an email
 
@@ -144,10 +167,13 @@ class Emails(object):
             Its keys are camelCase, for example `textAlign`.
         :param placement: dict Optional. `{"position": ..., "block_id": ...}`,
             see `BlockPosition`. Without it, the API puts the block at the end.
+        :param idempotency_key: str Optional. A key to retry the write safely,
+            see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
         :raises: :class: `EmptyIdError` : `email_id` is empty
         :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
         :raises: :class: `EmptyEtagError` : `etag` is empty
+        :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
         :raises: :class: `ApiError` : API request failed, e.g. the etag is old
         :return: JSON object
         :rtype: ApiResponse
@@ -156,14 +182,20 @@ class Emails(object):
         email_id = _path_id(email_id, "email_id")
         body = _block_body(block_type, editor_content, placement)
         body["etag"] = _etag(etag)
+        headers = _idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
-                "POST", f"{self.base_api_url}/{email_id}/blocks", body=body
+                "POST",
+                f"{self.base_api_url}/{email_id}/blocks",
+                body=body,
+                headers=headers,
             )
         )
 
-    def update_block(self, email_id, block_id, etag, editor_content):
+    def update_block(
+        self, email_id, block_id, etag, editor_content, *, idempotency_key=None
+    ):
         """
         Update a block of an email
 
@@ -175,10 +207,13 @@ class Emails(object):
         :param etag: str The etag from the last response for this email
         :param editor_content: dict The new content of the block.
             Its keys are camelCase, for example `textAlign`.
+        :param idempotency_key: str Optional. A key to retry the write safely,
+            see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
         :raises: :class: `EmptyIdError` : `email_id` or `block_id` is empty
         :raises: :class: `InvalidIdError` : an ID does not contain only digits
         :raises: :class: `EmptyEtagError` : `etag` is empty
+        :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
         :raises: :class: `ApiError` : API request failed, e.g. the etag is old
         :return: JSON object
         :rtype: ApiResponse
@@ -188,14 +223,18 @@ class Emails(object):
         block_id = _path_id(block_id, "block_id")
         _require_dict(editor_content, "editor_content")
         body = {"editor_content": editor_content, "etag": _etag(etag)}
+        headers = _idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
-                "PATCH", f"{self.base_api_url}/{email_id}/blocks/{block_id}", body=body
+                "PATCH",
+                f"{self.base_api_url}/{email_id}/blocks/{block_id}",
+                body=body,
+                headers=headers,
             )
         )
 
-    def delete_block(self, email_id, block_id, etag):
+    def delete_block(self, email_id, block_id, etag, *, idempotency_key=None):
         """
         Delete a block of an email
 
@@ -205,10 +244,13 @@ class Emails(object):
         :param email_id: str|int Email ID
         :param block_id: str|int Block ID
         :param etag: str The etag from the last response for this email
+        :param idempotency_key: str Optional. A key to retry the write safely,
+            see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
         :raises: :class: `EmptyIdError` : `email_id` or `block_id` is empty
         :raises: :class: `InvalidIdError` : an ID does not contain only digits
         :raises: :class: `EmptyEtagError` : `etag` is empty
+        :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
         :raises: :class: `ApiError` : API request failed, e.g. the etag is old
         :return: JSON object with only the new etag
         :rtype: ApiResponse
@@ -217,14 +259,18 @@ class Emails(object):
         email_id = _path_id(email_id, "email_id")
         block_id = _path_id(block_id, "block_id")
         body = {"etag": _etag(etag)}
+        headers = _idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
-                "DELETE", f"{self.base_api_url}/{email_id}/blocks/{block_id}", body=body
+                "DELETE",
+                f"{self.base_api_url}/{email_id}/blocks/{block_id}",
+                body=body,
+                headers=headers,
             )
         )
 
-    def move_block(self, email_id, block_id, etag, placement):
+    def move_block(self, email_id, block_id, etag, placement, *, idempotency_key=None):
         """
         Move a block of an email
 
@@ -234,10 +280,13 @@ class Emails(object):
         :param block_id: str|int Block ID
         :param etag: str The etag from the last response for this email
         :param placement: dict `{"position": ..., "block_id": ...}`, see `BlockPosition`
+        :param idempotency_key: str Optional. A key to retry the write safely,
+            see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
         :raises: :class: `EmptyIdError` : `email_id` or `block_id` is empty
         :raises: :class: `InvalidIdError` : an ID does not contain only digits
         :raises: :class: `EmptyEtagError` : `etag` is empty
+        :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
         :raises: :class: `ApiError` : API request failed, e.g. the etag is old
         :return: JSON object
         :rtype: ApiResponse
@@ -247,12 +296,14 @@ class Emails(object):
         block_id = _path_id(block_id, "block_id")
         _require_dict(placement, "placement")
         body = {"placement": placement, "etag": _etag(etag)}
+        headers = _idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
                 "POST",
                 f"{self.base_api_url}/{email_id}/blocks/{block_id}/move",
                 body=body,
+                headers=headers,
             )
         )
 
@@ -280,7 +331,7 @@ class Emails(object):
             )
         )
 
-    def update_settings(self, email_id, etag, settings):
+    def update_settings(self, email_id, etag, settings, *, idempotency_key=None):
         """
         Update the design settings of an email
 
@@ -295,10 +346,13 @@ class Emails(object):
         :param email_id: str|int Email ID
         :param etag: str The etag from the last response for this email
         :param settings: dict The settings to change
+        :param idempotency_key: str Optional. A key to retry the write safely,
+            see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
         :raises: :class: `EmptyIdError` : `email_id` is empty
         :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
         :raises: :class: `EmptyEtagError` : `etag` is empty
+        :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
         :raises: :class: `ApiError` : API request failed, e.g. the etag is old
         :return: JSON object
         :rtype: ApiResponse
@@ -307,10 +361,14 @@ class Emails(object):
         email_id = _path_id(email_id, "email_id")
         _require_dict(settings, "settings")
         body = {**settings, "etag": _etag(etag)}
+        headers = _idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
-                "PATCH", f"{self.base_api_url}/{email_id}/settings", body=body
+                "PATCH",
+                f"{self.base_api_url}/{email_id}/settings",
+                body=body,
+                headers=headers,
             )
         )
 
@@ -343,7 +401,7 @@ class Emails(object):
             )
         )
 
-    def create_template(self, email_id, name):
+    def create_template(self, email_id, name, *, idempotency_key=None):
         """
         Save an email as a template
 
@@ -352,9 +410,12 @@ class Emails(object):
 
         :param email_id: str|int Email ID
         :param name: str Name of the template
+        :param idempotency_key: str Optional. A key to retry the write safely,
+            see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
         :raises: :class: `EmptyIdError` : `email_id` is empty
         :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
+        :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
         :raises: :class: `ApiError` : API request failed
         :return: JSON object
         :rtype: ApiResponse
@@ -365,10 +426,14 @@ class Emails(object):
             raise TypeError(
                 f"`name` type is not valid. Expected `str`, got {type(name)}."
             )
+        headers = _idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
-                "POST", f"{self.base_api_url}/{email_id}/templates", body={"name": name}
+                "POST",
+                f"{self.base_api_url}/{email_id}/templates",
+                body={"name": name},
+                headers=headers,
             )
         )
 
@@ -399,7 +464,7 @@ class Emails(object):
             )
         )
 
-    def create_version(self, email_id):
+    def create_version(self, email_id, *, idempotency_key=None):
         """
         Save a version of an email
 
@@ -409,21 +474,27 @@ class Emails(object):
         and `200` for the last version. Both are a success.
 
         :param email_id: str|int Email ID
+        :param idempotency_key: str Optional. A key to retry the write safely,
+            see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : `email_id` type is not valid
         :raises: :class: `EmptyIdError` : `email_id` is empty
         :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
+        :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
         :raises: :class: `ApiError` : API request failed
         :return: JSON object
         :rtype: ApiResponse
         """
 
         email_id = _path_id(email_id, "email_id")
+        headers = _idempotency_headers(idempotency_key)
 
         return ApiResponse(
-            self.api_client.request("POST", f"{self.base_api_url}/{email_id}/versions")
+            self.api_client.request(
+                "POST", f"{self.base_api_url}/{email_id}/versions", headers=headers
+            )
         )
 
-    def restore_version(self, email_id, version_id, etag):
+    def restore_version(self, email_id, version_id, etag, *, idempotency_key=None):
         """
         Restore a version of an email
 
@@ -434,10 +505,13 @@ class Emails(object):
         :param email_id: str|int Email ID
         :param version_id: str|int Version ID
         :param etag: str The etag from the last response for this email
+        :param idempotency_key: str Optional. A key to retry the write safely,
+            see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
         :raises: :class: `EmptyIdError` : `email_id` or `version_id` is empty
         :raises: :class: `InvalidIdError` : an ID does not contain only digits
         :raises: :class: `EmptyEtagError` : `etag` is empty
+        :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
         :raises: :class: `ApiError` : API request failed, e.g. the etag is old
         :return: JSON object
         :rtype: ApiResponse
@@ -446,12 +520,14 @@ class Emails(object):
         email_id = _path_id(email_id, "email_id")
         version_id = _path_id(version_id, "version_id")
         body = {"etag": _etag(etag)}
+        headers = _idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
                 "POST",
                 f"{self.base_api_url}/{email_id}/versions/{version_id}/restore",
                 body=body,
+                headers=headers,
             )
         )
 
@@ -514,3 +590,25 @@ def _require_dict(value, name):
         raise TypeError(
             f"`{name}` type is not valid. Expected `dict`, got {type(value)}."
         )
+
+
+def _idempotency_headers(key):
+    """Returns the headers for the idempotency key, or raises if it is not valid"""
+
+    if key is None:
+        return None
+
+    if not isinstance(key, str):
+        raise TypeError(
+            f"`idempotency_key` type is not valid. Expected `str`, got {type(key)}."
+        )
+
+    # HTTP removes spaces at the start and the end of a header value,
+    # so such a key does not reach the API as it is.
+    if not _IDEMPOTENCY_KEY_PATTERN.fullmatch(key) or key != key.strip(" "):
+        raise InvalidIdempotencyKeyError(
+            "`idempotency_key` must be 1 to 255 printable ASCII characters, "
+            "without a space at the start or the end."
+        )
+
+    return {"Idempotency-Key": key}
