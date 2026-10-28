@@ -560,3 +560,32 @@ class TestEmails:
             client.emails.create_version("")
 
         assert mock_api.requests == []
+
+    def test_restore_version_returns_the_email(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email.json"))
+
+        response = client.emails.restore_version("123", "901", "47")
+
+        assert mock_api.last_request.method == "POST"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/versions/901/restore"
+        assert mock_api.last_body == {"etag": "47"}
+        assert response["etag"] == "42"
+        assert response["data"]["id"] == "123"
+        assert response["data"]["blocks"][0]["id"] == "1"
+
+    @pytest.mark.parametrize(
+        "version_id, etag, error",
+        [
+            ("", "47", EmptyIdError),
+            ("901/restore", "47", InvalidIdError),
+            ("901", "", EmptyEtagError),
+            ("901", 47, TypeError),
+        ],
+    )
+    def test_restore_version_rejects_invalid_arguments(
+        self, client, mock_api, version_id, etag, error
+    ):
+        with pytest.raises(error):
+            client.emails.restore_version("123", version_id, etag)
+
+        assert mock_api.requests == []

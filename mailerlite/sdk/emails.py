@@ -420,6 +420,38 @@ class Emails(object):
             self.api_client.request("POST", f"{self.base_api_url}/{email_id}/versions")
         )
 
+    def restore_version(self, email_id, version_id, etag):
+        """
+        Restore a version of an email
+
+        Puts the email back to the version, and returns the email in the shape
+        of `get()` with the new etag. Before the restore, the API saves the
+        current state as a version, so you can undo the restore.
+
+        :param email_id: str|int Email ID
+        :param version_id: str|int Version ID
+        :param etag: str The etag from the last response for this email
+        :raises: :class: `TypeError` : an argument type is not valid
+        :raises: :class: `EmptyIdError` : `email_id` or `version_id` is empty
+        :raises: :class: `InvalidIdError` : an ID does not contain only digits
+        :raises: :class: `EmptyEtagError` : `etag` is empty
+        :raises: :class: `ApiError` : API request failed, e.g. the etag is old
+        :return: JSON object
+        :rtype: ApiResponse
+        """
+
+        email_id = _path_id(email_id, "email_id")
+        version_id = _path_id(version_id, "version_id")
+        body = {"etag": _etag(etag)}
+
+        return ApiResponse(
+            self.api_client.request(
+                "POST",
+                f"{self.base_api_url}/{email_id}/versions/{version_id}/restore",
+                body=body,
+            )
+        )
+
 
 def _path_id(value, name):
     """Returns the ID as a string for the URL path, or raises if it is not valid"""

@@ -73,6 +73,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Save an email as a template](#save-an-email-as-a-template)
     - [List the versions of an email](#list-the-versions-of-an-email)
     - [Save a version of an email](#save-a-version-of-an-email)
+    - [Restore a version of an email](#restore-a-version-of-an-email)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -1004,6 +1005,27 @@ response = client.emails.create_version(email_id)
 
 version_id = response['data']['id']
 is_new = response.status_code == 201
+```
+
+### Restore a version of an email
+<a name="restore-a-version-of-an-email"></a>
+
+Puts the email back to the version, and returns the full email with the new etag. Before the restore, the API saves the current state as a version, so you can undo the restore.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+version_id = '901'
+etag = 'etag-from-the-last-response'
+
+response = client.emails.restore_version(email_id, version_id, etag)
+
+etag = response['etag']
 ```
 
 ## Forms
