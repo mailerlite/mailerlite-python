@@ -76,6 +76,8 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Restore a version of an email](#restore-a-version-of-an-email)
   - [Brand styles](#brand-styles)
     - [Get the brand styles](#get-the-brand-styles)
+  - [Files](#files)
+    - [List all files](#list-all-files)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -1048,6 +1050,32 @@ client = MailerLite.Client({
 response = client.brand_styles.get()
 
 identifiers = [preset['identifier'] for preset in response['data']['presets']]
+```
+
+## Files
+<a name="files"></a>
+
+### List all files
+<a name="list-all-files"></a>
+
+Returns the files of your media library. Use their `url` in image blocks. `width` and `height` are `None` for files that are not images.
+
+- `filter`: `name` (a part of the file name) and `type` (one of `MailerLite.FileType`).
+- `sort`: one of `MailerLite.FileSort`. The default is newest first.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+response = client.files.list(
+    filter={'name': 'summer sale', 'type': MailerLite.FileType.IMAGE},
+    sort=MailerLite.FileSort.SIZE_DESCENDING,
+    page=1,
+    limit=25,
+)
 ```
 
 ## Forms

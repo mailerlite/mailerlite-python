@@ -24,6 +24,7 @@ from mailerlite.sdk.emails import (  # noqa: F401
     Emails,
 )
 from mailerlite.sdk.fields import Fields
+from mailerlite.sdk.files import FileSort, Files, FileType  # noqa: F401
 from mailerlite.sdk.forms import Forms
 from mailerlite.sdk.groups import Groups
 from mailerlite.sdk.segments import Segments
@@ -46,6 +47,7 @@ class Client(object):
         self.campaigns = Campaigns(self.api_client)
         self.emails = Emails(self.api_client)
         self.brand_styles = BrandStyles(self.api_client)
+        self.files = Files(self.api_client)
         self.timezones = Timezones(self.api_client)
         self.webhooks = Webhooks(self.api_client)
         self.automations = Automations(self.api_client)
