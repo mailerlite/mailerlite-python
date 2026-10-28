@@ -65,6 +65,31 @@ class Emails(object):
             self.api_client.request("GET", f"{self.base_api_url}/{email_id}/html")
         )
 
+    def get_block(self, email_id, block_id):
+        """
+        Get a block of an email
+
+        Returns the block, its place in the email, and the etag of the email.
+
+        :param email_id: str|int Email ID
+        :param block_id: str|int Block ID
+        :raises: :class: `TypeError` : `email_id` or `block_id` type is not valid
+        :raises: :class: `EmptyIdError` : `email_id` or `block_id` is empty
+        :raises: :class: `InvalidIdError` : an ID does not contain only digits
+        :raises: :class: `ApiError` : API request failed, e.g. block was not found
+        :return: JSON object
+        :rtype: ApiResponse
+        """
+
+        email_id = _path_id(email_id, "email_id")
+        block_id = _path_id(block_id, "block_id")
+
+        return ApiResponse(
+            self.api_client.request(
+                "GET", f"{self.base_api_url}/{email_id}/blocks/{block_id}"
+            )
+        )
+
 
 def _path_id(value, name):
     """Returns the ID as a string for the URL path, or raises if it is not valid"""

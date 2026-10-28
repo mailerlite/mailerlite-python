@@ -95,3 +95,36 @@ class TestEmails:
             client.emails.get_html("123/blocks")
 
         assert mock_api.requests == []
+
+    def test_get_block_returns_the_block(self, client, mock_api):
+        mock_api.add_response(200, load_fixture("email_block.json"))
+
+        response = client.emails.get_block("123", "57")
+
+        assert mock_api.last_request.method == "GET"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/blocks/57"
+        assert mock_api.last_body is None
+        assert response["etag"] == "43"
+        block = response["data"]
+        assert block["id"] == "57"
+        assert block["type"] == "paragraph"
+        assert block["editor_content"]["attrs"] == {"textAlign": "left"}
+        assert block["placement"] == {"after": "56", "before": None}
+
+    @pytest.mark.parametrize(
+        "email_id, block_id, error",
+        [
+            ("", "57", EmptyIdError),
+            ("123", "", EmptyIdError),
+            ("123", None, EmptyIdError),
+            ("123/html", "57", InvalidIdError),
+            ("123", "57/move", InvalidIdError),
+        ],
+    )
+    def test_get_block_rejects_an_invalid_id(
+        self, client, mock_api, email_id, block_id, error
+    ):
+        with pytest.raises(error):
+            client.emails.get_block(email_id, block_id)
+
+        assert mock_api.requests == []
