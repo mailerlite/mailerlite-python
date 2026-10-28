@@ -49,3 +49,21 @@ class TestApiClient:
         client = ApiClient({})
         with pytest.raises(ValueError):
             client.request("PPOST", "some-url")
+
+    def test_mock_api_records_the_prepared_request(self, mock_api):
+        """Tests that mock_api records the request and returns the queued response"""
+
+        mock_api.add_response(200, {"data": []})
+        client = ApiClient({"api_key": "1234567890"})
+
+        response = client.request("GET", "api/timezones", {"filter[name]": "a b"})
+
+        assert response.json() == {"data": []}
+        assert len(mock_api.requests) == 1
+        assert mock_api.last_request.method == "GET"
+        assert (
+            mock_api.last_request.url
+            == "https://connect.mailerlite.com/api/timezones?filter%5Bname%5D=a+b"
+        )
+        assert mock_api.last_request.headers["Authorization"] == "Bearer 1234567890"
+        assert mock_api.last_body is None
