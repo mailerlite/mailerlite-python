@@ -473,3 +473,36 @@ class TestEmails:
             client.emails.validate_settings(email_id, settings)
 
         assert mock_api.requests == []
+
+    def test_create_template_saves_the_email_as_a_template(self, client, mock_api):
+        mock_api.add_response(201, load_fixture("email_template.json"))
+
+        response = client.emails.create_template("123", "Newsletter")
+
+        assert mock_api.last_request.method == "POST"
+        assert mock_api.last_request.url == f"{BASE_URL}/123/templates"
+        assert mock_api.last_body == {"name": "Newsletter"}
+        assert response.status_code == 201
+        assert response["data"] == {
+            "id": "789",
+            "name": "Newsletter",
+            "type": "email",
+            "created_at": "2026-10-28 12:00:00",
+        }
+        assert "etag" not in response
+
+    @pytest.mark.parametrize(
+        "email_id, name, error",
+        [
+            ("", "Newsletter", EmptyIdError),
+            ("12a", "Newsletter", InvalidIdError),
+            ("123", None, TypeError),
+        ],
+    )
+    def test_create_template_rejects_invalid_arguments(
+        self, client, mock_api, email_id, name, error
+    ):
+        with pytest.raises(error):
+            client.emails.create_template(email_id, name)
+
+        assert mock_api.requests == []

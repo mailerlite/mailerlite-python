@@ -340,6 +340,35 @@ class Emails(object):
             )
         )
 
+    def create_template(self, email_id, name):
+        """
+        Save an email as a template
+
+        Copies the email to a new template with the given name.
+        The API cannot delete templates.
+
+        :param email_id: str|int Email ID
+        :param name: str Name of the template
+        :raises: :class: `TypeError` : an argument type is not valid
+        :raises: :class: `EmptyIdError` : `email_id` is empty
+        :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
+        :raises: :class: `ApiError` : API request failed
+        :return: JSON object
+        :rtype: ApiResponse
+        """
+
+        email_id = _path_id(email_id, "email_id")
+        if not isinstance(name, str):
+            raise TypeError(
+                f"`name` type is not valid. Expected `str`, got {type(name)}."
+            )
+
+        return ApiResponse(
+            self.api_client.request(
+                "POST", f"{self.base_api_url}/{email_id}/templates", body={"name": name}
+            )
+        )
+
 
 def _path_id(value, name):
     """Returns the ID as a string for the URL path, or raises if it is not valid"""

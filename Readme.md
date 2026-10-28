@@ -70,6 +70,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Validate a block](#validate-a-block)
     - [Update the design settings](#update-the-design-settings)
     - [Validate the design settings](#validate-the-design-settings)
+    - [Save an email as a template](#save-an-email-as-a-template)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -945,6 +946,25 @@ response = client.emails.validate_settings(email_id, {
 
 if not response['valid']:
     print(response['errors'])
+```
+
+### Save an email as a template
+<a name="save-an-email-as-a-template"></a>
+
+Copies the email to a new template. The API cannot delete templates.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.create_template(email_id, 'Monthly newsletter')
+
+template_id = response['data']['id']
 ```
 
 ## Forms
