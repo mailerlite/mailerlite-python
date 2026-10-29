@@ -103,6 +103,18 @@ class TestApiClient:
         assert mock_api.last_request.method == "DELETE"
         assert mock_api.last_request.body is None
 
+    @pytest.mark.parametrize("method", ["POST", "PUT", "PATCH"])
+    def test_write_request_without_a_body_sends_no_body(self, mock_api, method):
+        """Tests that a write request without a body does not send the JSON `null`"""
+
+        mock_api.add_response(200, {"data": {}})
+        client = ApiClient({})
+
+        client.request(method, "api/emails/1/versions")
+
+        assert mock_api.last_request.method == method
+        assert mock_api.last_request.body is None
+
     def test_version_conflict_raises_api_error_with_code_and_etag(self, mock_api):
         """Tests that a 409 response gives the message, the code and the etag"""
 

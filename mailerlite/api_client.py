@@ -99,13 +99,8 @@ class ApiClient(object):
         }
         if HttpMethods.is_get(method):
             kwargs.update(allow_redirects=True)
-        if (
-            HttpMethods.is_post(method)
-            or HttpMethods.is_put(method)
-            or HttpMethods.is_patch(method)
-        ):
-            kwargs.update(data=json.dumps(body))
-        if HttpMethods.is_delete(method) and body is not None:
+        # Without a body, send no body and not the JSON `null`
+        if not HttpMethods.is_get(method) and body is not None:
             kwargs.update(data=json.dumps(body))
         response = requests.request(**kwargs)
         if 400 <= response.status_code < 600:

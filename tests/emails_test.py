@@ -552,7 +552,7 @@ class TestEmails:
 
         assert mock_api.last_request.method == "POST"
         assert mock_api.last_request.url == f"{BASE_URL}/123/versions"
-        assert mock_api.last_body is None
+        assert mock_api.last_request.body is None
         assert response.status_code == status_code
         assert response["data"] == {
             "id": "903",
