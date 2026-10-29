@@ -21,4 +21,6 @@ class ApiResponse(dict):
         with the same idempotency key
         """
 
-        return self.headers.get("Idempotent-Replayed") == "true"
+        # A proxy can change the case of the value
+        value = self.headers.get("Idempotent-Replayed", "")
+        return value.strip().lower() == "true"

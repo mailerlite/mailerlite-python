@@ -1,3 +1,5 @@
+import pytest
+
 import mailerlite
 from mailerlite.api_client import ApiClient
 from mailerlite.response import ApiResponse
@@ -25,6 +27,28 @@ class TestApiResponse:
         response = ApiResponse(ApiClient({}).request("POST", "api/emails/1/blocks"))
 
         assert response.is_idempotent_replay is True
+
+    @pytest.mark.parametrize("value", ["True", "TRUE", " true "])
+    def test_replay_header_value_is_not_case_sensitive(self, mock_api, value):
+        """Tests that a proxy can change the case of the Idempotent-Replayed value"""
+
+        mock_api.add_response(201, {"data": {}}, {"Idempotent-Replayed": value})
+
+        response = ApiResponse(ApiClient({}).request("POST", "api/emails/1/blocks"))
+
+        assert response.is_idempotent_replay is True
+
+    @pytest.mark.parametrize("value", ["false", "1", ""])
+    def test_other_replay_header_values_are_not_an_idempotent_replay(
+        self, mock_api, value
+    ):
+        """Tests that only the value true sets the replay flag"""
+
+        mock_api.add_response(201, {"data": {}}, {"Idempotent-Replayed": value})
+
+        response = ApiResponse(ApiClient({}).request("POST", "api/emails/1/blocks"))
+
+        assert response.is_idempotent_replay is False
 
     def test_response_without_the_header_is_not_an_idempotent_replay(self, mock_api):
         """Tests that the replay flag is false without the Idempotent-Replayed header"""
