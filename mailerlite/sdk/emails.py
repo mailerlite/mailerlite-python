@@ -1,18 +1,7 @@
 from __future__ import absolute_import
 
-import re
-
-from mailerlite.exceptions import (
-    EmptyEtagError,
-    EmptyIdError,
-    InvalidIdempotencyKeyError,
-    InvalidIdError,
-)
 from mailerlite.response import ApiResponse
-
-_ID_PATTERN = re.compile(r"[0-9]+")
-# The API accepts 1 to 255 printable ASCII characters
-_IDEMPOTENCY_KEY_PATTERN = re.compile(r"[\x20-\x7E]{1,255}")
+from mailerlite.sdk import _params
 
 # The error code of a write with an etag that is not the current etag of the email
 VERSION_CONFLICT = "version_conflict"
@@ -92,7 +81,7 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
+        email_id = _params.path_id(email_id, "email_id")
 
         return ApiResponse(
             self.api_client.request("GET", f"{self.base_api_url}/{email_id}")
@@ -114,7 +103,7 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
+        email_id = _params.path_id(email_id, "email_id")
 
         return ApiResponse(
             self.api_client.request("GET", f"{self.base_api_url}/{email_id}/html")
@@ -136,8 +125,8 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
-        block_id = _path_id(block_id, "block_id")
+        email_id = _params.path_id(email_id, "email_id")
+        block_id = _params.path_id(block_id, "block_id")
 
         return ApiResponse(
             self.api_client.request(
@@ -179,10 +168,10 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
+        email_id = _params.path_id(email_id, "email_id")
         body = _block_body(block_type, editor_content, placement)
-        body["etag"] = _etag(etag)
-        headers = _idempotency_headers(idempotency_key)
+        body["etag"] = _params.etag(etag)
+        headers = _params.idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
@@ -219,11 +208,11 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
-        block_id = _path_id(block_id, "block_id")
-        _require_dict(editor_content, "editor_content")
-        body = {"editor_content": editor_content, "etag": _etag(etag)}
-        headers = _idempotency_headers(idempotency_key)
+        email_id = _params.path_id(email_id, "email_id")
+        block_id = _params.path_id(block_id, "block_id")
+        _params.require_dict(editor_content, "editor_content")
+        body = {"editor_content": editor_content, "etag": _params.etag(etag)}
+        headers = _params.idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
@@ -256,10 +245,10 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
-        block_id = _path_id(block_id, "block_id")
-        body = {"etag": _etag(etag)}
-        headers = _idempotency_headers(idempotency_key)
+        email_id = _params.path_id(email_id, "email_id")
+        block_id = _params.path_id(block_id, "block_id")
+        body = {"etag": _params.etag(etag)}
+        headers = _params.idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
@@ -292,10 +281,10 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
-        block_id = _path_id(block_id, "block_id")
-        body = {"placement": _placement(placement), "etag": _etag(etag)}
-        headers = _idempotency_headers(idempotency_key)
+        email_id = _params.path_id(email_id, "email_id")
+        block_id = _params.path_id(block_id, "block_id")
+        body = {"placement": _placement(placement), "etag": _params.etag(etag)}
+        headers = _params.idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
@@ -360,9 +349,9 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
-        body = {**_settings(settings), "etag": _etag(etag)}
-        headers = _idempotency_headers(idempotency_key)
+        email_id = _params.path_id(email_id, "email_id")
+        body = {**_settings(settings), "etag": _params.etag(etag)}
+        headers = _params.idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
@@ -392,7 +381,7 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
+        email_id = _params.path_id(email_id, "email_id")
         settings = _settings(settings)
 
         return ApiResponse(
@@ -423,12 +412,12 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
+        email_id = _params.path_id(email_id, "email_id")
         if not isinstance(name, str):
             raise TypeError(
                 f"`name` type is not valid. Expected `str`, got {type(name)}."
             )
-        headers = _idempotency_headers(idempotency_key)
+        headers = _params.idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
@@ -457,8 +446,8 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
-        query_params = _without_none({"page": page, "limit": limit})
+        email_id = _params.path_id(email_id, "email_id")
+        query_params = _params.without_none({"page": page, "limit": limit})
 
         return ApiResponse(
             self.api_client.request(
@@ -487,8 +476,8 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
-        headers = _idempotency_headers(idempotency_key)
+        email_id = _params.path_id(email_id, "email_id")
+        headers = _params.idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
@@ -519,10 +508,10 @@ class Emails(object):
         :rtype: ApiResponse
         """
 
-        email_id = _path_id(email_id, "email_id")
-        version_id = _path_id(version_id, "version_id")
-        body = {"etag": _etag(etag)}
-        headers = _idempotency_headers(idempotency_key)
+        email_id = _params.path_id(email_id, "email_id")
+        version_id = _params.path_id(version_id, "version_id")
+        body = {"etag": _params.etag(etag)}
+        headers = _params.idempotency_headers(idempotency_key)
 
         return ApiResponse(
             self.api_client.request(
@@ -534,26 +523,6 @@ class Emails(object):
         )
 
 
-def _path_id(value, name):
-    """Returns the ID as a string for the URL path, or raises if it is not valid"""
-
-    if value is None or value == "":
-        raise EmptyIdError(f"`{name}` must not be empty.")
-
-    if isinstance(value, bool) or not isinstance(value, (str, int)):
-        raise TypeError(
-            f"`{name}` type is not valid. Expected `str` or `int`, got {type(value)}."
-        )
-
-    value = str(value)
-    # fullmatch, because `$` also matches before a final new line,
-    # and str.isdigit() also accepts digits that are not ASCII.
-    if not _ID_PATTERN.fullmatch(value):
-        raise InvalidIdError(f"`{name}` must contain only digits, got {value!r}.")
-
-    return value
-
-
 def _block_body(block_type, editor_content, placement):
     """Returns the body to insert or to validate a block"""
 
@@ -561,7 +530,7 @@ def _block_body(block_type, editor_content, placement):
         raise TypeError(
             f"`block_type` type is not valid. Expected `str`, got {type(block_type)}."
         )
-    _require_dict(editor_content, "editor_content")
+    _params.require_dict(editor_content, "editor_content")
 
     body = {"type": block_type, "editor_content": editor_content}
     if placement is not None:
@@ -573,68 +542,19 @@ def _block_body(block_type, editor_content, placement):
 def _placement(placement):
     """Returns a copy of the placement with a valid `block_id`, or raises"""
 
-    _require_dict(placement, "placement")
+    _params.require_dict(placement, "placement")
     if "block_id" not in placement:
         return placement
 
-    return {**placement, "block_id": _path_id(placement["block_id"], "block_id")}
+    return {**placement, "block_id": _params.path_id(placement["block_id"], "block_id")}
 
 
 def _settings(settings):
     """Returns the settings, or raises if they are not valid"""
 
-    _require_dict(settings, "settings")
+    _params.require_dict(settings, "settings")
     # The body of update_settings() has the settings and the etag at the same level
     if "etag" in settings:
         raise ValueError("`settings` must not contain `etag`. Use the `etag` argument.")
 
     return settings
-
-
-def _without_none(params):
-    """Returns the params without the keys that have no value"""
-
-    return {key: value for key, value in params.items() if value is not None}
-
-
-def _etag(value):
-    """Returns the etag for the body of a write, or raises if it is not valid"""
-
-    if value is None or value == "":
-        raise EmptyEtagError("`etag` must not be empty.")
-
-    if not isinstance(value, str):
-        raise TypeError(f"`etag` type is not valid. Expected `str`, got {type(value)}.")
-
-    return value
-
-
-def _require_dict(value, name):
-    """Raises if the value is not a dict"""
-
-    if not isinstance(value, dict):
-        raise TypeError(
-            f"`{name}` type is not valid. Expected `dict`, got {type(value)}."
-        )
-
-
-def _idempotency_headers(key):
-    """Returns the headers for the idempotency key, or raises if it is not valid"""
-
-    if key is None:
-        return None
-
-    if not isinstance(key, str):
-        raise TypeError(
-            f"`idempotency_key` type is not valid. Expected `str`, got {type(key)}."
-        )
-
-    # HTTP removes spaces at the start and the end of a header value,
-    # so such a key does not reach the API as it is.
-    if not _IDEMPOTENCY_KEY_PATTERN.fullmatch(key) or key != key.strip(" "):
-        raise InvalidIdempotencyKeyError(
-            "`idempotency_key` must be 1 to 255 printable ASCII characters, "
-            "without a space at the start or the end."
-        )
-
-    return {"Idempotency-Key": key}
