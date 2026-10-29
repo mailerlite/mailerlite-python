@@ -491,6 +491,7 @@ class TestEmails:
             ("123/html", "46", {}, InvalidIdError),
             ("123", "", {}, EmptyEtagError),
             ("123", "46", None, TypeError),
+            ("123", "46", {"etag": "45"}, ValueError),
         ],
     )
     def test_update_settings_rejects_invalid_arguments(
@@ -531,6 +532,7 @@ class TestEmails:
             (None, {}, EmptyIdError),
             ("1.5", {}, InvalidIdError),
             ("123", [], TypeError),
+            ("123", {"etag": "45"}, ValueError),
         ],
     )
     def test_validate_settings_rejects_invalid_arguments(

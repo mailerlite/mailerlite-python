@@ -346,10 +346,11 @@ class Emails(object):
 
         :param email_id: str|int Email ID
         :param etag: str The etag from the last response for this email
-        :param settings: dict The settings to change
+        :param settings: dict The settings to change, without `etag`
         :param idempotency_key: str Optional. A key to retry the write safely,
             see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
+        :raises: :class: `ValueError` : `settings` contains `etag`
         :raises: :class: `EmptyIdError` : `email_id` is empty
         :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
         :raises: :class: `EmptyEtagError` : `etag` is empty
@@ -360,8 +361,7 @@ class Emails(object):
         """
 
         email_id = _path_id(email_id, "email_id")
-        _require_dict(settings, "settings")
-        body = {**settings, "etag": _etag(etag)}
+        body = {**_settings(settings), "etag": _etag(etag)}
         headers = _idempotency_headers(idempotency_key)
 
         return ApiResponse(
@@ -384,6 +384,7 @@ class Emails(object):
         :param email_id: str|int Email ID
         :param settings: dict The settings that you want to send to `update_settings()`
         :raises: :class: `TypeError` : an argument type is not valid
+        :raises: :class: `ValueError` : `settings` contains `etag`
         :raises: :class: `EmptyIdError` : `email_id` is empty
         :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
         :raises: :class: `ApiError` : API request failed
@@ -392,7 +393,7 @@ class Emails(object):
         """
 
         email_id = _path_id(email_id, "email_id")
-        _require_dict(settings, "settings")
+        settings = _settings(settings)
 
         return ApiResponse(
             self.api_client.request(
@@ -577,6 +578,17 @@ def _placement(placement):
         return placement
 
     return {**placement, "block_id": _path_id(placement["block_id"], "block_id")}
+
+
+def _settings(settings):
+    """Returns the settings, or raises if they are not valid"""
+
+    _require_dict(settings, "settings")
+    # The body of update_settings() has the settings and the etag at the same level
+    if "etag" in settings:
+        raise ValueError("`settings` must not contain `etag`. Use the `etag` argument.")
+
+    return settings
 
 
 def _without_none(params):
