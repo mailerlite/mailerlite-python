@@ -556,6 +556,10 @@ def _path_id(value, name):
 def _block_body(block_type, editor_content, placement):
     """Returns the body to insert or to validate a block"""
 
+    if not isinstance(block_type, str):
+        raise TypeError(
+            f"`block_type` type is not valid. Expected `str`, got {type(block_type)}."
+        )
     _require_dict(editor_content, "editor_content")
 
     body = {"type": block_type, "editor_content": editor_content}

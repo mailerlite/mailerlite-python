@@ -430,6 +430,17 @@ class TestEmails:
         assert response["valid"] is False
         assert response["errors"] == {"type": ["The selected type is invalid."]}
 
+    @pytest.mark.parametrize("block_type", [None, 5, ["divider"]])
+    def test_block_writes_reject_a_block_type_of_the_wrong_type(
+        self, client, mock_api, block_type
+    ):
+        with pytest.raises(TypeError):
+            client.emails.create_block("123", "42", block_type, {})
+        with pytest.raises(TypeError):
+            client.emails.validate_block(block_type, {})
+
+        assert mock_api.requests == []
+
     def test_validate_block_rejects_editor_content_of_the_wrong_type(
         self, client, mock_api
     ):
