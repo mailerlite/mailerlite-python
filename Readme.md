@@ -942,7 +942,10 @@ if not response['valid']:
 Send only the keys to change, in the shape of `settings` in the email. The groups are `brand`, `layout`, `typography`, `button` and `footer`.
 
 - Send all style values as strings, for example `'16'` and not `16`.
-- The API stores each value that you send, also a value that the email inherits from your account. Then the email no longer follows your account for that value. Send an empty string to unset a value.
+- The API stores each value that you send, also a value that the email inherits from your account. Then the email no longer follows your account for that value.
+- To unset a brand colour, send an empty string. The API stores the value empty, and the email then uses the account value.
+- To unset a footer text, send an empty editor document: `{'editor_content': {}}` or `{'editor_content': {'content': []}}`.
+- Other colours, sizes, `button.border_radius` and `brand.style` cannot be empty. An empty string gives a `422` error.
 - `footer.social_links` replaces the whole list. Keep the `link_id` of each link to keep its click history.
 - `brand.mode` is one of `MailerLite.BrandMode`. To apply a preset palette, send its `identifier` from [the brand styles](#get-the-brand-styles) in `brand.style`.
 - If the API removed unsafe values, the response has `rejected` with the keys of these values.

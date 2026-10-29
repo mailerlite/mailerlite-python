@@ -338,7 +338,12 @@ class Emails(object):
 
         Send only the keys to change, in the shape of `settings` in `get()`.
         The API stores each value that you send, also a value that the email
-        inherits from the account. An empty string unsets a value.
+        inherits from the account.
+        An empty string unsets a brand colour, and the email then uses the
+        account value. An empty editor document, `{'editor_content': {}}` or
+        `{'editor_content': {'content': []}}`, unsets a footer text. Other
+        colours, sizes, `button.border_radius` and `brand.style` cannot be
+        empty: an empty string gives a `422` error.
         `footer.social_links` replaces the whole list: keep the `link_id` of
         each link to keep its click history.
 
