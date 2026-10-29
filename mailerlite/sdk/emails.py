@@ -170,8 +170,8 @@ class Emails(object):
         :param idempotency_key: str Optional. A key to retry the write safely,
             see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
-        :raises: :class: `EmptyIdError` : `email_id` is empty
-        :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
+        :raises: :class: `EmptyIdError` : an ID is empty
+        :raises: :class: `InvalidIdError` : an ID does not contain only digits
         :raises: :class: `EmptyEtagError` : `etag` is empty
         :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
         :raises: :class: `ApiError` : API request failed, e.g. the etag is old
@@ -294,8 +294,7 @@ class Emails(object):
 
         email_id = _path_id(email_id, "email_id")
         block_id = _path_id(block_id, "block_id")
-        _require_dict(placement, "placement")
-        body = {"placement": placement, "etag": _etag(etag)}
+        body = {"placement": _placement(placement), "etag": _etag(etag)}
         headers = _idempotency_headers(idempotency_key)
 
         return ApiResponse(
@@ -318,6 +317,8 @@ class Emails(object):
         :param editor_content: dict The content of the block
         :param placement: dict Optional. `{"position": ..., "block_id": ...}`
         :raises: :class: `TypeError` : an argument type is not valid
+        :raises: :class: `EmptyIdError` : the `block_id` of `placement` is empty
+        :raises: :class: `InvalidIdError` : the `block_id` of `placement` is not valid
         :raises: :class: `ApiError` : API request failed
         :return: JSON object with `valid`, `errors` and `schema`
         :rtype: ApiResponse
@@ -559,10 +560,19 @@ def _block_body(block_type, editor_content, placement):
 
     body = {"type": block_type, "editor_content": editor_content}
     if placement is not None:
-        _require_dict(placement, "placement")
-        body["placement"] = placement
+        body["placement"] = _placement(placement)
 
     return body
+
+
+def _placement(placement):
+    """Returns a copy of the placement with a valid `block_id`, or raises"""
+
+    _require_dict(placement, "placement")
+    if "block_id" not in placement:
+        return placement
+
+    return {**placement, "block_id": _path_id(placement["block_id"], "block_id")}
 
 
 def _without_none(params):

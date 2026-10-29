@@ -184,6 +184,40 @@ class TestEmails:
             "etag": "42",
         }
 
+    def test_create_block_sends_an_int_placement_block_id_as_a_string(
+        self, client, mock_api
+    ):
+        mock_api.add_response(201, load_fixture("email_block_created.json"))
+        placement = {"position": BlockPosition.AFTER, "block_id": 57}
+
+        client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
+
+        assert mock_api.last_body["placement"] == {
+            "position": "after",
+            "block_id": "57",
+        }
+        assert placement == {"position": "after", "block_id": 57}
+
+    @pytest.mark.parametrize(
+        "block_id, error",
+        [
+            ("", EmptyIdError),
+            (None, EmptyIdError),
+            ("57/x", InvalidIdError),
+            ("abc", InvalidIdError),
+            (5.7, TypeError),
+        ],
+    )
+    def test_create_block_rejects_an_invalid_placement_block_id(
+        self, client, mock_api, block_id, error
+    ):
+        placement = {"position": BlockPosition.AFTER, "block_id": block_id}
+
+        with pytest.raises(error):
+            client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
+
+        assert mock_api.requests == []
+
     @pytest.mark.parametrize("etag", ["", None])
     def test_create_block_rejects_an_empty_etag(self, client, mock_api, etag):
         with pytest.raises(EmptyEtagError):
@@ -330,6 +364,20 @@ class TestEmails:
         assert response["data"]["id"] == "57"
         assert response["data"]["placement"] == {"after": None, "before": "1"}
 
+    def test_move_block_sends_an_int_placement_block_id_as_a_string(
+        self, client, mock_api
+    ):
+        mock_api.add_response(200, load_fixture("email_block_moved.json"))
+
+        client.emails.move_block(
+            "123", "57", "45", {"position": "before", "block_id": 1}
+        )
+
+        assert mock_api.last_body["placement"] == {
+            "position": "before",
+            "block_id": "1",
+        }
+
     @pytest.mark.parametrize(
         "block_id, etag, placement, error",
         [
@@ -338,6 +386,8 @@ class TestEmails:
             ("57", "", {"position": "end"}, EmptyEtagError),
             ("57", "45", None, TypeError),
             ("57", "45", "end", TypeError),
+            ("57", "45", {"position": "after", "block_id": ""}, EmptyIdError),
+            ("57", "45", {"position": "after", "block_id": "1/x"}, InvalidIdError),
         ],
     )
     def test_move_block_rejects_invalid_arguments(
