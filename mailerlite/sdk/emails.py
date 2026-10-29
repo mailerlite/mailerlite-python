@@ -29,7 +29,12 @@ class BlockType(object):
 
 
 class BlockPosition(object):
-    """Positions of a block. `BEFORE` and `AFTER` also need a `block_id`."""
+    """
+    Positions of a block. `BEFORE` and `AFTER` also need a `block_id`.
+
+    The API ignores the `block_id` of `START` and `END`. For these positions,
+    the SDK does not check the `block_id` and does not send it.
+    """
 
     START = "start"
     END = "end"
@@ -156,10 +161,11 @@ class Emails(object):
             Its keys are camelCase, for example `textAlign`.
         :param placement: dict Optional. `{"position": ..., "block_id": ...}`,
             see `BlockPosition`. Without it, the API puts the block at the end.
+            The SDK does not check or send `block_id` for `start` and `end`.
         :param idempotency_key: str Optional. A key to retry the write safely,
             see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
-        :raises: :class: `EmptyIdError` : an ID is empty
+        :raises: :class: `EmptyIdError` : an ID is empty or missing
         :raises: :class: `InvalidIdError` : an ID does not contain only digits
         :raises: :class: `EmptyEtagError` : `etag` is empty
         :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
@@ -268,11 +274,13 @@ class Emails(object):
         :param email_id: str|int Email ID
         :param block_id: str|int Block ID
         :param etag: str The etag from the last response for this email
-        :param placement: dict `{"position": ..., "block_id": ...}`, see `BlockPosition`
+        :param placement: dict `{"position": ..., "block_id": ...}`,
+            see `BlockPosition`. The SDK does not check or send `block_id`
+            for `start` and `end`.
         :param idempotency_key: str Optional. A key to retry the write safely,
             see "Idempotency keys" in the class docstring
         :raises: :class: `TypeError` : an argument type is not valid
-        :raises: :class: `EmptyIdError` : `email_id` or `block_id` is empty
+        :raises: :class: `EmptyIdError` : an ID is empty or missing
         :raises: :class: `InvalidIdError` : an ID does not contain only digits
         :raises: :class: `EmptyEtagError` : `etag` is empty
         :raises: :class: `InvalidIdempotencyKeyError` : `idempotency_key` is not valid
@@ -304,9 +312,12 @@ class Emails(object):
 
         :param block_type: str Block type, see `BlockType`
         :param editor_content: dict The content of the block
-        :param placement: dict Optional. `{"position": ..., "block_id": ...}`
+        :param placement: dict Optional. `{"position": ..., "block_id": ...}`,
+            see `BlockPosition`. The SDK does not check or send `block_id`
+            for `start` and `end`.
         :raises: :class: `TypeError` : an argument type is not valid
         :raises: :class: `EmptyIdError` : the `block_id` of `placement` is empty
+            or missing
         :raises: :class: `InvalidIdError` : the `block_id` of `placement` is not valid
         :raises: :class: `ApiError` : API request failed
         :return: JSON object with `valid`, `errors` and `schema`
@@ -540,13 +551,22 @@ def _block_body(block_type, editor_content, placement):
 
 
 def _placement(placement):
-    """Returns a copy of the placement with a valid `block_id`, or raises"""
+    """Returns a copy of the placement to send, or raises if it is not valid"""
 
     _params.require_dict(placement, "placement")
-    if "block_id" not in placement:
-        return placement
+    position = placement.get("position")
 
-    return {**placement, "block_id": _params.path_id(placement["block_id"], "block_id")}
+    # The API ignores the `block_id` of these positions and does not check it
+    if position in (BlockPosition.START, BlockPosition.END):
+        return {key: value for key, value in placement.items() if key != "block_id"}
+
+    if position in (BlockPosition.BEFORE, BlockPosition.AFTER) or (
+        "block_id" in placement
+    ):
+        block_id = _params.path_id(placement.get("block_id"), "block_id")
+        return {**placement, "block_id": block_id}
+
+    return dict(placement)
 
 
 def _settings(settings):

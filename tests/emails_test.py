@@ -449,6 +449,79 @@ class TestEmails:
 
         assert mock_api.requests == []
 
+    # The API ignores `block_id` for `start` and `end` and does not check it
+    @pytest.mark.parametrize("position", [BlockPosition.START, BlockPosition.END])
+    @pytest.mark.parametrize("block_id", [None, "", "1/2", "abc", 5.7, 57])
+    def test_block_writes_do_not_check_or_send_the_block_id_for_start_and_end(
+        self, client, mock_api, position, block_id
+    ):
+        mock_api.add_response(201, load_fixture("email_block_created.json"))
+        mock_api.add_response(200, load_fixture("email_block_moved.json"))
+        mock_api.add_response(200, load_fixture("email_block_validation_valid.json"))
+        placement = {"position": position, "block_id": block_id}
+
+        client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
+        client.emails.move_block("123", "57", "45", placement)
+        client.emails.validate_block(BlockType.DIVIDER, {}, placement)
+
+        sent = f'"placement": {{"position": "{position}"}}'
+        assert [request.body for request in mock_api.requests] == [
+            f'{{"type": "divider", "editor_content": {{}}, {sent}, "etag": "42"}}',
+            f'{{{sent}, "etag": "45"}}',
+            f'{{"type": "divider", "editor_content": {{}}, {sent}}}',
+        ]
+        assert placement == {"position": position, "block_id": block_id}
+
+    @pytest.mark.parametrize("position", [BlockPosition.BEFORE, BlockPosition.AFTER])
+    def test_block_writes_reject_a_missing_block_id_for_before_and_after(
+        self, client, mock_api, position
+    ):
+        placement = {"position": position}
+
+        with pytest.raises(EmptyIdError):
+            client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
+        with pytest.raises(EmptyIdError):
+            client.emails.move_block("123", "57", "45", placement)
+        with pytest.raises(EmptyIdError):
+            client.emails.validate_block(BlockType.DIVIDER, {}, placement)
+
+        assert mock_api.requests == []
+
+    @pytest.mark.parametrize(
+        "block_id, error", [(None, EmptyIdError), ("1/2", InvalidIdError)]
+    )
+    def test_block_writes_check_the_block_id_of_an_unknown_position(
+        self, client, mock_api, block_id, error
+    ):
+        placement = {"position": "inside", "block_id": block_id}
+
+        with pytest.raises(error):
+            client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
+        with pytest.raises(error):
+            client.emails.move_block("123", "57", "45", placement)
+        with pytest.raises(error):
+            client.emails.validate_block(BlockType.DIVIDER, {}, placement)
+
+        assert mock_api.requests == []
+
+    @pytest.mark.parametrize(
+        "placement, sent",
+        [
+            ({"position": "inside", "block_id": 7}, '"inside", "block_id": "7"'),
+            ({"position": "inside"}, '"inside"'),
+        ],
+    )
+    def test_move_block_sends_the_block_id_of_an_unknown_position(
+        self, client, mock_api, placement, sent
+    ):
+        mock_api.add_response(200, load_fixture("email_block_moved.json"))
+
+        client.emails.move_block("123", "57", "45", placement)
+
+        assert mock_api.last_request.body == (
+            f'{{"placement": {{"position": {sent}}}, "etag": "45"}}'
+        )
+
     def test_update_settings_sends_only_the_given_keys(self, client, mock_api):
         mock_api.add_response(200, load_fixture("email_settings.json"))
         settings = {

@@ -818,7 +818,7 @@ block = response['data']
 ### Insert a block
 <a name="insert-a-block"></a>
 
-Use the block types in `MailerLite.BlockType`. `editor_content` can be empty. Without `placement`, the API puts the block at the end of the email. The `before` and `after` positions also need a `block_id`.
+Use the block types in `MailerLite.BlockType`. `editor_content` can be empty. Without `placement`, the API puts the block at the end of the email. The `before` and `after` positions also need a `block_id`. The API ignores the `block_id` of `start` and `end`, so the SDK does not check it and does not send it.
 
 ```python
 import mailerlite as MailerLite
@@ -892,7 +892,7 @@ etag = response['etag']
 ### Move a block
 <a name="move-a-block"></a>
 
-The `before` and `after` positions also need a `block_id`.
+The `before` and `after` positions also need a `block_id`. The API ignores the `block_id` of `start` and `end`, so the SDK does not check it and does not send it.
 
 ```python
 import mailerlite as MailerLite
