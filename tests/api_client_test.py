@@ -1,3 +1,5 @@
+import pickle
+
 import pytest
 import requests
 from mailerlite.api_client import ApiClient
@@ -189,6 +191,33 @@ class TestApiClient:
             "503 Server Error: Service Unavailable for url: "
             "https://connect.mailerlite.com/api/emails/1/html"
         )
+
+    def test_api_error_survives_a_pickle_round_trip(self, mock_api):
+        """Tests that an ApiError can go to another process, as in multiprocessing"""
+
+        mock_api.add_response(
+            409,
+            {
+                "message": "The email changed. Get it again.",
+                "code": "version_conflict",
+                "etag": "44",
+            },
+        )
+        client = ApiClient({})
+
+        with pytest.raises(ApiError) as error:
+            client.request("PATCH", "api/emails/1/blocks/2", body={"etag": "42"})
+
+        copy = pickle.loads(pickle.dumps(error.value))
+
+        assert isinstance(copy, ApiError)
+        assert str(copy) == str(error.value)
+        assert copy.status_code == 409
+        assert copy.message == "The email changed. Get it again."
+        assert copy.code == "version_conflict"
+        assert copy.etag == "44"
+        assert copy.errors is None
+        assert copy.response.status_code == 409
 
     def test_api_error_is_exported_from_the_package(self):
         """Tests that ApiError is available as mailerlite.ApiError"""

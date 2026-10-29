@@ -33,6 +33,10 @@ class ApiError(requests.HTTPError):
 
         super().__init__(text, response=response)
 
+    def __reduce__(self):
+        # pickle calls cls(*self.args) by default, but __init__ needs the response
+        return self.__class__, (self.response,)
+
 
 def _json_or_none(response):
     try:
