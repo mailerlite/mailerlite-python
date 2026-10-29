@@ -44,6 +44,17 @@ class TestParams:
     def test_without_none_removes_the_keys_without_a_value(self):
         assert _params.without_none({"page": 2, "limit": None}) == {"page": 2}
 
+    def test_filter_params_returns_a_query_param_for_each_filter(self):
+        assert _params.filter_params(None) == {}
+        assert _params.filter_params({"name": "logo", "type": "image"}) == {
+            "filter[name]": "logo",
+            "filter[type]": "image",
+        }
+
+    def test_filter_params_rejects_a_filter_that_is_not_a_dict(self):
+        with pytest.raises(TypeError, match="filter"):
+            _params.filter_params("image")
+
     def test_idempotency_headers(self):
         assert _params.idempotency_headers(None) is None
         assert _params.idempotency_headers("k1") == {"Idempotency-Key": "k1"}

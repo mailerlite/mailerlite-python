@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 from mailerlite.response import ApiResponse
+from mailerlite.sdk import _params
 
 
 class FileType(object):
@@ -47,18 +48,10 @@ class Files(object):
         :rtype: ApiResponse
         """
 
-        query_params = {}
-        if filter is not None:
-            if not isinstance(filter, dict):
-                raise TypeError(
-                    f"`filter` type is not valid. Expected `dict`, got {type(filter)}."
-                )
-            for filter_key, filter_value in filter.items():
-                query_params[f"filter[{filter_key}]"] = filter_value
-
-        for key, val in {"sort": sort, "page": page, "limit": limit}.items():
-            if val is not None:
-                query_params[key] = val
+        query_params = {
+            **_params.filter_params(filter),
+            **_params.without_none({"sort": sort, "page": page, "limit": limit}),
+        }
 
         return ApiResponse(
             self.api_client.request("GET", self.base_api_url, query_params)

@@ -63,6 +63,17 @@ def without_none(params):
     return {key: value for key, value in params.items() if value is not None}
 
 
+def filter_params(filter):
+    """Returns a `filter[key]` query param for each key of the filter dict"""
+
+    if filter is None:
+        return {}
+
+    require_dict(filter, "filter")
+
+    return {f"filter[{key}]": value for key, value in filter.items()}
+
+
 def idempotency_headers(key):
     """Returns the headers for the idempotency key, or raises if it is not valid"""
 
