@@ -489,7 +489,7 @@ class Emails(object):
         """
         Restore a version of an email
 
-        Puts the email back to the version, and returns the email in the shape
+        Restores the email to the version, and returns the email in the shape
         of `get()` with the new etag. Before the restore, the API saves the
         current state as a version, so you can undo the restore.
 
