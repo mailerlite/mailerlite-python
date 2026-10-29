@@ -55,8 +55,6 @@ class TestApiClient:
             client.request("PPOST", "some-url")
 
     def test_mock_api_records_the_prepared_request(self, mock_api):
-        """Tests that mock_api records the request and returns the queued response"""
-
         mock_api.add_response(200, {"data": []})
         client = ApiClient({"api_key": "1234567890"})
 
@@ -73,8 +71,6 @@ class TestApiClient:
         assert mock_api.last_body is None
 
     def test_patch_request_sends_the_json_body(self, mock_api):
-        """Tests that a PATCH request sends the body as JSON"""
-
         mock_api.add_response(200, {"data": {}})
         client = ApiClient({})
 
@@ -84,8 +80,6 @@ class TestApiClient:
         assert mock_api.last_body == {"etag": "42"}
 
     def test_delete_request_sends_the_json_body(self, mock_api):
-        """Tests that a DELETE request with a body sends the body as JSON"""
-
         mock_api.add_response(200, {"etag": "43"})
         client = ApiClient({})
 
@@ -95,8 +89,6 @@ class TestApiClient:
         assert mock_api.last_body == {"etag": "42"}
 
     def test_delete_request_without_a_body_sends_no_body(self, mock_api):
-        """Tests that a DELETE request without a body sends no body"""
-
         mock_api.add_response(204)
         client = ApiClient({})
 
@@ -107,8 +99,6 @@ class TestApiClient:
 
     @pytest.mark.parametrize("method", ["POST", "PUT", "PATCH"])
     def test_write_request_without_a_body_sends_no_body(self, mock_api, method):
-        """Tests that a write request without a body does not send the JSON `null`"""
-
         mock_api.add_response(200, {"data": {}})
         client = ApiClient({})
 
@@ -118,8 +108,6 @@ class TestApiClient:
         assert mock_api.last_request.body is None
 
     def test_version_conflict_raises_api_error_with_code_and_etag(self, mock_api):
-        """Tests that a 409 response gives the message, the code and the etag"""
-
         mock_api.add_response(
             409,
             {
@@ -147,8 +135,6 @@ class TestApiClient:
         )
 
     def test_validation_error_raises_api_error_with_errors(self, mock_api):
-        """Tests that a 422 response gives the field errors"""
-
         mock_api.add_response(
             422,
             {
@@ -174,8 +160,6 @@ class TestApiClient:
         )
 
     def test_error_without_a_json_body_raises_api_error(self, mock_api):
-        """Tests that a response that is not JSON gives an error without details"""
-
         mock_api.add_response(503, "Service Unavailable", {"Content-Type": "text/html"})
         client = ApiClient({})
 
@@ -193,8 +177,6 @@ class TestApiClient:
         )
 
     def test_api_error_survives_a_pickle_round_trip(self, mock_api):
-        """Tests that an ApiError can go to another process, as in multiprocessing"""
-
         mock_api.add_response(
             409,
             {
@@ -220,15 +202,11 @@ class TestApiClient:
         assert copy.response.status_code == 409
 
     def test_api_error_is_exported_from_the_package(self):
-        """Tests that ApiError is available as mailerlite.ApiError"""
-
         import mailerlite
 
         assert mailerlite.ApiError is ApiError
 
     def test_request_adds_the_given_headers(self, mock_api):
-        """Tests that request() sends extra headers only for that request"""
-
         mock_api.add_response(200, {"data": {}})
         mock_api.add_response(200, {"data": {}})
         client = ApiClient({"api_key": "1234567890"})

@@ -13,22 +13,16 @@ def pytest_configure():
 
 
 def load_fixture(name):
-    """Returns the decoded JSON of a file in tests/fixtures"""
-
     with open(FIXTURES_DIR / name) as fd:
         return json.load(fd)
 
 
 class MockApi(object):
-    """Records the prepared requests and returns the queued responses"""
-
     def __init__(self):
         self.requests = []
         self.responses = []
 
     def add_response(self, status_code=200, body=None, headers=None):
-        """Queues a response. A dict or list body is encoded as JSON."""
-
         if isinstance(body, (dict, list)):
             body = json.dumps(body)
         if isinstance(body, str):
@@ -56,8 +50,6 @@ class MockApi(object):
 
     @property
     def last_body(self):
-        """Returns the decoded JSON body of the last request, or None without a body"""
-
         body = self.last_request.body
         return None if body is None else json.loads(body)
 

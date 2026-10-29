@@ -1,5 +1,3 @@
-"""Checks and helpers for the request parameters of all resources"""
-
 from __future__ import absolute_import
 
 import re
@@ -17,8 +15,6 @@ _IDEMPOTENCY_KEY_PATTERN = re.compile(r"[\x20-\x7E]{1,255}")
 
 
 def path_id(value, name):
-    """Returns the ID as a string for the URL path, or raises if it is not valid"""
-
     if value is None or value == "":
         raise EmptyIdError(f"`{name}` must not be empty.")
 
@@ -37,8 +33,6 @@ def path_id(value, name):
 
 
 def etag(value):
-    """Returns the etag for the body of a write, or raises if it is not valid"""
-
     if value is None or value == "":
         raise EmptyEtagError("`etag` must not be empty.")
 
@@ -49,8 +43,6 @@ def etag(value):
 
 
 def require_dict(value, name):
-    """Raises if the value is not a dict"""
-
     if not isinstance(value, dict):
         raise TypeError(
             f"`{name}` type is not valid. Expected `dict`, got {type(value)}."
@@ -58,14 +50,10 @@ def require_dict(value, name):
 
 
 def without_none(params):
-    """Returns the params without the keys that have no value"""
-
     return {key: value for key, value in params.items() if value is not None}
 
 
 def filter_params(filter):
-    """Returns a `filter[key]` query param for each key of the filter dict"""
-
     if filter is None:
         return {}
 
@@ -75,8 +63,6 @@ def filter_params(filter):
 
 
 def idempotency_headers(key):
-    """Returns the headers for the idempotency key, or raises if it is not valid"""
-
     if key is None:
         return None
 

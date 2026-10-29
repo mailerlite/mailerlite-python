@@ -540,8 +540,6 @@ class Emails(object):
 
 
 def _block_body(block_type, editor_content, placement):
-    """Returns the body to insert or to validate a block"""
-
     if not isinstance(block_type, str):
         raise TypeError(
             f"`block_type` type is not valid. Expected `str`, got {type(block_type)}."
@@ -556,8 +554,6 @@ def _block_body(block_type, editor_content, placement):
 
 
 def _placement(placement):
-    """Returns a copy of the placement to send, or raises if it is not valid"""
-
     _params.require_dict(placement, "placement")
     position = placement.get("position")
 
@@ -575,8 +571,6 @@ def _placement(placement):
 
 
 def _settings(settings):
-    """Returns the settings, or raises if they are not valid"""
-
     _params.require_dict(settings, "settings")
     # The body of update_settings() has the settings and the etag at the same level
     if "etag" in settings:
