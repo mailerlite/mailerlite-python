@@ -299,3 +299,112 @@ class TestSubscribers:
         response = self.client.subscribers.forget(int(user["data"]["id"]))
 
         assert response is True
+
+
+class TestSubscribersRequests:
+    @classmethod
+    def setup_class(self):
+        self.client = MailerLite.Client({"api_key": "test"})
+
+    def test_list_sends_documented_query_params(self, sent_request):
+        self.client.subscribers.list(
+            filter={"status": "active", "group": 1},
+            limit=10,
+            page=2,
+            cursor="abc",
+            sort="-created_at",
+            include="groups",
+            start_date="2026-01-01",
+            end_date="2026-02-01",
+            with_fields=True,
+            with_groups=False,
+        )
+
+        request = sent_request()
+        assert request.method == "GET"
+        assert request.path == "/subscribers"
+        assert request.params == {
+            "filter[status]": "active",
+            "filter[group]": 1,
+            "limit": 10,
+            "page": 2,
+            "cursor": "abc",
+            "sort": "-created_at",
+            "include": "groups",
+            "start_date": "2026-01-01",
+            "end_date": "2026-02-01",
+            "with_fields": 1,
+            "with_groups": 0,
+        }
+
+    def test_create_sends_documented_body_params(self, sent_request):
+        self.client.subscribers.create(
+            "test@example.com",
+            resubscribe=True,
+            double_optin=True,
+            notes="note",
+            status="active",
+        )
+
+        request = sent_request()
+        assert request.method == "POST"
+        assert request.path == "/subscribers"
+        assert request.body == {
+            "email": "test@example.com",
+            "resubscribe": True,
+            "double_optin": True,
+            "notes": "note",
+            "status": "active",
+        }
+
+    def test_update_sends_put_to_subscriber_by_email(self, sent_request):
+        self.client.subscribers.update(
+            "test@example.com", fields={"name": "Someone"}, status="active"
+        )
+
+        request = sent_request()
+        assert request.method == "PUT"
+        assert request.path == "/subscribers/test@example.com"
+        assert request.body == {"fields": {"name": "Someone"}, "status": "active"}
+
+    def test_update_sends_put_to_subscriber_by_id(self, sent_request):
+        self.client.subscribers.update(123, ip_address="1.1.1.1")
+
+        request = sent_request()
+        assert request.method == "PUT"
+        assert request.path == "/subscribers/123"
+        assert request.body == {"ip_address": "1.1.1.1"}
+
+    def test_update_quotes_the_email_in_the_path(self, sent_request):
+        self.client.subscribers.update("a+b#c@example.com", status="active")
+
+        request = sent_request()
+        assert request.method == "PUT"
+        assert request.path == "/subscribers/a%2Bb%23c@example.com"
+        assert request.body == {"status": "active"}
+
+    def test_update_sends_new_email_as_email(self, sent_request):
+        self.client.subscribers.update(123, new_email="new@example.com")
+
+        request = sent_request()
+        assert request.method == "PUT"
+        assert request.path == "/subscribers/123"
+        assert request.body == {"email": "new@example.com"}
+
+    def test_activity_log_sends_documented_query_params(self, sent_request):
+        self.client.subscribers.activity_log(
+            123, filter={"log_name": "email_open"}, limit=5, page=1
+        )
+
+        request = sent_request()
+        assert request.method == "GET"
+        assert request.path == "/subscribers/123/activity-log"
+        assert request.params == {
+            "filter[log_name]": "email_open",
+            "limit": 5,
+            "page": 1,
+        }
+
+    def test_activity_log_rejects_unknown_argument(self, sent_request):
+        with pytest.raises(TypeError):
+            self.client.subscribers.activity_log(123, cursor="abc")
