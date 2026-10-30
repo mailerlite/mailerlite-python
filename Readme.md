@@ -751,8 +751,9 @@ response = client.campaigns.activity(campaign_id)
 These methods edit emails built with the simple editor. To create such an email, [create a simple editor campaign](#create-a-simple-editor-campaign). The ID of the email is in `response['data']['emails'][0]['id']`.
 
 - IDs are strings of digits. You can also give them as `int`. An empty ID raises `mailerlite.EmptyIdError`, and an ID that does not contain only digits raises `mailerlite.InvalidIdError`. The SDK sends no request in these cases.
+- Before the request, the SDK checks only the IDs and the `settings` of `update_settings()`. It sends all other values as you give them, and the API checks them. An invalid value raises `mailerlite.ApiError`, for example with status `422`.
 - The methods return a `mailerlite.ApiResponse`. It is a `dict` with the response body, and it also has `status_code` and `headers`.
-- Each write needs the etag from the last response for the email, and returns a new etag. The etag covers the whole email, so send the writes to one email one after another. An empty etag raises `mailerlite.EmptyEtagError`, and the SDK sends no request.
+- Each write needs the etag from the last response for the email, and returns a new etag. The etag covers the whole email, so send the writes to one email one after another.
 - If the email changed after you read it, the write raises `mailerlite.ApiError` with `code` equal to `mailerlite.VERSION_CONFLICT`. Its `etag` is the current etag. Get the email again, and then repeat the write with the current etag.
 - The keys of `editor_content` are camelCase, for example `textAlign`. The SDK sends them as you give them.
 
@@ -818,7 +819,7 @@ block = response['data']
 ### Insert a block
 <a name="insert-a-block"></a>
 
-Use the block types in `MailerLite.BlockType`. `editor_content` can be empty. Without `placement`, the API puts the block at the end of the email. The `before` and `after` positions also need a `block_id`. The API ignores the `block_id` of `start` and `end`, so the SDK does not check it and does not send it.
+Use the block types in `MailerLite.BlockType`. `editor_content` can be empty. Without `placement`, the API puts the block at the end of the email. The `before` and `after` positions also need a `block_id`. The API ignores the `block_id` of `start` and `end`. The SDK sends the placement as you give it.
 
 ```python
 import mailerlite as MailerLite
@@ -892,7 +893,7 @@ etag = response['etag']
 ### Move a block
 <a name="move-a-block"></a>
 
-The `before` and `after` positions also need a `block_id`. The API ignores the `block_id` of `start` and `end`, so the SDK does not check it and does not send it.
+The `before` and `after` positions also need a `block_id`. The API ignores the `block_id` of `start` and `end`. The SDK sends the placement as you give it.
 
 ```python
 import mailerlite as MailerLite
@@ -949,6 +950,7 @@ Send only the keys to change, in the shape of `settings` in the email. The group
 - `footer.social_links` replaces the whole list. Keep the `link_id` of each link to keep its click history.
 - `brand.mode` is one of `MailerLite.BrandMode`. To apply a preset palette, send its `identifier` from [the brand styles](#get-the-brand-styles) in `brand.style`.
 - If the API removed unsafe values, the response has `rejected` with the keys of these values.
+- `settings` must be a `dict` without an `etag` key, because the SDK adds the `etag` argument to it. Otherwise the SDK raises `TypeError` or `ValueError` and sends no request.
 
 ```python
 import mailerlite as MailerLite
@@ -1075,7 +1077,8 @@ etag = response['etag']
 If a write fails with a network error, you do not know if the API did the write. Give the write an `idempotency_key`, and retry it with the same key and the same arguments. If the first request succeeded, the API returns the stored response and does not do the write two times. Then `response.is_idempotent_replay` is `True`.
 
 - Use a new key for each write. The API keeps a key for 24 hours.
-- The key must be 1 to 255 printable ASCII characters, without a space at the start or the end. Otherwise the SDK raises `mailerlite.InvalidIdempotencyKeyError` and sends no request.
+- The key must be 1 to 255 printable ASCII characters. The SDK sends the key as you give it. The API answers an invalid key with status `400`.
+- If `requests` cannot send the key in a header, it raises `requests.exceptions.InvalidHeader`. For example, a key with a space at the start or a new line causes this error.
 - The same key with different arguments raises `ApiError` with status `422`. If the first request is still running, the API returns `409` without a `code`.
 - These methods accept a key: `create_block`, `update_block`, `delete_block`, `move_block`, `update_settings`, `create_template`, `create_version` and `restore_version`.
 

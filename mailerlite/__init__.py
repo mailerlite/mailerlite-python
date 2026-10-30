@@ -5,9 +5,7 @@ from __future__ import absolute_import
 from mailerlite.api_client import ApiClient
 from mailerlite.exceptions import (  # noqa: F401
     ApiError,
-    EmptyEtagError,
     EmptyIdError,
-    InvalidIdempotencyKeyError,
     InvalidIdError,
 )
 from mailerlite.response import ApiResponse  # noqa: F401

@@ -1,10 +1,5 @@
 import pytest
-from mailerlite.exceptions import (
-    EmptyEtagError,
-    EmptyIdError,
-    InvalidIdempotencyKeyError,
-    InvalidIdError,
-)
+from mailerlite.exceptions import EmptyIdError, InvalidIdError
 from mailerlite.sdk import _params
 
 
@@ -26,14 +21,6 @@ class TestParams:
     def test_path_id_rejects_an_invalid_id(self, value, error):
         with pytest.raises(error, match="email_id"):
             _params.path_id(value, "email_id")
-
-    def test_etag_returns_the_etag(self):
-        assert _params.etag("42") == "42"
-
-    @pytest.mark.parametrize("value, error", [("", EmptyEtagError), (42, TypeError)])
-    def test_etag_rejects_an_invalid_etag(self, value, error):
-        with pytest.raises(error):
-            _params.etag(value)
 
     def test_require_dict_rejects_a_value_that_is_not_a_dict(self):
         _params.require_dict({}, "settings")
@@ -59,5 +46,8 @@ class TestParams:
         assert _params.idempotency_headers(None) is None
         assert _params.idempotency_headers("k1") == {"Idempotency-Key": "k1"}
 
-        with pytest.raises(InvalidIdempotencyKeyError):
-            _params.idempotency_headers(" k1")
+    @pytest.mark.parametrize(
+        "key", ["", " k1", pytest.param("k" * 256, id="256-characters")]
+    )
+    def test_idempotency_headers_send_the_key_as_given(self, key):
+        assert _params.idempotency_headers(key) == {"Idempotency-Key": key}

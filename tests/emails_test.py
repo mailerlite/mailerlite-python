@@ -1,11 +1,11 @@
+import json
 import pytest
+import requests
 import mailerlite
 from mailerlite import Client
 from mailerlite.exceptions import (
     ApiError,
-    EmptyEtagError,
     EmptyIdError,
-    InvalidIdempotencyKeyError,
     InvalidIdError,
 )
 from mailerlite.response import ApiResponse
@@ -184,66 +184,6 @@ class TestEmails:
             "etag": "42",
         }
 
-    def test_create_block_sends_an_int_placement_block_id_as_a_string(
-        self, client, mock_api
-    ):
-        mock_api.add_response(201, load_fixture("email_block_created.json"))
-        placement = {"position": BlockPosition.AFTER, "block_id": 57}
-
-        client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
-
-        assert mock_api.last_body["placement"] == {
-            "position": "after",
-            "block_id": "57",
-        }
-        assert placement == {"position": "after", "block_id": 57}
-
-    @pytest.mark.parametrize(
-        "block_id, error",
-        [
-            ("", EmptyIdError),
-            (None, EmptyIdError),
-            ("57/x", InvalidIdError),
-            ("abc", InvalidIdError),
-            (5.7, TypeError),
-        ],
-    )
-    def test_create_block_rejects_an_invalid_placement_block_id(
-        self, client, mock_api, block_id, error
-    ):
-        placement = {"position": BlockPosition.AFTER, "block_id": block_id}
-
-        with pytest.raises(error):
-            client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
-
-        assert mock_api.requests == []
-
-    @pytest.mark.parametrize("etag", ["", None])
-    def test_create_block_rejects_an_empty_etag(self, client, mock_api, etag):
-        with pytest.raises(EmptyEtagError):
-            client.emails.create_block("123", etag, BlockType.DIVIDER, {})
-
-        assert mock_api.requests == []
-
-    @pytest.mark.parametrize(
-        "etag, editor_content, placement",
-        [
-            (42, {}, None),
-            ("42", None, None),
-            ("42", "text", None),
-            ("42", {}, "end"),
-        ],
-    )
-    def test_create_block_rejects_arguments_of_the_wrong_type(
-        self, client, mock_api, etag, editor_content, placement
-    ):
-        with pytest.raises(TypeError):
-            client.emails.create_block(
-                "123", etag, BlockType.DIVIDER, editor_content, placement=placement
-            )
-
-        assert mock_api.requests == []
-
     def test_create_block_rejects_an_invalid_email_id(self, client, mock_api):
         with pytest.raises(InvalidIdError):
             client.emails.create_block("123/html", "42", BlockType.DIVIDER, {})
@@ -288,7 +228,6 @@ class TestEmails:
         assert VERSION_CONFLICT == "version_conflict"
 
     def test_write_names_are_exported_from_the_package(self):
-        assert mailerlite.EmptyEtagError is EmptyEtagError
         assert mailerlite.BlockType is BlockType
         assert mailerlite.BlockPosition is BlockPosition
         assert mailerlite.VERSION_CONFLICT == VERSION_CONFLICT
@@ -311,8 +250,6 @@ class TestEmails:
         [
             ("", "43", {}, EmptyIdError),
             ("57/move", "43", {}, InvalidIdError),
-            ("57", "", {}, EmptyEtagError),
-            ("57", "43", None, TypeError),
         ],
     )
     def test_update_block_rejects_invalid_arguments(
@@ -339,7 +276,6 @@ class TestEmails:
         [
             (None, "44", EmptyIdError),
             ("57%2F", "44", InvalidIdError),
-            ("57", None, EmptyEtagError),
         ],
     )
     def test_delete_block_rejects_invalid_arguments(
@@ -364,30 +300,11 @@ class TestEmails:
         assert response["data"]["id"] == "57"
         assert response["data"]["placement"] == {"after": None, "before": "1"}
 
-    def test_move_block_sends_an_int_placement_block_id_as_a_string(
-        self, client, mock_api
-    ):
-        mock_api.add_response(200, load_fixture("email_block_moved.json"))
-
-        client.emails.move_block(
-            "123", "57", "45", {"position": "before", "block_id": 1}
-        )
-
-        assert mock_api.last_body["placement"] == {
-            "position": "before",
-            "block_id": "1",
-        }
-
     @pytest.mark.parametrize(
         "block_id, etag, placement, error",
         [
             ("", "45", {"position": "end"}, EmptyIdError),
             ("57/x", "45", {"position": "end"}, InvalidIdError),
-            ("57", "", {"position": "end"}, EmptyEtagError),
-            ("57", "45", None, TypeError),
-            ("57", "45", "end", TypeError),
-            ("57", "45", {"position": "after", "block_id": ""}, EmptyIdError),
-            ("57", "45", {"position": "after", "block_id": "1/x"}, InvalidIdError),
         ],
     )
     def test_move_block_rejects_invalid_arguments(
@@ -430,98 +347,6 @@ class TestEmails:
         assert response["valid"] is False
         assert response["errors"] == {"type": ["The selected type is invalid."]}
 
-    @pytest.mark.parametrize("block_type", [None, 5, ["divider"]])
-    def test_block_writes_reject_a_block_type_of_the_wrong_type(
-        self, client, mock_api, block_type
-    ):
-        with pytest.raises(TypeError):
-            client.emails.create_block("123", "42", block_type, {})
-        with pytest.raises(TypeError):
-            client.emails.validate_block(block_type, {})
-
-        assert mock_api.requests == []
-
-    def test_validate_block_rejects_editor_content_of_the_wrong_type(
-        self, client, mock_api
-    ):
-        with pytest.raises(TypeError):
-            client.emails.validate_block(BlockType.HEADING, [])
-
-        assert mock_api.requests == []
-
-    # The API ignores `block_id` for `start` and `end` and does not check it
-    @pytest.mark.parametrize("position", [BlockPosition.START, BlockPosition.END])
-    @pytest.mark.parametrize("block_id", [None, "", "1/2", "abc", 5.7, 57])
-    def test_block_writes_do_not_check_or_send_the_block_id_for_start_and_end(
-        self, client, mock_api, position, block_id
-    ):
-        mock_api.add_response(201, load_fixture("email_block_created.json"))
-        mock_api.add_response(200, load_fixture("email_block_moved.json"))
-        mock_api.add_response(200, load_fixture("email_block_validation_valid.json"))
-        placement = {"position": position, "block_id": block_id}
-
-        client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
-        client.emails.move_block("123", "57", "45", placement)
-        client.emails.validate_block(BlockType.DIVIDER, {}, placement)
-
-        sent = f'"placement": {{"position": "{position}"}}'
-        assert [request.body for request in mock_api.requests] == [
-            f'{{"type": "divider", "editor_content": {{}}, {sent}, "etag": "42"}}',
-            f'{{{sent}, "etag": "45"}}',
-            f'{{"type": "divider", "editor_content": {{}}, {sent}}}',
-        ]
-        assert placement == {"position": position, "block_id": block_id}
-
-    @pytest.mark.parametrize("position", [BlockPosition.BEFORE, BlockPosition.AFTER])
-    def test_block_writes_reject_a_missing_block_id_for_before_and_after(
-        self, client, mock_api, position
-    ):
-        placement = {"position": position}
-
-        with pytest.raises(EmptyIdError):
-            client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
-        with pytest.raises(EmptyIdError):
-            client.emails.move_block("123", "57", "45", placement)
-        with pytest.raises(EmptyIdError):
-            client.emails.validate_block(BlockType.DIVIDER, {}, placement)
-
-        assert mock_api.requests == []
-
-    @pytest.mark.parametrize(
-        "block_id, error", [(None, EmptyIdError), ("1/2", InvalidIdError)]
-    )
-    def test_block_writes_check_the_block_id_of_an_unknown_position(
-        self, client, mock_api, block_id, error
-    ):
-        placement = {"position": "inside", "block_id": block_id}
-
-        with pytest.raises(error):
-            client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
-        with pytest.raises(error):
-            client.emails.move_block("123", "57", "45", placement)
-        with pytest.raises(error):
-            client.emails.validate_block(BlockType.DIVIDER, {}, placement)
-
-        assert mock_api.requests == []
-
-    @pytest.mark.parametrize(
-        "placement, sent",
-        [
-            ({"position": "inside", "block_id": 7}, '"inside", "block_id": "7"'),
-            ({"position": "inside"}, '"inside"'),
-        ],
-    )
-    def test_move_block_sends_the_block_id_of_an_unknown_position(
-        self, client, mock_api, placement, sent
-    ):
-        mock_api.add_response(200, load_fixture("email_block_moved.json"))
-
-        client.emails.move_block("123", "57", "45", placement)
-
-        assert mock_api.last_request.body == (
-            f'{{"placement": {{"position": {sent}}}, "etag": "45"}}'
-        )
-
     def test_update_settings_sends_only_the_given_keys(self, client, mock_api):
         mock_api.add_response(200, load_fixture("email_settings.json"))
         settings = {
@@ -562,7 +387,6 @@ class TestEmails:
         [
             ("", "46", {}, EmptyIdError),
             ("123/html", "46", {}, InvalidIdError),
-            ("123", "", {}, EmptyEtagError),
             ("123", "46", None, TypeError),
             ("123", "46", {"etag": "45"}, ValueError),
         ],
@@ -604,8 +428,6 @@ class TestEmails:
         [
             (None, {}, EmptyIdError),
             ("1.5", {}, InvalidIdError),
-            ("123", [], TypeError),
-            ("123", {"etag": "45"}, ValueError),
         ],
     )
     def test_validate_settings_rejects_invalid_arguments(
@@ -638,7 +460,6 @@ class TestEmails:
         [
             ("", "Newsletter", EmptyIdError),
             ("12a", "Newsletter", InvalidIdError),
-            ("123", None, TypeError),
         ],
     )
     def test_create_template_rejects_invalid_arguments(
@@ -720,8 +541,6 @@ class TestEmails:
         [
             ("", "47", EmptyIdError),
             ("901/restore", "47", InvalidIdError),
-            ("901", "", EmptyEtagError),
-            ("901", 47, TypeError),
         ],
     )
     def test_restore_version_rejects_invalid_arguments(
@@ -791,34 +610,6 @@ class TestEmailIdempotencyKeys:
 
         assert response.is_idempotent_replay is False
 
-    @pytest.mark.parametrize(
-        "key",
-        [
-            "",
-            "k" * 256,
-            "line\nbreak",
-            "tab\there",
-            "caf\u00e9",
-            "delete\x7f",
-            " leading-space",
-            "trailing-space ",
-        ],
-    )
-    @pytest.mark.parametrize("method, args, fixture", WRITES)
-    def test_write_rejects_an_invalid_key(
-        self, client, mock_api, method, args, fixture, key
-    ):
-        with pytest.raises(InvalidIdempotencyKeyError):
-            getattr(client.emails, method)(*args, idempotency_key=key)
-
-        assert mock_api.requests == []
-
-    def test_write_rejects_a_key_of_the_wrong_type(self, client, mock_api):
-        with pytest.raises(TypeError):
-            client.emails.create_version("123", idempotency_key=1)
-
-        assert mock_api.requests == []
-
     def test_write_accepts_a_key_of_255_printable_characters(self, client, mock_api):
         key = "".join(chr(code) for code in range(0x21, 0x7F)) + " " + "k" * 160
         assert len(key) == 255
@@ -828,6 +619,160 @@ class TestEmailIdempotencyKeys:
 
         assert mock_api.last_request.headers["Idempotency-Key"] == key
 
-    def test_idempotency_key_error_is_exported_from_the_package(self):
-        assert issubclass(InvalidIdempotencyKeyError, ValueError)
-        assert mailerlite.InvalidIdempotencyKeyError is InvalidIdempotencyKeyError
+
+# Each email write that sends an etag: (method, arguments before the etag, after it)
+ETAG_WRITES = [
+    ("create_block", ("123",), ("divider", {}), "email_block_created.json"),
+    ("update_block", ("123", "57"), ({},), "email_block_updated.json"),
+    ("delete_block", ("123", "57"), (), "email_etag.json"),
+    ("move_block", ("123", "57"), ({"position": "end"},), "email_block_moved.json"),
+    ("update_settings", ("123",), ({},), "email_settings.json"),
+    ("restore_version", ("123", "901"), (), "email.json"),
+]
+
+INVALID_BODY = {
+    "message": "The given data was invalid.",
+    "errors": {"etag": ["The etag field is required."]},
+}
+
+
+class TestEmailsSendTheGivenValues:
+    """The SDK sends the values of the caller, and the API checks them."""
+
+    @pytest.mark.parametrize(
+        "placement",
+        [
+            {"position": "after"},
+            {"position": "before", "block_id": 57},
+            {"position": "after", "block_id": "1/2"},
+            {"position": "start", "block_id": "57"},
+            {"position": "end", "block_id": None},
+            {"position": "inside", "block_id": 7},
+            "end",
+        ],
+    )
+    def test_block_writes_send_the_placement_as_given(
+        self, client, mock_api, placement
+    ):
+        mock_api.add_response(201, load_fixture("email_block_created.json"))
+        mock_api.add_response(200, load_fixture("email_block_moved.json"))
+        mock_api.add_response(200, load_fixture("email_block_validation_valid.json"))
+
+        client.emails.create_block("123", "42", BlockType.DIVIDER, {}, placement)
+        client.emails.move_block("123", "57", "45", placement)
+        client.emails.validate_block(BlockType.DIVIDER, {}, placement)
+
+        assert [json.loads(request.body) for request in mock_api.requests] == [
+            {
+                "type": "divider",
+                "editor_content": {},
+                "placement": placement,
+                "etag": "42",
+            },
+            {"placement": placement, "etag": "45"},
+            {"type": "divider", "editor_content": {}, "placement": placement},
+        ]
+
+    @pytest.mark.parametrize("etag", ["", None, 42])
+    @pytest.mark.parametrize("method, before, after, fixture", ETAG_WRITES)
+    def test_write_sends_the_etag_as_given(
+        self, client, mock_api, method, before, after, fixture, etag
+    ):
+        mock_api.add_response(200, load_fixture(fixture))
+
+        getattr(client.emails, method)(*before, etag, *after)
+
+        assert mock_api.last_body["etag"] == etag
+
+    def test_write_with_an_empty_etag_raises_the_api_error(self, client, mock_api):
+        mock_api.add_response(422, INVALID_BODY)
+
+        with pytest.raises(ApiError) as error:
+            client.emails.delete_block("123", "57", "")
+
+        assert mock_api.last_body == {"etag": ""}
+        assert error.value.status_code == 422
+        assert error.value.errors == INVALID_BODY["errors"]
+
+    @pytest.mark.parametrize(
+        "method, args, body",
+        [
+            (
+                "create_block",
+                ("123", "42", None, "text"),
+                {"type": None, "editor_content": "text", "etag": "42"},
+            ),
+            (
+                "update_block",
+                ("123", "57", "43", None),
+                {"editor_content": None, "etag": "43"},
+            ),
+            ("create_template", ("123", None), {"name": None}),
+        ],
+    )
+    def test_write_sends_a_value_of_the_wrong_type_and_raises_the_api_error(
+        self, client, mock_api, method, args, body
+    ):
+        mock_api.add_response(422, INVALID_BODY)
+
+        with pytest.raises(ApiError):
+            getattr(client.emails, method)(*args)
+
+        assert mock_api.last_body == body
+
+    @pytest.mark.parametrize(
+        "block_type, editor_content", [(5, {}), (None, {}), ("heading", [])]
+    )
+    def test_validate_block_sends_an_invalid_block(
+        self, client, mock_api, block_type, editor_content
+    ):
+        mock_api.add_response(200, load_fixture("email_block_validation_invalid.json"))
+
+        response = client.emails.validate_block(block_type, editor_content)
+
+        assert mock_api.last_body == {
+            "type": block_type,
+            "editor_content": editor_content,
+        }
+        assert response["valid"] is False
+
+    @pytest.mark.parametrize("settings", [[], {"etag": "45"}])
+    def test_validate_settings_sends_the_settings_as_given(
+        self, client, mock_api, settings
+    ):
+        mock_api.add_response(200, load_fixture("email_settings_validation.json"))
+
+        response = client.emails.validate_settings("123", settings)
+
+        assert mock_api.last_body == settings
+        assert response["valid"] is False
+
+    @pytest.mark.parametrize(
+        "key",
+        [
+            "",
+            pytest.param("k" * 256, id="256-characters"),
+            "tab\there",
+            "delete\x7f",
+            "trailing-space ",
+        ],
+    )
+    @pytest.mark.parametrize("method, args, fixture", WRITES)
+    def test_write_sends_the_idempotency_key_as_given(
+        self, client, mock_api, method, args, fixture, key
+    ):
+        mock_api.add_response(200, load_fixture(fixture))
+
+        getattr(client.emails, method)(*args, idempotency_key=key)
+
+        assert mock_api.last_request.headers["Idempotency-Key"] == key
+
+    # requests cannot send these values in a header
+    @pytest.mark.parametrize("key", [" leading-space", "line\nbreak", 1])
+    def test_write_raises_the_requests_error_for_a_key_that_http_cannot_send(
+        self, client, mock_api, key
+    ):
+        with pytest.raises(requests.exceptions.InvalidHeader):
+            client.emails.create_version("123", idempotency_key=key)
+
+        assert mock_api.requests == []
