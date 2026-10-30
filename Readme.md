@@ -26,6 +26,7 @@ For more information how to obtain an API key visit the [following link](https:/
     - [Get a subscriber](#get-a-subscriber)
     - [Delete a subscriber](#delete-a-subscriber)
     - [Forget a subscriber](#forget-a-subscriber)
+    - [Get subscriber activity](#get-subscriber-activity)
   - [Groups](#groups)
     - [List all groups](#list-all-groups)
     - [Create a group](#create-a-group)
@@ -50,6 +51,43 @@ For more information how to obtain an API key visit the [following link](https:/
     - [List all automations](#list-all-automations)
     - [Get an automation](#get-an-automation)
     - [Get subscribers activity for an automation](#get-subscribers-activity-for-an-automation)
+    - [Create an automation](#create-an-automation)
+    - [Update an automation](#update-an-automation)
+    - [Delete an automation](#delete-an-automation)
+    - [Copy an automation](#copy-an-automation)
+    - [Enable an automation](#enable-an-automation)
+    - [Disable an automation](#disable-an-automation)
+    - [Send a test of an automation](#send-a-test-of-an-automation)
+    - [Add subscribers to an automation](#add-subscribers-to-an-automation)
+    - [Re-add subscribers to an automation](#re-add-subscribers-to-an-automation)
+    - [Copy automation subscribers to groups](#copy-automation-subscribers-to-groups)
+    - [Cancel active automation runs](#cancel-active-automation-runs)
+    - [Skip an automation delay](#skip-an-automation-delay)
+    - [List automation triggers](#list-automation-triggers)
+    - [Create an automation trigger](#create-an-automation-trigger)
+    - [Get an automation trigger](#get-an-automation-trigger)
+    - [Update an automation trigger](#update-an-automation-trigger)
+    - [Delete an automation trigger](#delete-an-automation-trigger)
+    - [List automation steps](#list-automation-steps)
+    - [Create an automation step](#create-an-automation-step)
+    - [Get an automation step](#get-an-automation-step)
+    - [Update an automation step](#update-an-automation-step)
+    - [Delete an automation step](#delete-an-automation-step)
+    - [Copy an automation step](#copy-an-automation-step)
+    - [Move an automation step](#move-an-automation-step)
+    - [Select the winner of an A/B test step](#select-the-winner-of-an-ab-test-step)
+    - [Get the content of an automation email](#get-the-content-of-an-automation-email)
+    - [Update the content of an automation email](#update-the-content-of-an-automation-email)
+    - [Get the report stats of an automation email](#get-the-report-stats-of-an-automation-email)
+    - [Get the unsubscribe reasons of an automation email](#get-the-unsubscribe-reasons-of-an-automation-email)
+    - [List automation templates](#list-automation-templates)
+    - [Create an automation from a template](#create-an-automation-from-a-template)
+    - [Get the run counts of automation steps](#get-the-run-counts-of-automation-steps)
+    - [Get the run counts of automation triggers](#get-the-run-counts-of-automation-triggers)
+    - [Get the stats of A/B test steps](#get-the-stats-of-ab-test-steps)
+    - [List the subscribers on an automation step](#list-the-subscribers-on-an-automation-step)
+    - [List the subscribers on an automation trigger](#list-the-subscribers-on-an-automation-trigger)
+    - [Get the monthly email totals of an automation](#get-the-monthly-email-totals-of-an-automation)
   - [Campaigns](#campaigns)
     - [List all campaigns](#list-all-campaigns)
     - [Get a campaign](#get-a-campaign)
@@ -176,6 +214,8 @@ client = MailerLite.Client({
 response = client.subscribers.update('some@email.com', fields={'name': 'New', 'last_name': 'Name'}, ip_address='1.2.3.5', optin_ip='1.2.3.5')
 ```
 
+`update` sends `PUT /subscribers/{subscriber}`. The first argument is the email address or the ID of the subscriber. The subscriber must exist, or the API returns 404. `groups` replaces the subscriber's groups: groups you leave out are removed. To create a subscriber, or to add groups without removing others, use `create`. Pass `new_email` to change the email address.
+
 ### Get a subscriber
 <a name="get-a-subscriber"></a>
 
@@ -217,6 +257,21 @@ client = MailerLite.Client({
 subscriber_id = 1234567890
 
 response = client.subscribers.forget(subscriber_id)
+```
+
+### Get subscriber activity
+<a name="get-subscriber-activity"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+subscriber_id = 1234567890
+
+response = client.subscribers.activity_log(subscriber_id, limit=10, page=1, filter={'log_name': 'email_open'})
 ```
 
 ## Groups
@@ -293,7 +348,10 @@ client = MailerLite.Client({
 
 group_id = 1234567
 
-response = client.groups.get_group_subscribers(group_id, page=1, limit=10, filter={'status': 'active'})
+response = client.groups.get_group_subscribers(group_id, limit=10, filter={'status': 'active'})
+
+next_cursor = response['meta']['next_cursor']
+response = client.groups.get_group_subscribers(group_id, cursor=next_cursor, limit=10, filter={'status': 'active'})
 ```
 
 ### Import bulk subscribers to a group
@@ -422,6 +480,9 @@ client = MailerLite.Client({
 segment_id = 123456
 
 response = client.segments.get_subscribers(segment_id, limit=10, filter={'status': 'active'})
+
+next_cursor = response['meta']['next_cursor']
+response = client.segments.get_subscribers(segment_id, cursor=next_cursor, limit=10, filter={'status': 'active'})
 ```
 
 ## Fields
@@ -451,7 +512,7 @@ client = MailerLite.Client({
 })
 
 name = 'My Field'
-type = 'text
+type = 'text'
 
 response = client.fields.create(name, type)
 ```
@@ -531,6 +592,578 @@ client = MailerLite.Client({
 automation_id = 123456
 
 response = client.automations.activity(automation_id, page=1, limit=10, filter={'status': 'active', 'date_from': '2022-12-20', 'date_to': '2022-12-31'})
+```
+
+### Create an automation
+<a name="create-an-automation"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+response = client.automations.create('My automation')
+```
+
+### Update an automation
+<a name="update-an-automation"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.update(automation_id, 'My new name')
+```
+
+### Delete an automation
+<a name="delete-an-automation"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.delete(automation_id)
+```
+
+### Copy an automation
+<a name="copy-an-automation"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.copy(automation_id)
+```
+
+### Enable an automation
+<a name="enable-an-automation"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.enable(automation_id)
+```
+
+### Disable an automation
+<a name="disable-an-automation"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.disable(automation_id)
+```
+
+### Send a test of an automation
+<a name="send-a-test-of-an-automation"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.test(automation_id, 'some@email.com')
+```
+
+### Add subscribers to an automation
+<a name="add-subscribers-to-an-automation"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.add_subscribers(automation_id, emails=['some@email.com'], groups=[1234567])
+```
+
+### Re-add subscribers to an automation
+<a name="re-add-subscribers-to-an-automation"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.readd(automation_id, 'last_completed_step', {'status': 'completed'})
+```
+
+### Copy automation subscribers to groups
+<a name="copy-automation-subscribers-to-groups"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.activity_add_to_group(automation_id, ['1234567'], {'status': 'completed'})
+```
+
+### Cancel active automation runs
+<a name="cancel-active-automation-runs"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.activity_cancel_automation(automation_id, {'status': 'active'})
+```
+
+### Skip an automation delay
+<a name="skip-an-automation-delay"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.activity_skip_delay(automation_id, {'status': 'active'})
+```
+
+### List automation triggers
+<a name="list-automation-triggers"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.list_triggers(automation_id)
+```
+
+### Create an automation trigger
+<a name="create-an-automation-trigger"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.create_trigger(automation_id, 'subscriber_joins_group', data={'group_ids': [1234567]})
+```
+
+### Get an automation trigger
+<a name="get-an-automation-trigger"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+trigger_id = 123456
+
+response = client.automations.get_trigger(automation_id, trigger_id)
+```
+
+### Update an automation trigger
+<a name="update-an-automation-trigger"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+trigger_id = 123456
+
+response = client.automations.update_trigger(automation_id, trigger_id, data={'group_ids': [1234567]})
+```
+
+### Delete an automation trigger
+<a name="delete-an-automation-trigger"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+trigger_id = 123456
+
+response = client.automations.delete_trigger(automation_id, trigger_id)
+```
+
+### List automation steps
+<a name="list-automation-steps"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.list_steps(automation_id)
+```
+
+### Create an automation step
+<a name="create-an-automation-step"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.create_step(automation_id, 'delay', parent_id=123456, data={'unit': 'days', 'value': 1})
+```
+
+### Get an automation step
+<a name="get-an-automation-step"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+step_id = 123456
+
+response = client.automations.get_step(automation_id, step_id)
+```
+
+### Update an automation step
+<a name="update-an-automation-step"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+step_id = 123456
+
+response = client.automations.update_step(automation_id, step_id, data={'unit': 'days', 'value': 2})
+```
+
+### Delete an automation step
+<a name="delete-an-automation-step"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+step_id = 123456
+
+response = client.automations.delete_step(automation_id, step_id, branch_to_delete='all')
+```
+
+### Copy an automation step
+<a name="copy-an-automation-step"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+step_id = 123456
+
+response = client.automations.copy_step(automation_id, step_id, parent_id=123456)
+```
+
+### Move an automation step
+<a name="move-an-automation-step"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+step_id = 123456
+
+response = client.automations.reorder_steps(automation_id, step_id, new_parent_step_id=123456)
+```
+
+### Select the winner of an A/B test step
+<a name="select-the-winner-of-an-ab-test-step"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+step_id = 123456
+
+response = client.automations.select_ab_test_winner(automation_id, step_id, 'a_path')
+```
+
+### Get the content of an automation email
+<a name="get-the-content-of-an-automation-email"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+email_id = 123456
+
+response = client.automations.get_email_content(automation_id, email_id)
+```
+
+### Update the content of an automation email
+<a name="update-the-content-of-an-automation-email"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+email_id = 123456
+
+response = client.automations.update_email_content(automation_id, email_id, '<p>Hello</p>')
+```
+
+### Get the report stats of an automation email
+<a name="get-the-report-stats-of-an-automation-email"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+email_id = 123456
+
+response = client.automations.email_report_stats(automation_id, email_id, start_date='2026-01-01', end_date='2026-01-31', excel=False)
+```
+
+### Get the unsubscribe reasons of an automation email
+<a name="get-the-unsubscribe-reasons-of-an-automation-email"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+email_id = 123456
+
+response = client.automations.email_unsubscribe_reasons(automation_id, email_id)
+```
+
+### List automation templates
+<a name="list-automation-templates"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+response = client.automations.list_templates(limit=10, page=1, filter={'category': 1})
+```
+
+### Create an automation from a template
+<a name="create-an-automation-from-a-template"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+template_id = 123456
+
+response = client.automations.select_template(template_id)
+```
+
+### Get the run counts of automation steps
+<a name="get-the-run-counts-of-automation-steps"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+step_id = 123456
+
+response = client.automations.steps_run_counts(automation_id)
+response = client.automations.step_run_counts(automation_id, step_id)
+```
+
+### Get the run counts of automation triggers
+<a name="get-the-run-counts-of-automation-triggers"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+trigger_id = 123456
+
+response = client.automations.triggers_run_counts(automation_id)
+response = client.automations.trigger_run_counts(automation_id, trigger_id)
+```
+
+### Get the stats of A/B test steps
+<a name="get-the-stats-of-ab-test-steps"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+step_id = 123456
+
+response = client.automations.ab_steps_stats(automation_id)
+response = client.automations.ab_step_stats(automation_id, step_id)
+```
+
+### List the subscribers on an automation step
+<a name="list-the-subscribers-on-an-automation-step"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+step_id = 123456
+
+response = client.automations.step_subscribers(automation_id, step_id, 'queued', limit=10, page=1)
+```
+
+### List the subscribers on an automation trigger
+<a name="list-the-subscribers-on-an-automation-trigger"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+trigger_id = 123456
+
+response = client.automations.trigger_subscribers(automation_id, trigger_id, 'completed', limit=10, page=1)
+```
+
+### Get the monthly email totals of an automation
+<a name="get-the-monthly-email-totals-of-an-automation"></a>
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+automation_id = 123456
+
+response = client.automations.email_monthly_totals(automation_id, start_date='2026-01-01', end_date='2026-06-30')
 ```
 
 ## Campaigns
