@@ -1,6 +1,11 @@
 from __future__ import absolute_import
 
 import re
+from urllib.parse import quote
+
+from mailerlite.sdk._request_params import query_params, reject_unknown
+
+_EMAIL_RE = re.compile(r"[\w.]+\@[\w.]+")
 
 
 class Subscribers(object):
@@ -17,26 +22,28 @@ class Subscribers(object):
         Returns a list of all subscribers.
         Ref: https://developers.mailerlite.com/docs/subscribers.html#list-all-subscribers
 
-        :param **kwargs: dict You can pass additional arguments - cursor, limit or filter by status
+        :param **kwargs: dict You can pass additional arguments - cursor, page, limit, sort, include, start_date, end_date, with_fields, with_groups or filter by status, group, automation, form, site, page, import or post
         :raises: :class: `TypeError` : Got an unknown argument
         :return: JSON array
         :rtype: dict
         """
 
-        available_params = ["filter", "limit", "cursor"]
+        available_params = [
+            "filter",
+            "limit",
+            "cursor",
+            "page",
+            "sort",
+            "include",
+            "start_date",
+            "end_date",
+            "with_fields",
+            "with_groups",
+        ]
 
-        params = locals()
-        query_params = {}
-        for key, val in params["kwargs"].items():
-            if key not in available_params:
-                raise TypeError("Got an unknown argument '%s'" % key)
-            if key == "filter":
-                for filter_key, filter_value in val.items():
-                    query_params[f"filter[{filter_key}]"] = filter_value
-            else:
-                query_params[key] = val
-
-        return self.api_client.request("GET", self.base_api_url, query_params).json()
+        return self.api_client.request(
+            "GET", self.base_api_url, query_params(kwargs, available_params)
+        ).json()
 
     def create(self, email, **kwargs):
         """
@@ -46,7 +53,7 @@ class Subscribers(object):
         Ref: https://developers.mailerlite.com/docs/subscribers.html#create-update-subscriber
 
         :param email: string Valid email address as per RFC 2821
-        :param **kwargs: dict You can pass additional arguments - fields, groups, status, subscribed_at, ip_address, opted_in_at, optin_ip and unsubscribed_at
+        :param **kwargs: dict You can pass additional arguments - fields, groups, status, subscribed_at, ip_address, opted_in_at, optin_ip, unsubscribed_at, resubscribe, double_optin and notes. `double_optin` is ignored for normal API tokens; the account setting applies
         :raises: :class: `TypeError` : `email` is not a valid email address
         :raises: :class: `TypeError` : `fields` argument should be a dict
         :raises: :class: `TypeError` : `groups` argument should be a list
@@ -64,50 +71,44 @@ class Subscribers(object):
             "opted_in_at",
             "optin_ip",
             "unsubscribed_at",
+            "resubscribe",
+            "double_optin",
+            "notes",
         ]
 
-        valid = re.search(r"[\w.]+\@[\w.]+", email)
-
-        if not valid:
+        if not _EMAIL_RE.search(email):
             raise TypeError("`email` is not a valid email address.")
 
-        params = locals()
-        body_params = {"email": email}
-
-        for key, val in params["kwargs"].items():
-            if key not in available_params:
-                raise TypeError("Got an unknown argument '%s'" % key)
-
-            if key == "fields" and type(val) is not dict:
-                raise TypeError("`fields` argument should be a dict.")
-
-            if key == "groups" and type(val) is not list:
-                raise TypeError("`groups` argument should be a list.")
-
-            body_params[key] = val
+        reject_unknown(kwargs, available_params)
+        self._validate_body(kwargs)
 
         return self.api_client.request(
-            "POST", self.base_api_url, body=body_params
+            "POST", self.base_api_url, body={"email": email, **kwargs}
         ).json()
 
     def update(self, email, **kwargs):
         """
         Update a subscriber
 
-        Provides ability to update an existing subscriber.
-        Ref: https://developers.mailerlite.com/docs/subscribers.html#create-update-subscriber
+        Provides ability to update an existing subscriber with `PUT /subscribers/{subscriber}`.
+        `groups` replaces the subscriber's groups, so groups that are not listed are removed.
+        A missing subscriber returns 404. Use `create` for the additive upsert.
+        Ref: https://developers.mailerlite.com/docs/subscribers.html
 
-        :param email: string Valid email address as per RFC 2821
-        :param **kwargs: dict You can pass additional arguments - fields, groups, status, subscribed_at, ip_address, opted_in_at, optin_ip and unsubscribed_at
+        :param email: string/int Email address or ID of the subscriber
+        :param **kwargs: dict You can pass additional arguments - new_email, fields, groups, status, subscribed_at, ip_address, opted_in_at, optin_ip and unsubscribed_at. `new_email` changes the email address of the subscriber
         :raises: :class: `TypeError` : `email` is not a valid email address
+        :raises: :class: `TypeError` : `new_email` is not a valid email address
         :raises: :class: `TypeError` : `fields` argument should be a dict
         :raises: :class: `TypeError` : `groups` argument should be a list
         :raises: :class: `TypeError` : Got an unknown argument
+        :raises: :class: `requests.HTTPError` : API request failed, e.g. subscriber was not found
         :return: JSON array
         :rtype: dict
         """
 
         available_params = [
+            "new_email",
             "fields",
             "groups",
             "status",
@@ -118,28 +119,21 @@ class Subscribers(object):
             "unsubscribed_at",
         ]
 
-        valid = re.search(r"[\w.]+\@[\w.]+", email)
-
-        if not valid:
+        if not isinstance(email, int) and not _EMAIL_RE.search(email):
             raise TypeError("`email` is not a valid email address.")
 
-        params = locals()
-        body_params = {"email": email}
+        reject_unknown(kwargs, available_params)
+        self._validate_body(kwargs)
 
-        for key, val in params["kwargs"].items():
-            if key not in available_params:
-                raise TypeError("Got an unknown argument '%s'" % key)
-
-            if key == "fields" and type(val) is not dict:
-                raise TypeError("`fields` argument should be a dict.")
-
-            if key == "groups" and type(val) is not list:
-                raise TypeError("`groups` argument should be a list.")
-
-            body_params[key] = val
+        body_params = dict(kwargs)
+        if "new_email" in body_params:
+            new_email = body_params.pop("new_email")
+            if not _EMAIL_RE.search(new_email):
+                raise TypeError("`new_email` is not a valid email address.")
+            body_params["email"] = new_email
 
         return self.api_client.request(
-            "POST", self.base_api_url, body=body_params
+            "PUT", self._subscriber_path(email), body=body_params
         ).json()
 
     def get(self, subscriber_id):
@@ -156,7 +150,7 @@ class Subscribers(object):
         """
 
         if not isinstance(subscriber_id, int):
-            valid = re.search(r"[\w.]+\@[\w.]+", subscriber_id)
+            valid = _EMAIL_RE.search(subscriber_id)
 
             if not valid:
                 raise TypeError(
@@ -308,3 +302,39 @@ class Subscribers(object):
         self.api_client.request("POST", f"{self.base_api_url}/{subscriber_id}/forget")
 
         return True
+
+    def activity_log(self, subscriber_id, **kwargs):
+        """
+        List subscriber activity
+
+        Returns the activity log of a subscriber.
+        Ref: https://developers.mailerlite.com/docs/subscribers.html
+
+        :param subscriber_id: int Subscriber ID
+        :param **kwargs: dict You can pass additional arguments - limit, page or filter by log_name
+        :raises: :class: `TypeError` : `subscriber_id` type is not valid
+        :raises: :class: `TypeError` : Got an unknown argument
+        :return: JSON array
+        :rtype: dict
+        """
+
+        if not isinstance(subscriber_id, int):
+            raise TypeError(
+                f"`subscriber_id` type is not valid. Expected `int`, got {type(subscriber_id)}."
+            )
+
+        return self.api_client.request(
+            "GET",
+            f"{self.base_api_url}/{subscriber_id}/activity-log",
+            query_params(kwargs, ["filter", "limit", "page"]),
+        ).json()
+
+    def _validate_body(self, kwargs):
+        if "fields" in kwargs and type(kwargs["fields"]) is not dict:
+            raise TypeError("`fields` argument should be a dict.")
+
+        if "groups" in kwargs and type(kwargs["groups"]) is not list:
+            raise TypeError("`groups` argument should be a list.")
+
+    def _subscriber_path(self, email_or_id):
+        return f"{self.base_api_url}/{quote(str(email_or_id), safe='@')}"
