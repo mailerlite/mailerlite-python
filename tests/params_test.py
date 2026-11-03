@@ -38,6 +38,11 @@ class TestParams:
             "filter[type]": "image",
         }
 
+    def test_filter_params_removes_the_filters_without_a_value(self):
+        assert _params.filter_params({"name": "logo", "type": None}) == {
+            "filter[name]": "logo"
+        }
+
     def test_filter_params_rejects_a_filter_that_is_not_a_dict(self):
         with pytest.raises(TypeError, match="filter"):
             _params.filter_params("image")

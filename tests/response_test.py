@@ -1,3 +1,5 @@
+import json
+
 import pytest
 
 import mailerlite
@@ -48,6 +50,33 @@ class TestApiResponse:
         response = ApiResponse(ApiClient({}).request("POST", "api/emails/1/blocks"))
 
         assert response.is_idempotent_replay is False
+
+    def test_empty_body_is_an_empty_dict(self, mock_api):
+        mock_api.add_response(204)
+
+        response = ApiResponse(ApiClient({}).request("DELETE", "api/emails/1/blocks/2"))
+
+        assert response == {}
+        assert response.status_code == 204
+
+    @pytest.mark.parametrize("body", [[1, 2], "text", None, 1])
+    def test_body_that_is_not_a_json_object_raises_type_error(self, mock_api, body):
+        mock_api.add_response(200, json.dumps(body))
+
+        with pytest.raises(TypeError, match="JSON object"):
+            ApiResponse(ApiClient({}).request("GET", "api/emails/1"))
+
+    def test_copy_keeps_the_status_code_and_the_headers(self, mock_api):
+        mock_api.add_response(201, {"data": {}}, {"Idempotent-Replayed": "true"})
+        response = ApiResponse(ApiClient({}).request("POST", "api/emails/1/blocks"))
+
+        copied = response.copy()
+
+        assert isinstance(copied, ApiResponse)
+        assert copied == response
+        assert copied is not response
+        assert copied.status_code == 201
+        assert copied.is_idempotent_replay is True
 
     def test_api_response_is_exported_from_the_package(self):
         assert mailerlite.ApiResponse is ApiResponse

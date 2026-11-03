@@ -42,7 +42,7 @@ def filter_params(filter):
 
     require_dict(filter, "filter")
 
-    return {f"filter[{key}]": value for key, value in filter.items()}
+    return {f"filter[{key}]": value for key, value in without_none(filter).items()}
 
 
 def idempotency_headers(key):

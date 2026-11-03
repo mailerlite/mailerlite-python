@@ -428,6 +428,9 @@ class TestEmails:
         [
             (None, {}, EmptyIdError),
             ("1.5", {}, InvalidIdError),
+            ("123", [], TypeError),
+            ("123", None, TypeError),
+            ("123", {"etag": "45"}, ValueError),
         ],
     )
     def test_validate_settings_rejects_invalid_arguments(
@@ -734,17 +737,6 @@ class TestEmailsSendTheGivenValues:
             "type": block_type,
             "editor_content": editor_content,
         }
-        assert response["valid"] is False
-
-    @pytest.mark.parametrize("settings", [[], {"etag": "45"}])
-    def test_validate_settings_sends_the_settings_as_given(
-        self, client, mock_api, settings
-    ):
-        mock_api.add_response(200, load_fixture("email_settings_validation.json"))
-
-        response = client.emails.validate_settings("123", settings)
-
-        assert mock_api.last_body == settings
         assert response["valid"] is False
 
     @pytest.mark.parametrize(

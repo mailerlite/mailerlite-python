@@ -373,7 +373,8 @@ class Emails(object):
 
         :param email_id: str|int Email ID
         :param settings: dict The settings that you want to send to `update_settings()`
-        :raises: :class: `TypeError` : `email_id` type is not valid
+        :raises: :class: `TypeError` : `email_id` or `settings` type is not valid
+        :raises: :class: `ValueError` : `settings` contains `etag`
         :raises: :class: `EmptyIdError` : `email_id` is empty
         :raises: :class: `InvalidIdError` : `email_id` does not contain only digits
         :raises: :class: `ApiError` : API request failed
@@ -382,12 +383,13 @@ class Emails(object):
         """
 
         email_id = _params.path_id(email_id, "email_id")
+        body = _settings(settings)
 
         return ApiResponse(
             self.api_client.request(
                 "POST",
                 f"{self.base_api_url}/{email_id}/settings/validate",
-                body=settings,
+                body=body,
             )
         )
 
