@@ -1,7 +1,6 @@
 interactions:
 - request:
-    body: '{"email": "test5@email.com", "fields": {"name": "Someone", "last_name":
-      "Doe"}, "ip_address": "1.1.1.1"}'
+    body: '{"fields": {"name": "Someone", "last_name": "Doe"}, "ip_address": "1.1.1.1"}'
     headers:
       Accept:
       - application/json
@@ -10,13 +9,13 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '104'
+      - '76'
       Content-Type:
       - application/json
       User-Agent:
       - MailerLite-Python-SDK-Client
-    method: POST
-    uri: https://connect.mailerlite.com/api/subscribers
+    method: PUT
+    uri: https://connect.mailerlite.com/api/subscribers/test5@email.com
   response:
     body:
       string: '{"data":{"id":"165968862226941797","email":"test5@email.com","status":"active","source":"api","sent":0,"opens_count":0,"clicks_count":0,"open_rate":0,"click_rate":0,"ip_address":"1.1.1.1","subscribed_at":"2025-09-19

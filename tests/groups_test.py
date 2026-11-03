@@ -184,3 +184,43 @@ class TestGroups:
 
         with pytest.raises(requests.HTTPError):
             self.client.groups.delete(121212)
+
+
+class TestGroupsRequests:
+    @classmethod
+    def setup_class(self):
+        self.client = MailerLite.Client({"api_key": "test"})
+
+    def test_import_subscribers_to_group_posts_to_documented_path(self, sent_request):
+        subscribers = [{"email": "test@example.com"}]
+        self.client.groups.import_subscribers_to_group(
+            123, subscribers, resubscribe=True, trigger_automations=False
+        )
+
+        request = sent_request()
+        assert request.method == "POST"
+        assert request.path == "/groups/123/import-subscribers"
+        assert request.body == {
+            "subscribers": subscribers,
+            "resubscribe": True,
+            "trigger_automations": False,
+        }
+
+    def test_import_subscribers_to_group_rejects_unknown_argument(self, sent_request):
+        with pytest.raises(TypeError):
+            self.client.groups.import_subscribers_to_group(123, [], unknown=True)
+
+    def test_get_group_subscribers_sends_documented_query_params(self, sent_request):
+        self.client.groups.get_group_subscribers(
+            123, filter={"status": "active"}, limit=10, cursor="abc", include="groups"
+        )
+
+        request = sent_request()
+        assert request.method == "GET"
+        assert request.path == "/groups/123/subscribers"
+        assert request.params == {
+            "filter[status]": "active",
+            "limit": 10,
+            "cursor": "abc",
+            "include": "groups",
+        }

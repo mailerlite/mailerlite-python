@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+from mailerlite.sdk._request_params import body_params, query_params
+
 
 class Segments(object):
     # Segments base API uri
@@ -15,22 +17,15 @@ class Segments(object):
         Returns a list of all segments.
         Ref: https://developers.mailerlite.com/docs/segments.html#list-all-segments
 
-        :param **kwargs: dict You can pass additional arguments - page and limit
+        :param **kwargs: dict You can pass additional arguments - page, limit and sort
         :raises: :class: `TypeError` : Got an unknown argument
         :return: JSON array
         :rtype: dict
         """
 
-        available_params = ["limit", "page"]
-
-        params = locals()
-        query_params = {}
-        for key, val in params["kwargs"].items():
-            if key not in available_params:
-                raise TypeError("Got an unknown argument '%s'" % key)
-            query_params[key] = val
-
-        return self.api_client.request("GET", self.base_api_url, query_params).json()
+        return self.api_client.request(
+            "GET", self.base_api_url, query_params(kwargs, ["limit", "page", "sort"])
+        ).json()
 
     def get(self, segment_id, **kwargs):
         """
@@ -80,7 +75,7 @@ class Segments(object):
         Ref: https://developers.mailerlite.com/docs/segments.html#get-subscribers-belonging-to-a-segment
 
         :param segment_id: int Segment ID
-        :param **kwargs: dict You can pass additional arguments - after, limit or filter by status
+        :param **kwargs: dict You can pass additional arguments - cursor, limit or filter by status. `after` is deprecated, use `cursor`
         :raises: :class: `TypeError` : Got an unknown argument
         :raises: :class: `TypeError` : `segment_id` type is not valid
         :return: JSON array
@@ -95,20 +90,13 @@ class Segments(object):
         if not isinstance(segment_id, int):
             raise TypeError("Segment ID are not valid.")
 
-        available_params = ["filter", "limit", "after"]
-
-        params = locals()
-        query_params = {}
-        for key, val in params["kwargs"].items():
-            if key not in available_params:
-                raise TypeError("Got an unknown argument '%s'" % key)
-            query_params[key] = val
-
         return self.api_client.request(
-            "GET", f"{self.base_api_url}/{segment_id}/subscribers", query_params
+            "GET",
+            f"{self.base_api_url}/{segment_id}/subscribers",
+            query_params(kwargs, ["filter", "limit", "cursor", "after"]),
         ).json()
 
-    def update(self, segment_id, name):
+    def update(self, segment_id, name, **kwargs):
         """
         Update a segment
 
@@ -117,8 +105,10 @@ class Segments(object):
 
         :param segment_id: int Segment ID
         :param name: str Maximum length of 255 characters
+        :param **kwargs: dict You can pass additional arguments - filter
         :raises: :class: `ValueError` : `name` cannot exceed 255 characters
         :raises: :class: `TypeError` : `segment_id` type is not valid
+        :raises: :class: `TypeError` : Got an unknown argument
         :raises: :class: `requests.HTTPError` : API request failed, e.g. segment was not found
         :return: `true` if action was successful
         :rtype: bool
@@ -132,11 +122,9 @@ class Segments(object):
         if len(name) > 255:
             raise ValueError("`name` cannot exceed 255 characters.")
 
-        body_params = {"name": name}
+        body = {"name": name, **body_params(kwargs, ["filter"])}
 
-        self.api_client.request(
-            "PUT", f"{self.base_api_url}/{segment_id}", body=body_params
-        )
+        self.api_client.request("PUT", f"{self.base_api_url}/{segment_id}", body=body)
 
         return True
 

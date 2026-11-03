@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+from mailerlite.sdk._request_params import body_params, query_params
+
 
 class Groups(object):
     # Groups base API uri
@@ -112,7 +114,7 @@ class Groups(object):
 
         return True
 
-    def import_subscribers_to_group(self, group_id, subscribers):
+    def import_subscribers_to_group(self, group_id, subscribers, **kwargs):
         """
         Import bulk subscribers to a group
 
@@ -121,9 +123,11 @@ class Groups(object):
 
         :param group_id: int Group ID
         :param subscribers: list List of subscriber objects to import
+        :param **kwargs: You can pass additional arguments - resubscribe or trigger_automations
         :raises: :class: `TypeError` : `group_id` type is not valid
         :raises: :class: `TypeError` : `subscribers` type is not valid
-        :return: JSON array
+        :raises: :class: `TypeError` : Got an unknown argument
+        :return: JSON array with `import_progress_url`. Poll `subscribers.get_import` for progress
         :rtype: dict
         """
 
@@ -137,10 +141,15 @@ class Groups(object):
                 f"`subscribers` type is not valid. Expected `list`, got {type(subscribers)}."
             )
 
+        body = {
+            "subscribers": subscribers,
+            **body_params(kwargs, ["resubscribe", "trigger_automations"]),
+        }
+
         return self.api_client.request(
             "POST",
-            f"{self.base_api_url}/{group_id}/subscribers/import",
-            body={"subscribers": subscribers},
+            f"{self.base_api_url}/{group_id}/import-subscribers",
+            body=body,
         ).json()
 
     def get_group_subscribers(self, group_id, **kwargs):
@@ -151,7 +160,7 @@ class Groups(object):
         Ref: https://developers.mailerlite.com/docs/groups.html#get-subscribers-belonging-to-a-group
 
         :param group_id: int Group ID
-        :param **kwargs: You can pass additional arguments - cursor, limit, sort or to filter by status
+        :param **kwargs: You can pass additional arguments - cursor, limit, include or to filter by status
         :raises: :class: `TypeError` : Got an unknown argument
         :raises: :class: `TypeError` : `group_id` type is not valid
         :return: JSON array
@@ -163,21 +172,8 @@ class Groups(object):
                 f"`group_id` type is not valid. Expected `int`, got {type(group_id)}."
             )
 
-        available_params = ["filter", "limit", "cursor"]
-
-        params = locals()
-        query_params = {}
-        for key, val in params["kwargs"].items():
-            if key not in available_params:
-                raise TypeError("Got an unknown argument '%s'" % key)
-            if key == "filter":
-                for filter_key, filter_value in val.items():
-                    query_params[f"filter[{filter_key}]"] = filter_value
-            else:
-                query_params[key] = val
-
         return self.api_client.request(
             "GET",
             f"{self.base_api_url}/{group_id}/subscribers",
-            query_params,
+            query_params(kwargs, ["filter", "limit", "cursor", "include"]),
         ).json()
