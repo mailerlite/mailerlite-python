@@ -319,7 +319,6 @@ REQUEST_CASES = [
             "start_date": "2026-01-01",
             "end_date": "2026-02-01",
             "shop_id": "7",
-            "excel": False,
         },
         "GET",
         "/automations/1/emails/6/report-stats",
@@ -327,7 +326,6 @@ REQUEST_CASES = [
             "start_date": "2026-01-01",
             "end_date": "2026-02-01",
             "shop_id": "7",
-            "excel": 0,
         },
         None,
     ),
@@ -453,7 +451,6 @@ REQUEST_CASES = [
             "start_date": "2026-01-01",
             "end_date": "2026-02-01",
             "shop_id": "7",
-            "excel": True,
         },
         "GET",
         "/automations/1/monthly-totals/email",
@@ -461,7 +458,6 @@ REQUEST_CASES = [
             "start_date": "2026-01-01",
             "end_date": "2026-02-01",
             "shop_id": "7",
-            "excel": 1,
         },
         None,
     ),
@@ -578,3 +574,19 @@ class TestAutomationsRequests:
 
         assert result is True
         response.json.assert_not_called()
+
+
+class TestAutomationReportsRejectExcel:
+    """The SDK always decodes JSON, so it cannot offer the XLSX download"""
+
+    @classmethod
+    def setup_class(self):
+        self.client = MailerLite.Client({"api_key": "test"})
+
+    def test_email_report_stats_rejects_excel(self, sent_request):
+        with pytest.raises(TypeError, match="excel"):
+            self.client.automations.email_report_stats(1, 6, excel=True)
+
+    def test_email_monthly_totals_rejects_excel(self, sent_request):
+        with pytest.raises(TypeError, match="excel"):
+            self.client.automations.email_monthly_totals(1, excel=True)

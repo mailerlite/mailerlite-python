@@ -180,15 +180,17 @@ class TestSegmentsRequests:
             "cursor": "abc",
         }
 
-    def test_get_subscribers_still_sends_after(self, sent_request):
-        self.client.segments.get_subscribers(123, after="abc")
+    def test_get_subscribers_sends_after_as_cursor_with_a_warning(self, sent_request):
+        with pytest.warns(DeprecationWarning, match="after"):
+            self.client.segments.get_subscribers(123, after="abc")
 
-        assert sent_request().params == {"after": "abc"}
+        assert sent_request().params == {"cursor": "abc"}
 
-    def test_get_subscribers_sends_after_and_cursor_together(self, sent_request):
-        self.client.segments.get_subscribers(123, after="old", cursor="new")
+    def test_get_subscribers_prefers_cursor_over_after(self, sent_request):
+        with pytest.warns(DeprecationWarning, match="after"):
+            self.client.segments.get_subscribers(123, after="old", cursor="new")
 
-        assert sent_request().params == {"after": "old", "cursor": "new"}
+        assert sent_request().params == {"cursor": "new"}
 
     def test_update_sends_documented_body_params(self, sent_request):
         rules = [[{"operator": "in_any", "args": ["groups", 1]}]]

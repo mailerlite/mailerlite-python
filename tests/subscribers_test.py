@@ -383,6 +383,23 @@ class TestSubscribersRequests:
         assert request.path == "/subscribers/a%2Bb%23c@example.com"
         assert request.body == {"status": "active"}
 
+    def test_get_quotes_the_email_in_the_path(self, sent_request):
+        self.client.subscribers.get("a+b#c@example.com")
+
+        request = sent_request()
+        assert request.method == "GET"
+        assert request.path == "/subscribers/a%2Bb%23c@example.com"
+
+    @pytest.mark.parametrize("value", [True, False])
+    def test_update_rejects_a_bool_as_subscriber(self, sent_request, value):
+        with pytest.raises(TypeError):
+            self.client.subscribers.update(value, status="active")
+
+    @pytest.mark.parametrize("value", [True, False])
+    def test_get_rejects_a_bool_as_subscriber(self, sent_request, value):
+        with pytest.raises(TypeError):
+            self.client.subscribers.get(value)
+
     def test_update_sends_new_email_as_email(self, sent_request):
         self.client.subscribers.update(123, new_email="new@example.com")
 

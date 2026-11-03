@@ -551,7 +551,7 @@ class Automations(object):
 
         :param automation_id: Automation ID
         :param email_id: Email ID
-        :param **kwargs: You can pass additional arguments - start_date, end_date, shop_id or excel
+        :param **kwargs: You can pass additional arguments - start_date, end_date or shop_id
         :raises: :class: `TypeError` : Got an unknown argument
         :return: JSON dict
         """
@@ -559,7 +559,7 @@ class Automations(object):
         return self.api_client.request(
             "GET",
             f"{self.base_api_url}/{automation_id}/emails/{email_id}/report-stats",
-            query_params(kwargs, ["start_date", "end_date", "shop_id", "excel"]),
+            query_params(kwargs, ["start_date", "end_date", "shop_id"]),
         ).json()
 
     def email_unsubscribe_reasons(self, automation_id, email_id):
@@ -728,7 +728,7 @@ class Automations(object):
         Ref: https://developers.mailerlite.com/docs/automations.html
 
         :param automation_id: Automation ID
-        :param **kwargs: You can pass additional arguments - start_date, end_date, shop_id or excel
+        :param **kwargs: You can pass additional arguments - start_date, end_date or shop_id
         :raises: :class: `TypeError` : Got an unknown argument
         :return: JSON dict
         """
@@ -736,7 +736,7 @@ class Automations(object):
         return self.api_client.request(
             "GET",
             f"{self.base_api_url}/{automation_id}/monthly-totals/email",
-            query_params(kwargs, ["start_date", "end_date", "shop_id", "excel"]),
+            query_params(kwargs, ["start_date", "end_date", "shop_id"]),
         ).json()
 
     def _activity_subscribers(self, automation_id, kind, item_id, status, kwargs):

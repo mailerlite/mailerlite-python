@@ -8,6 +8,15 @@ from mailerlite.sdk._request_params import query_params, reject_unknown
 _EMAIL_RE = re.compile(r"[\w.]+\@[\w.]+")
 
 
+def _is_id(value):
+    # bool is an int in Python, but not a subscriber ID
+    return isinstance(value, int) and not isinstance(value, bool)
+
+
+def _is_email(value):
+    return isinstance(value, str) and _EMAIL_RE.search(value) is not None
+
+
 class Subscribers(object):
     # Subscribers base API uri
     base_api_url = "api/subscribers"
@@ -119,7 +128,7 @@ class Subscribers(object):
             "unsubscribed_at",
         ]
 
-        if not isinstance(email, int) and not _EMAIL_RE.search(email):
+        if not _is_id(email) and not _is_email(email):
             raise TypeError("`email` is not a valid email address.")
 
         reject_unknown(kwargs, available_params)
@@ -149,16 +158,11 @@ class Subscribers(object):
         :rtype: dict
         """
 
-        if not isinstance(subscriber_id, int):
-            valid = _EMAIL_RE.search(subscriber_id)
-
-            if not valid:
-                raise TypeError(
-                    "Provided email address or subscriber id are not valid."
-                )
+        if not _is_id(subscriber_id) and not _is_email(subscriber_id):
+            raise TypeError("Provided email address or subscriber id are not valid.")
 
         return self.api_client.request(
-            "GET", f"{self.base_api_url}/{subscriber_id}"
+            "GET", self._subscriber_path(subscriber_id)
         ).json()
 
     def delete(self, subscriber_id):

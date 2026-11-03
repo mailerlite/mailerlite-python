@@ -1014,7 +1014,7 @@ client = MailerLite.Client({
 automation_id = 123456
 email_id = 123456
 
-response = client.automations.email_report_stats(automation_id, email_id, start_date='2026-01-01', end_date='2026-01-31', excel=False)
+response = client.automations.email_report_stats(automation_id, email_id, start_date='2026-01-01', end_date='2026-01-31')
 ```
 
 ### Get the unsubscribe reasons of an automation email

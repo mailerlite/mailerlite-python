@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import warnings
+
 from mailerlite.sdk._request_params import body_params, query_params
 
 
@@ -75,7 +77,7 @@ class Segments(object):
         Ref: https://developers.mailerlite.com/docs/segments.html#get-subscribers-belonging-to-a-segment
 
         :param segment_id: int Segment ID
-        :param **kwargs: dict You can pass additional arguments - cursor, limit or filter by status. `after` is deprecated, use `cursor`
+        :param **kwargs: dict You can pass additional arguments - cursor, limit or filter by status. `after` is deprecated: the SDK sends it as `cursor` and warns
         :raises: :class: `TypeError` : Got an unknown argument
         :raises: :class: `TypeError` : `segment_id` type is not valid
         :return: JSON array
@@ -90,10 +92,18 @@ class Segments(object):
         if not isinstance(segment_id, int):
             raise TypeError("Segment ID are not valid.")
 
+        if "after" in kwargs:
+            warnings.warn(
+                "`after` is deprecated and the API ignores it. Use `cursor`.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+            kwargs.setdefault("cursor", kwargs.pop("after"))
+
         return self.api_client.request(
             "GET",
             f"{self.base_api_url}/{segment_id}/subscribers",
-            query_params(kwargs, ["filter", "limit", "cursor", "after"]),
+            query_params(kwargs, ["filter", "limit", "cursor"]),
         ).json()
 
     def update(self, segment_id, name, **kwargs):
