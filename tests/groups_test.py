@@ -122,7 +122,9 @@ class TestGroups:
         with pytest.raises(TypeError):
             self.client.groups.import_subscribers_to_group(1234, "not-a-list")
 
-    @pytest.mark.skip(reason="VCR cassette was recorded with a 401 response and needs to be re-recorded")
+    @pytest.mark.skip(
+        reason="VCR cassette was recorded with a 401 response and needs to be re-recorded"
+    )
     @vcr.use_cassette(
         "tests/vcr_cassettes/groups-import-subscribers.yml",
         filter_headers=["Authorization"],
@@ -131,7 +133,9 @@ class TestGroups:
         self,
     ):
         subscribers = [{"email": "test@example.com", "name": "Test User"}]
-        response = self.client.groups.import_subscribers_to_group(pytest.entity_id, subscribers)
+        response = self.client.groups.import_subscribers_to_group(
+            pytest.entity_id, subscribers
+        )
 
         assert isinstance(response, dict)
 

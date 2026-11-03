@@ -115,19 +115,14 @@ The first thing that you need to do is to import `mailerlite` into your project 
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 ```
 
 MailerLite API supports [versioning](https://developers.mailerlite.com/docs/#versioning), so you can pass additional argument to specify the API version:
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key',
-  'api_version': '2038-01-19'
-})
+client = MailerLite.Client({"api_key": "your-api-key", "api_version": "2038-01-19"})
 ```
 
 ### Error handling
@@ -146,16 +141,14 @@ The attributes are `None` when the response does not have them.
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 try:
-    response = client.subscribers.get('some@email.com')
+    response = client.subscribers.get("some@email.com")
 except MailerLite.ApiError as e:
-    print(e.status_code)      # e.g. 404
-    print(e.message)          # error message from the API
-    print(e.errors)           # validation errors, if any
+    print(e.status_code)  # e.g. 404
+    print(e.message)  # error message from the API
+    print(e.errors)  # validation errors, if any
     print(e.response.json())  # full error body from the API
 ```
 
@@ -174,11 +167,9 @@ Network-level failures (DNS errors, connection resets, timeouts) raise the stand
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-response = client.subscribers.list(limit=10, page=1, filter={'status': 'active'})
+response = client.subscribers.list(limit=10, page=1, filter={"status": "active"})
 ```
 
 ### Create a subscriber
@@ -187,11 +178,14 @@ response = client.subscribers.list(limit=10, page=1, filter={'status': 'active'}
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-response = client.subscribers.create('some@email.com', fields={'name': 'John', 'last_name': 'Doe'}, ip_address='1.2.3.4', optin_ip='1.2.3.4')
+response = client.subscribers.create(
+    "some@email.com",
+    fields={"name": "John", "last_name": "Doe"},
+    ip_address="1.2.3.4",
+    optin_ip="1.2.3.4",
+)
 ```
 
 ### Update a subscriber
@@ -200,11 +194,14 @@ response = client.subscribers.create('some@email.com', fields={'name': 'John', '
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-response = client.subscribers.update('some@email.com', fields={'name': 'New', 'last_name': 'Name'}, ip_address='1.2.3.5', optin_ip='1.2.3.5')
+response = client.subscribers.update(
+    "some@email.com",
+    fields={"name": "New", "last_name": "Name"},
+    ip_address="1.2.3.5",
+    optin_ip="1.2.3.5",
+)
 ```
 
 ### Get a subscriber
@@ -213,11 +210,9 @@ response = client.subscribers.update('some@email.com', fields={'name': 'New', 'l
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-response = client.subscribers.get('some@email.com')
+response = client.subscribers.get("some@email.com")
 ```
 
 ### Delete a subscriber
@@ -226,9 +221,7 @@ response = client.subscribers.get('some@email.com')
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 subscriber_id = 1234567890
 
@@ -241,9 +234,7 @@ response = client.subscribers.delete(subscriber_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 subscriber_id = 1234567890
 
@@ -259,11 +250,9 @@ response = client.subscribers.forget(subscriber_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-response = client.groups.list(limit=10, page=1, filter={'name': 'My'}, sort='name')
+response = client.groups.list(limit=10, page=1, filter={"name": "My"}, sort="name")
 ```
 
 ### Create a group
@@ -272,11 +261,9 @@ response = client.groups.list(limit=10, page=1, filter={'name': 'My'}, sort='nam
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-group_name = 'My Group'
+group_name = "My Group"
 
 response = client.groups.create(group_name)
 ```
@@ -287,12 +274,10 @@ response = client.groups.create(group_name)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 group_id = 1234567
-group_name = 'My New Group'
+group_name = "My New Group"
 
 response = client.groups.update(group_id, group_name)
 ```
@@ -303,9 +288,7 @@ response = client.groups.update(group_id, group_name)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 group_id = 1234567
 
@@ -318,13 +301,13 @@ response = client.groups.delete(group_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 group_id = 1234567
 
-response = client.groups.get_group_subscribers(group_id, page=1, limit=10, filter={'status': 'active'})
+response = client.groups.get_group_subscribers(
+    group_id, page=1, limit=10, filter={"status": "active"}
+)
 ```
 
 ### Import bulk subscribers to a group
@@ -333,14 +316,12 @@ response = client.groups.get_group_subscribers(group_id, page=1, limit=10, filte
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 group_id = 1234567
 subscribers = [
-    {'email': 'subscriber1@example.com', 'name': 'Subscriber One'},
-    {'email': 'subscriber2@example.com', 'name': 'Subscriber Two'},
+    {"email": "subscriber1@example.com", "name": "Subscriber One"},
+    {"email": "subscriber2@example.com", "name": "Subscriber Two"},
 ]
 
 response = client.groups.import_subscribers_to_group(group_id, subscribers)
@@ -352,9 +333,7 @@ response = client.groups.import_subscribers_to_group(group_id, subscribers)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 subscriber_id = 111222
 group_id = 1234567
@@ -368,9 +347,7 @@ response = client.subscribers.assign_subscriber_to_group(subscriber_id, group_id
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 subscriber_id = 111222
 group_id = 1234567
@@ -387,9 +364,7 @@ response = client.subscribers.unassign_subscriber_from_group(subscriber_id, grou
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 response = client.segments.list(limit=10, page=1)
 ```
@@ -400,9 +375,7 @@ response = client.segments.list(limit=10, page=1)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 segment_id = 123456
 name = "My New Segment Name"
@@ -416,9 +389,7 @@ response = client.segments.update(segment_id, name)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 segment_id = 123456
 
@@ -431,13 +402,11 @@ response = client.segments.delete(segment_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 segment_id = 123456
 
-response = client.segments.get(segment_id, limit=10, filter={'status': 'active'})
+response = client.segments.get(segment_id, limit=10, filter={"status": "active"})
 ```
 
 ### Get subscribers belonging to a segment
@@ -446,13 +415,13 @@ response = client.segments.get(segment_id, limit=10, filter={'status': 'active'}
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 segment_id = 123456
 
-response = client.segments.get_subscribers(segment_id, limit=10, filter={'status': 'active'})
+response = client.segments.get_subscribers(
+    segment_id, limit=10, filter={"status": "active"}
+)
 ```
 
 ## Fields
@@ -464,11 +433,11 @@ response = client.segments.get_subscribers(segment_id, limit=10, filter={'status
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-response = client.fields.list(limit=10, page=1, sort='name', filter={'keyword': 'abc', 'type': 'text'})
+response = client.fields.list(
+    limit=10, page=1, sort="name", filter={"keyword": "abc", "type": "text"}
+)
 ```
 
 ### Create a field
@@ -493,12 +462,10 @@ response = client.fields.create(name, type)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 field_id = 123456
-name = 'My New Field'
+name = "My New Field"
 
 response = client.fields.update(field_id, name)
 ```
@@ -509,9 +476,7 @@ response = client.fields.update(field_id, name)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 field_id = 123456
 
@@ -527,11 +492,11 @@ response = client.fields.delete(field_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-response = client.automations.list(limit=10, page=1, filter={'enabled': True, 'name': 'some name', 'group': 123456})
+response = client.automations.list(
+    limit=10, page=1, filter={"enabled": True, "name": "some name", "group": 123456}
+)
 ```
 
 ### Get an automation
@@ -540,9 +505,7 @@ response = client.automations.list(limit=10, page=1, filter={'enabled': True, 'n
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 automation_id = 123456
 
@@ -555,13 +518,16 @@ response = client.automations.get(automation_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 automation_id = 123456
 
-response = client.automations.activity(automation_id, page=1, limit=10, filter={'status': 'active', 'date_from': '2022-12-20', 'date_to': '2022-12-31'})
+response = client.automations.activity(
+    automation_id,
+    page=1,
+    limit=10,
+    filter={"status": "active", "date_from": "2022-12-20", "date_to": "2022-12-31"},
+)
 ```
 
 ## Campaigns
@@ -573,11 +539,11 @@ response = client.automations.activity(automation_id, page=1, limit=10, filter={
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-response = client.campaigns.list(limit=10, page=1, filter={'status': 'ready', 'type': 'regular'})
+response = client.campaigns.list(
+    limit=10, page=1, filter={"status": "ready", "type": "regular"}
+)
 ```
 
 ### Get a campaign
@@ -586,9 +552,7 @@ response = client.campaigns.list(limit=10, page=1, filter={'status': 'ready', 't
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 campaign_id = 123456
 
@@ -601,20 +565,20 @@ response = client.campaigns.get(campaign_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 params = {
     "name": "Test Campaign",
     "language_id": 1,
     "type": "regular",
-    "emails": [{
-        "subject": "This is a test campaign",
-        "from_name": "Test Man",
-        "from": "testuser@mailerlite.com",
-        "content": "Hi there, this is a test campaign!"
-    }]
+    "emails": [
+        {
+            "subject": "This is a test campaign",
+            "from_name": "Test Man",
+            "from": "testuser@mailerlite.com",
+            "content": "Hi there, this is a test campaign!",
+        }
+    ],
 }
 
 response = client.campaigns.create(params)
@@ -632,24 +596,24 @@ To build the email with the simple editor, set `editor` to `MailerLite.EDITOR_SI
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 params = {
     "name": "Test Campaign",
     "type": "regular",
-    "emails": [{
-        "subject": "This is a test campaign",
-        "from_name": "Test Man",
-        "from": "testuser@mailerlite.com",
-        "editor": MailerLite.EDITOR_SIMPLE,
-    }]
+    "emails": [
+        {
+            "subject": "This is a test campaign",
+            "from_name": "Test Man",
+            "from": "testuser@mailerlite.com",
+            "editor": MailerLite.EDITOR_SIMPLE,
+        }
+    ],
 }
 
 response = client.campaigns.create(params)
 
-email_id = response['data']['emails'][0]['id']
+email_id = response["data"]["emails"][0]["id"]
 ```
 
 ### Update a campaign
@@ -658,20 +622,20 @@ email_id = response['data']['emails'][0]['id']
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 campaign_id = 123456
 params = {
     "name": "New Campaign Name",
     "language_id": 2,
-    "emails": [{
-        "subject": "This is a test campaign",
-        "from_name": "Test Man",
-        "from": "testuser@mailerlite.com",
-        "content": "Hi there, this is a test campaign!"
-    }]
+    "emails": [
+        {
+            "subject": "This is a test campaign",
+            "from_name": "Test Man",
+            "from": "testuser@mailerlite.com",
+            "content": "Hi there, this is a test campaign!",
+        }
+    ],
 }
 
 response = client.campaigns.update(campaign_id, params)
@@ -683,18 +647,12 @@ response = client.campaigns.update(campaign_id, params)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 campaign_id = 123456
 params = {
     "delivery": "scheduled",
-    "schedule": {
-        "date": "2022-12-31",
-        "hours": "22",
-        "minutes": "00"
-    }
+    "schedule": {"date": "2022-12-31", "hours": "22", "minutes": "00"},
 }
 
 response = client.campaigns.schedule(campaign_id, params)
@@ -706,9 +664,7 @@ response = client.campaigns.schedule(campaign_id, params)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 campaign_id = 123456
 
@@ -721,9 +677,7 @@ response = client.campaigns.cancel(campaign_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 campaign_id = 123456
 
@@ -736,9 +690,7 @@ response = client.campaigns.delete(campaign_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 campaign_id = 123456
 
@@ -765,16 +717,14 @@ Returns the email with its settings and blocks, and the etag of the email.
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
+email_id = "123456"
 
 response = client.emails.get(email_id)
 
-email = response['data']
-etag = response['etag']
+email = response["data"]
+etag = response["etag"]
 ```
 
 ### Get the HTML of an email
@@ -785,15 +735,13 @@ Returns the HTML that the email sends. The API can return a temporary `503` erro
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
+email_id = "123456"
 
 response = client.emails.get_html(email_id)
 
-html = response['data']['html']
+html = response["data"]["html"]
 ```
 
 ### Get a block
@@ -804,16 +752,14 @@ Returns the block and its place in the email: `placement` has the IDs of the blo
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
-block_id = '57'
+email_id = "123456"
+block_id = "57"
 
 response = client.emails.get_block(email_id, block_id)
 
-block = response['data']
+block = response["data"]
 ```
 
 ### Insert a block
@@ -824,23 +770,21 @@ Use the block types in `MailerLite.BlockType`. `editor_content` can be empty. Wi
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
-etag = client.emails.get(email_id)['etag']
+email_id = "123456"
+etag = client.emails.get(email_id)["etag"]
 
 response = client.emails.create_block(
     email_id,
     etag,
     MailerLite.BlockType.PARAGRAPH,
-    {'attrs': {'textAlign': 'left'}, 'content': [{'type': 'text', 'text': 'Hello'}]},
-    placement={'position': MailerLite.BlockPosition.START},
+    {"attrs": {"textAlign": "left"}, "content": [{"type": "text", "text": "Hello"}]},
+    placement={"position": MailerLite.BlockPosition.START},
 )
 
-block_id = response['data']['id']
-etag = response['etag']
+block_id = response["data"]["id"]
+etag = response["etag"]
 ```
 
 ### Update a block
@@ -851,22 +795,23 @@ The new `editor_content` replaces the whole content of the block. The API remove
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
-block_id = '57'
-etag = 'etag-from-the-last-response'
+email_id = "123456"
+block_id = "57"
+etag = "etag-from-the-last-response"
 
 response = client.emails.update_block(
     email_id,
     block_id,
     etag,
-    {'attrs': {'textAlign': 'center'}, 'content': [{'type': 'text', 'text': 'Hello again'}]},
+    {
+        "attrs": {"textAlign": "center"},
+        "content": [{"type": "text", "text": "Hello again"}],
+    },
 )
 
-etag = response['etag']
+etag = response["etag"]
 ```
 
 ### Delete a block
@@ -877,17 +822,15 @@ Also deletes the blocks in it. The response has only the new etag.
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
-block_id = '57'
-etag = 'etag-from-the-last-response'
+email_id = "123456"
+block_id = "57"
+etag = "etag-from-the-last-response"
 
 response = client.emails.delete_block(email_id, block_id, etag)
 
-etag = response['etag']
+etag = response["etag"]
 ```
 
 ### Move a block
@@ -898,22 +841,20 @@ The `before` and `after` positions also need a `block_id`. The API ignores the `
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
-block_id = '57'
-etag = 'etag-from-the-last-response'
+email_id = "123456"
+block_id = "57"
+etag = "etag-from-the-last-response"
 
 response = client.emails.move_block(
     email_id,
     block_id,
     etag,
-    {'position': MailerLite.BlockPosition.AFTER, 'block_id': '12'},
+    {"position": MailerLite.BlockPosition.AFTER, "block_id": "12"},
 )
 
-etag = response['etag']
+etag = response["etag"]
 ```
 
 ### Validate a block
@@ -924,17 +865,18 @@ Checks a block before you insert it. It needs no email and no etag. An invalid b
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 response = client.emails.validate_block(
     MailerLite.BlockType.BUTTON,
-    {'attrs': {'href': 'https://example.com'}, 'content': [{'type': 'text', 'text': 'Buy now'}]},
+    {
+        "attrs": {"href": "https://example.com"},
+        "content": [{"type": "text", "text": "Buy now"}],
+    },
 )
 
-if not response['valid']:
-    print(response['errors'])
+if not response["valid"]:
+    print(response["errors"])
 ```
 
 ### Update the design settings
@@ -955,21 +897,23 @@ Send only the keys to change, in the shape of `settings` in the email. The group
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
-etag = 'etag-from-the-last-response'
+email_id = "123456"
+etag = "etag-from-the-last-response"
 
-response = client.emails.update_settings(email_id, etag, {
-    'brand': {'mode': MailerLite.BrandMode.CUSTOM, 'background_color': '#f4f4f4'},
-    'typography': {'paragraph': {'p1': {'size': '18'}}},
-})
+response = client.emails.update_settings(
+    email_id,
+    etag,
+    {
+        "brand": {"mode": MailerLite.BrandMode.CUSTOM, "background_color": "#f4f4f4"},
+        "typography": {"paragraph": {"p1": {"size": "18"}}},
+    },
+)
 
-etag = response['etag']
-if response.get('rejected'):
-    print(response['rejected']['keys'])
+etag = response["etag"]
+if response.get("rejected"):
+    print(response["rejected"]["keys"])
 ```
 
 ### Validate the design settings
@@ -980,18 +924,19 @@ Checks a change with the rules of the update, and saves nothing. It needs no eta
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
+email_id = "123456"
 
-response = client.emails.validate_settings(email_id, {
-    'button': {'border_radius': '8'},
-})
+response = client.emails.validate_settings(
+    email_id,
+    {
+        "button": {"border_radius": "8"},
+    },
+)
 
-if not response['valid']:
-    print(response['errors'])
+if not response["valid"]:
+    print(response["errors"])
 ```
 
 ### Save an email as a template
@@ -1002,15 +947,13 @@ Copies the email to a new template. The API cannot delete templates.
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
+email_id = "123456"
 
-response = client.emails.create_template(email_id, 'Monthly newsletter')
+response = client.emails.create_template(email_id, "Monthly newsletter")
 
-template_id = response['data']['id']
+template_id = response["data"]["id"]
 ```
 
 ### List the versions of an email
@@ -1021,11 +964,9 @@ A version is a saved copy of the content and the settings of an email. The list 
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
+email_id = "123456"
 
 response = client.emails.list_versions(email_id, page=1, limit=10)
 ```
@@ -1038,15 +979,13 @@ Writes through the API do not save versions. If nothing changed after the last v
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
+email_id = "123456"
 
 response = client.emails.create_version(email_id)
 
-version_id = response['data']['id']
+version_id = response["data"]["id"]
 is_new = response.status_code == 201
 ```
 
@@ -1058,17 +997,15 @@ Puts the email back to the version, and returns the full email with the new etag
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
-version_id = '901'
-etag = 'etag-from-the-last-response'
+email_id = "123456"
+version_id = "901"
+etag = "etag-from-the-last-response"
 
 response = client.emails.restore_version(email_id, version_id, etag)
 
-etag = response['etag']
+etag = response["etag"]
 ```
 
 ### Retry a write with an idempotency key
@@ -1088,12 +1025,10 @@ import uuid
 import requests
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-email_id = '123456'
-etag = 'etag-from-the-last-response'
+email_id = "123456"
+etag = "etag-from-the-last-response"
 key = str(uuid.uuid4())
 
 try:
@@ -1106,7 +1041,7 @@ except (requests.ConnectionError, requests.Timeout):
         email_id, etag, MailerLite.BlockType.DIVIDER, {}, idempotency_key=key
     )
 
-print(response['data']['id'], response.is_idempotent_replay)
+print(response["data"]["id"], response.is_idempotent_replay)
 ```
 
 ## Brand styles
@@ -1120,13 +1055,11 @@ Returns the palettes of your account: `brand` (your brand styles, or `None` if y
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 response = client.brand_styles.get()
 
-identifiers = [preset['identifier'] for preset in response['data']['presets']]
+identifiers = [preset["identifier"] for preset in response["data"]["presets"]]
 ```
 
 ## Files
@@ -1143,12 +1076,10 @@ Returns the files of your media library. Use their `url` in image blocks. `width
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 response = client.files.list(
-    filter={'name': 'summer sale', 'type': MailerLite.FileType.IMAGE},
+    filter={"name": "summer sale", "type": MailerLite.FileType.IMAGE},
     sort=MailerLite.FileSort.SIZE_DESCENDING,
     page=1,
     limit=25,
@@ -1164,11 +1095,11 @@ response = client.files.list(
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-response = client.forms.list(limit=10, page=1, sort='name', filter={'name': 'form name'})
+response = client.forms.list(
+    limit=10, page=1, sort="name", filter={"name": "form name"}
+)
 ```
 
 ### Get a form
@@ -1177,9 +1108,7 @@ response = client.forms.list(limit=10, page=1, sort='name', filter={'name': 'for
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 form_id = 123456
 
@@ -1192,12 +1121,10 @@ response = client.forms.get(form_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 form_id = 123456
-name = 'New Form Name'
+name = "New Form Name"
 
 response = client.forms.update(form_id, name)
 ```
@@ -1208,9 +1135,7 @@ response = client.forms.update(form_id, name)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 form_id = 123456
 
@@ -1223,13 +1148,13 @@ response = client.forms.delete(form_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 form_id = 123456
 
-response = client.forms.get_subscribers(form_id, page=1, limit=10, filter={'status': 'active'})
+response = client.forms.get_subscribers(
+    form_id, page=1, limit=10, filter={"status": "active"}
+)
 ```
 
 ## Batching
@@ -1241,9 +1166,7 @@ response = client.forms.get_subscribers(form_id, page=1, limit=10, filter={'stat
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 params = [
     {"method": "GET", "path": "api/subscribers/list"},
@@ -1262,9 +1185,7 @@ response = self.client.batches.request(params)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 response = client.webhooks.list()
 ```
@@ -1275,9 +1196,7 @@ response = client.webhooks.list()
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 webhook_id = 123456
 
@@ -1290,17 +1209,11 @@ response = client.webhooks.get(webhook_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
-events = [
-  'subscriber.created',
-  'subscriber.updated',
-  'subscriber.unsubscribed'
-]
-url = 'https://my-url.com'
-name = 'Webhook name'
+events = ["subscriber.created", "subscriber.updated", "subscriber.unsubscribed"]
+url = "https://my-url.com"
+name = "Webhook name"
 
 response = client.webhooks.create(events, url, name)
 ```
@@ -1311,18 +1224,12 @@ response = client.webhooks.create(events, url, name)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 webhook_id = 123456
-events = [
-  'subscriber.created',
-  'subscriber.updated',
-  'subscriber.unsubscribed'
-]
-url = 'https://my-url.com'
-name = 'Webhook name'
+events = ["subscriber.created", "subscriber.updated", "subscriber.unsubscribed"]
+url = "https://my-url.com"
+name = "Webhook name"
 enabled = False
 
 response = client.webhooks.update(webhook_id, events, url, name, enabled)
@@ -1334,9 +1241,7 @@ response = client.webhooks.update(webhook_id, events, url, name, enabled)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 webhook_id = 123456
 
@@ -1352,9 +1257,7 @@ response = client.webhooks.delete(webhook_id)
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 response = client.timezone.list()
 ```
@@ -1368,9 +1271,7 @@ response = client.timezone.list()
 ```python
 import mailerlite as MailerLite
 
-client = MailerLite.Client({
-  'api_key': 'your-api-key'
-})
+client = MailerLite.Client({"api_key": "your-api-key"})
 
 response = client.campaigns.languages()
 ```
