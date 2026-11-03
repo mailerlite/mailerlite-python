@@ -191,6 +191,18 @@ class TestGroupsRequests:
     def setup_class(self):
         self.client = MailerLite.Client({"api_key": "test"})
 
+    def test_list_sends_documented_query_params(self, sent_request):
+        self.client.groups.list(filter={"name": "x"}, page=None, limit=10, sort="name")
+
+        request = sent_request()
+        assert request.method == "GET"
+        assert request.path == "/groups"
+        assert request.params == {"filter[name]": "x", "limit": 10, "sort": "name"}
+
+    def test_list_rejects_unknown_argument(self, sent_request):
+        with pytest.raises(TypeError, match="list"):
+            self.client.groups.list(list=1)
+
     def test_import_subscribers_to_group_posts_to_documented_path(self, sent_request):
         subscribers = [{"email": "test@example.com"}]
         self.client.groups.import_subscribers_to_group(

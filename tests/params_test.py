@@ -47,6 +47,56 @@ class TestParams:
         with pytest.raises(TypeError, match="filter"):
             _params.filter_params("image")
 
+    def test_query_params_flatten_filter_and_encode_values(self):
+        params = _params.query_params(
+            {
+                "filter": {"status": "active", "id": [1, 2, 3], "enabled": True},
+                "with_steps": False,
+                "limit": 10,
+                "cursor": None,
+            },
+            ["filter", "with_steps", "limit", "cursor"],
+        )
+
+        assert params == {
+            "filter[status]": "active",
+            "filter[id]": "1,2,3",
+            "filter[enabled]": 1,
+            "with_steps": 0,
+            "limit": 10,
+        }
+
+    def test_query_params_drop_none_filter_values(self):
+        assert _params.query_params({"filter": {"search": None}}, ["filter"]) == {}
+
+    def test_query_params_reject_unknown_argument(self):
+        with pytest.raises(TypeError, match="unknown"):
+            _params.query_params({"unknown": 1}, ["filter"])
+
+    def test_query_params_reject_a_filter_that_is_not_a_dict(self):
+        with pytest.raises(TypeError, match="filter"):
+            _params.query_params({"filter": "active"}, ["filter"])
+
+    def test_body_params_keep_json_types(self):
+        body = _params.body_params(
+            {"resubscribe": True, "groups": [1, 2]}, ["resubscribe", "groups"]
+        )
+
+        assert body == {"resubscribe": True, "groups": [1, 2]}
+
+    def test_body_params_drop_none_and_return_a_new_dict(self):
+        kwargs = {"resubscribe": True, "parent_id": None}
+
+        body = _params.body_params(kwargs, ["resubscribe", "parent_id"])
+
+        assert body == {"resubscribe": True}
+        assert body is not kwargs
+        assert kwargs == {"resubscribe": True, "parent_id": None}
+
+    def test_body_params_reject_unknown_argument(self):
+        with pytest.raises(TypeError, match="unknown"):
+            _params.body_params({"unknown": 1}, ["resubscribe"])
+
     def test_idempotency_headers(self):
         assert _params.idempotency_headers(None) is None
         assert _params.idempotency_headers("k1") == {"Idempotency-Key": "k1"}

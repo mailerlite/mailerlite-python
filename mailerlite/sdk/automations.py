@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from mailerlite.sdk._request_params import body_params, query_params, query_value
+from mailerlite.sdk._params import body_params, query_params, query_value
 
 
 class Automations(object):

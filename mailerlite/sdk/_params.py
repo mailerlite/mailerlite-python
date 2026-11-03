@@ -36,13 +36,57 @@ def without_none(params):
     return {key: value for key, value in params.items() if value is not None}
 
 
+def reject_unknown(kwargs, available_params):
+    for key in kwargs:
+        if key not in available_params:
+            raise TypeError("Got an unknown argument '%s'" % key)
+
+
+def query_value(value):
+    """A query string value: booleans as 1/0, lists comma-joined"""
+
+    if isinstance(value, bool):
+        return int(value)
+
+    if isinstance(value, (list, tuple)):
+        return ",".join(str(query_value(item)) for item in value)
+
+    return value
+
+
 def filter_params(filter):
     if filter is None:
         return {}
 
     require_dict(filter, "filter")
 
-    return {f"filter[{key}]": value for key, value in without_none(filter).items()}
+    return {
+        f"filter[{key}]": query_value(value)
+        for key, value in without_none(filter).items()
+    }
+
+
+def query_params(kwargs, available_params):
+    """The query string of a method with **kwargs. `None` values are not sent."""
+
+    reject_unknown(kwargs, available_params)
+
+    params = {}
+    for key, value in kwargs.items():
+        if key == "filter":
+            params.update(filter_params(value))
+        elif value is not None:
+            params[key] = query_value(value)
+
+    return params
+
+
+def body_params(kwargs, available_params):
+    """The JSON body of a method with **kwargs. `None` values are not sent."""
+
+    reject_unknown(kwargs, available_params)
+
+    return without_none(kwargs)
 
 
 def idempotency_headers(key):

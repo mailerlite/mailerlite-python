@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from mailerlite.sdk._request_params import body_params, query_params
+from mailerlite.sdk._params import body_params, query_params
 
 
 class Groups(object):
@@ -23,20 +23,11 @@ class Groups(object):
         :rtype: dict
         """
 
-        available_params = ["list", "limit", "page", "sort", "filter"]
-
-        params = locals()
-        query_params = {}
-        for key, val in params["kwargs"].items():
-            if key not in available_params:
-                raise TypeError("Got an unknown argument '%s'" % key)
-            if key == "filter":
-                for filter_key, filter_value in val.items():
-                    query_params[f"filter[{filter_key}]"] = filter_value
-            else:
-                query_params[key] = val
-
-        return self.api_client.request("GET", self.base_api_url, query_params).json()
+        return self.api_client.request(
+            "GET",
+            self.base_api_url,
+            query_params(kwargs, ["limit", "page", "sort", "filter"]),
+        ).json()
 
     def create(self, name):
         """

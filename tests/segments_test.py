@@ -192,6 +192,18 @@ class TestSegmentsRequests:
 
         assert sent_request().params == {"cursor": "new"}
 
+    def test_get_sends_query_params_through_the_shared_helper(self, sent_request):
+        self.client.segments.get(123, filter={"status": "active"}, limit=None)
+
+        request = sent_request()
+        assert request.method == "GET"
+        assert request.path == "/segments/123"
+        assert request.params == {"filter[status]": "active"}
+
+    def test_get_rejects_after(self, sent_request):
+        with pytest.raises(TypeError, match="after"):
+            self.client.segments.get(123, after="abc")
+
     def test_update_sends_documented_body_params(self, sent_request):
         rules = [[{"operator": "in_any", "args": ["groups", 1]}]]
         response = self.client.segments.update(123, "New name", filter=rules)

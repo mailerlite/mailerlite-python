@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import re
 from urllib.parse import quote
 
-from mailerlite.sdk._request_params import query_params, reject_unknown
+from mailerlite.sdk._params import query_params, reject_unknown
 
 _EMAIL_RE = re.compile(r"[\w.]+\@[\w.]+")
 
