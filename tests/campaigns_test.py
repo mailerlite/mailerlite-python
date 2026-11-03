@@ -6,7 +6,10 @@ import pytest
 import requests
 import vcr
 from dotenv import load_dotenv
+from mailerlite.sdk.emails import EDITOR_SIMPLE
 from pytest import fixture
+
+from tests.conftest import load_fixture
 
 
 @fixture
@@ -250,3 +253,51 @@ class TestCampaigns:
         assert isinstance(response, dict)
         assert isinstance(response["data"], list)
         assert set(campaign_language_keys).issubset(response["data"][0].keys())
+
+
+class TestCreateSimpleEditorCampaign:
+    def test_create_sends_the_editor_and_no_content(self, mock_api):
+        mock_api.add_response(201, load_fixture("campaign_simple_editor.json"))
+        client = MailerLite.Client({"api_key": "1234567890"})
+        params = {
+            "name": "Simple editor campaign",
+            "type": "regular",
+            "emails": [
+                {
+                    "subject": "Hello",
+                    "from_name": "Sender",
+                    "from": "sender@example.com",
+                    "reply_to": "reply@example.com",
+                    "editor": EDITOR_SIMPLE,
+                    "template_id": 789,
+                }
+            ],
+        }
+
+        response = client.campaigns.create(params)
+
+        assert mock_api.last_request.method == "POST"
+        assert (
+            mock_api.last_request.url == "https://connect.mailerlite.com/api/campaigns"
+        )
+        assert mock_api.last_body == {
+            "name": "Simple editor campaign",
+            "type": "regular",
+            "emails": [
+                {
+                    "subject": "Hello",
+                    "from_name": "Sender",
+                    "from": "sender@example.com",
+                    "reply_to": "reply@example.com",
+                    "editor": "simple",
+                    "template_id": 789,
+                }
+            ],
+        }
+        assert "content" not in mock_api.last_body["emails"][0]
+        assert response["data"]["emails"][0]["id"] == "123"
+        assert response["data"]["emails"][0]["type"] == "builder_inline_email"
+
+    def test_editor_simple_is_exported_from_the_package(self):
+        assert EDITOR_SIMPLE == "simple"
+        assert MailerLite.EDITOR_SIMPLE == EDITOR_SIMPLE

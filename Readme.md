@@ -54,11 +54,32 @@ For more information how to obtain an API key visit the [following link](https:/
     - [List all campaigns](#list-all-campaigns)
     - [Get a campaign](#get-a-campaign)
     - [Create a campaign](#create-a-campaign)
+    - [Create a simple editor campaign](#create-a-simple-editor-campaign)
     - [Update a campaign](#update-a-campaign)
     - [Schedule a campaign](#schedule-a-campaign)
     - [Cancel a campaign](#cancel-a-campaign)
     - [Delete a campaign](#delete-a-campaign)
     - [Get subscribers activity for a campaign](#get-subscribers-activity-for-a-campaign)
+  - [Emails](#emails)
+    - [Get an email](#get-an-email)
+    - [Get the HTML of an email](#get-the-html-of-an-email)
+    - [Get a block](#get-a-block)
+    - [Insert a block](#insert-a-block)
+    - [Update a block](#update-a-block)
+    - [Delete a block](#delete-a-block)
+    - [Move a block](#move-a-block)
+    - [Validate a block](#validate-a-block)
+    - [Update the design settings](#update-the-design-settings)
+    - [Validate the design settings](#validate-the-design-settings)
+    - [Save an email as a template](#save-an-email-as-a-template)
+    - [List the versions of an email](#list-the-versions-of-an-email)
+    - [Save a version of an email](#save-a-version-of-an-email)
+    - [Restore a version of an email](#restore-a-version-of-an-email)
+    - [Retry a write with an idempotency key](#retry-a-write-with-an-idempotency-key)
+  - [Brand styles](#brand-styles)
+    - [Get the brand styles](#get-the-brand-styles)
+  - [Files](#files)
+    - [List all files](#list-all-files)
   - [Forms](#forms)
     - [List all forms](#list-all-forms)
     - [Get a form](#get-a-form)
@@ -111,10 +132,18 @@ client = MailerLite.Client({
 
 ### Error handling
 
-API responses with a 4xx or 5xx status code raise a `requests.HTTPError` exception. The exception includes the full response, so you can inspect the status code and error body:
+API responses with a 4xx or 5xx status code raise a `mailerlite.ApiError` exception. `ApiError` is a subclass of `requests.HTTPError`, so `except requests.HTTPError` continues to work. The exception has these attributes:
+
+- `status_code`: the HTTP status code.
+- `message`: the error message of the API.
+- `code`: a machine-readable error code, if the API sends one. For example, `version_conflict`.
+- `etag`: the current etag of the email, if the API sends one. The API sends it with `version_conflict`.
+- `errors`: the validation errors for each field, if the API sends them.
+- `response`: the full `requests.Response`.
+
+The attributes are `None` when the response does not have them.
 
 ```python
-import requests
 import mailerlite as MailerLite
 
 client = MailerLite.Client({
@@ -123,9 +152,11 @@ client = MailerLite.Client({
 
 try:
     response = client.subscribers.get('some@email.com')
-except requests.HTTPError as e:
-    print(e.response.status_code)  # e.g. 404
-    print(e.response.json())       # error body from the API
+except MailerLite.ApiError as e:
+    print(e.status_code)      # e.g. 404
+    print(e.message)          # error message from the API
+    print(e.errors)           # validation errors, if any
+    print(e.response.json())  # full error body from the API
 ```
 
 Network-level failures (DNS errors, connection resets, timeouts) raise the standard `requests` exceptions such as `requests.ConnectionError` and `requests.Timeout`. Catch `requests.RequestException` to handle both HTTP and network errors with a single handler.
@@ -589,6 +620,38 @@ params = {
 response = client.campaigns.create(params)
 ```
 
+### Create a simple editor campaign
+<a name="create-a-simple-editor-campaign"></a>
+
+To build the email with the simple editor, set `editor` to `MailerLite.EDITOR_SIMPLE`, and do not send `content`. Then edit the email with [the email methods](#emails).
+
+- `template_id` is optional. It is a shared template of the simple editor that the email starts from. It needs `editor`.
+- All emails of a campaign must have the same `editor` and `template_id`.
+- Only `create` accepts `editor` and `template_id`. `update` does not.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+params = {
+    "name": "Test Campaign",
+    "type": "regular",
+    "emails": [{
+        "subject": "This is a test campaign",
+        "from_name": "Test Man",
+        "from": "testuser@mailerlite.com",
+        "editor": MailerLite.EDITOR_SIMPLE,
+    }]
+}
+
+response = client.campaigns.create(params)
+
+email_id = response['data']['emails'][0]['id']
+```
+
 ### Update a campaign
 <a name="update-a-campaign"></a>
 
@@ -680,6 +743,416 @@ client = MailerLite.Client({
 campaign_id = 123456
 
 response = client.campaigns.activity(campaign_id)
+```
+
+## Emails
+<a name="emails"></a>
+
+These methods edit emails built with the simple editor. To create such an email, [create a simple editor campaign](#create-a-simple-editor-campaign). The ID of the email is in `response['data']['emails'][0]['id']`.
+
+- IDs are strings of digits. You can also give them as `int`. An empty ID raises `mailerlite.EmptyIdError`, and an ID that does not contain only digits raises `mailerlite.InvalidIdError`. The SDK sends no request in these cases.
+- Before the request, the SDK checks only the IDs and the `settings` of `update_settings()`. It sends all other values as you give them, and the API checks them. An invalid value raises `mailerlite.ApiError`, for example with status `422`.
+- The methods return a `mailerlite.ApiResponse`. It is a `dict` with the response body, and it also has `status_code` and `headers`.
+- Each write needs the etag from the last response for the email, and returns a new etag. The etag covers the whole email, so send the writes to one email one after another.
+- If the email changed after you read it, the write raises `mailerlite.ApiError` with `code` equal to `mailerlite.VERSION_CONFLICT`. Its `etag` is the current etag. Get the email again, and then repeat the write with the current etag.
+- The keys of `editor_content` are camelCase, for example `textAlign`. The SDK sends them as you give them.
+
+### Get an email
+<a name="get-an-email"></a>
+
+Returns the email with its settings and blocks, and the etag of the email.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.get(email_id)
+
+email = response['data']
+etag = response['etag']
+```
+
+### Get the HTML of an email
+<a name="get-the-html-of-an-email"></a>
+
+Returns the HTML that the email sends. The API can return a temporary `503` error. If it does, try again later.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.get_html(email_id)
+
+html = response['data']['html']
+```
+
+### Get a block
+<a name="get-a-block"></a>
+
+Returns the block and its place in the email: `placement` has the IDs of the blocks `after` and `before` it, or `None`.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+block_id = '57'
+
+response = client.emails.get_block(email_id, block_id)
+
+block = response['data']
+```
+
+### Insert a block
+<a name="insert-a-block"></a>
+
+Use the block types in `MailerLite.BlockType`. `editor_content` can be empty. Without `placement`, the API puts the block at the end of the email. The `before` and `after` positions also need a `block_id`. The API ignores the `block_id` of `start` and `end`. The SDK sends the placement as you give it.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+etag = client.emails.get(email_id)['etag']
+
+response = client.emails.create_block(
+    email_id,
+    etag,
+    MailerLite.BlockType.PARAGRAPH,
+    {'attrs': {'textAlign': 'left'}, 'content': [{'type': 'text', 'text': 'Hello'}]},
+    placement={'position': MailerLite.BlockPosition.START},
+)
+
+block_id = response['data']['id']
+etag = response['etag']
+```
+
+### Update a block
+<a name="update-a-block"></a>
+
+The new `editor_content` replaces the whole content of the block. The API removes the keys that you do not send.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+block_id = '57'
+etag = 'etag-from-the-last-response'
+
+response = client.emails.update_block(
+    email_id,
+    block_id,
+    etag,
+    {'attrs': {'textAlign': 'center'}, 'content': [{'type': 'text', 'text': 'Hello again'}]},
+)
+
+etag = response['etag']
+```
+
+### Delete a block
+<a name="delete-a-block"></a>
+
+Also deletes the blocks in it. The response has only the new etag.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+block_id = '57'
+etag = 'etag-from-the-last-response'
+
+response = client.emails.delete_block(email_id, block_id, etag)
+
+etag = response['etag']
+```
+
+### Move a block
+<a name="move-a-block"></a>
+
+The `before` and `after` positions also need a `block_id`. The API ignores the `block_id` of `start` and `end`. The SDK sends the placement as you give it.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+block_id = '57'
+etag = 'etag-from-the-last-response'
+
+response = client.emails.move_block(
+    email_id,
+    block_id,
+    etag,
+    {'position': MailerLite.BlockPosition.AFTER, 'block_id': '12'},
+)
+
+etag = response['etag']
+```
+
+### Validate a block
+<a name="validate-a-block"></a>
+
+Checks a block before you insert it. It needs no email and no etag. An invalid block does not raise an error: the response has `valid` set to `False` and the `errors` for each field.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+response = client.emails.validate_block(
+    MailerLite.BlockType.BUTTON,
+    {'attrs': {'href': 'https://example.com'}, 'content': [{'type': 'text', 'text': 'Buy now'}]},
+)
+
+if not response['valid']:
+    print(response['errors'])
+```
+
+### Update the design settings
+<a name="update-the-design-settings"></a>
+
+Send only the keys to change, in the shape of `settings` in the email. The groups are `brand`, `layout`, `typography`, `button` and `footer`.
+
+- Send all style values as strings, for example `'16'` and not `16`.
+- The API stores each value that you send, also a value that the email inherits from your account. Then the email no longer follows your account for that value.
+- To unset a brand colour, send an empty string. The API stores the value empty, and the email then uses the account value.
+- To unset a footer text, send an empty editor document: `{'editor_content': {}}` or `{'editor_content': {'content': []}}`.
+- Other colours, sizes, `button.border_radius` and `brand.style` cannot be empty. An empty string gives a `422` error.
+- `footer.social_links` replaces the whole list. Keep the `link_id` of each link to keep its click history.
+- `brand.mode` is one of `MailerLite.BrandMode`. To apply a preset palette, send its `identifier` from [the brand styles](#get-the-brand-styles) in `brand.style`.
+- If the API removed unsafe values, the response has `rejected` with the keys of these values.
+- `settings` must be a `dict` without an `etag` key, because the SDK adds the `etag` argument to it. Otherwise the SDK raises `TypeError` or `ValueError` and sends no request.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+etag = 'etag-from-the-last-response'
+
+response = client.emails.update_settings(email_id, etag, {
+    'brand': {'mode': MailerLite.BrandMode.CUSTOM, 'background_color': '#f4f4f4'},
+    'typography': {'paragraph': {'p1': {'size': '18'}}},
+})
+
+etag = response['etag']
+if response.get('rejected'):
+    print(response['rejected']['keys'])
+```
+
+### Validate the design settings
+<a name="validate-the-design-settings"></a>
+
+Checks a change with the rules of the update, and saves nothing. It needs no etag. Invalid settings do not raise an error: the response has `valid` set to `False` and the `errors` for each field.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.validate_settings(email_id, {
+    'button': {'border_radius': '8'},
+})
+
+if not response['valid']:
+    print(response['errors'])
+```
+
+### Save an email as a template
+<a name="save-an-email-as-a-template"></a>
+
+Copies the email to a new template. The API cannot delete templates.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.create_template(email_id, 'Monthly newsletter')
+
+template_id = response['data']['id']
+```
+
+### List the versions of an email
+<a name="list-the-versions-of-an-email"></a>
+
+A version is a saved copy of the content and the settings of an email. The list starts with the newest version. `current` marks the version that the email has now.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.list_versions(email_id, page=1, limit=10)
+```
+
+### Save a version of an email
+<a name="save-a-version-of-an-email"></a>
+
+Writes through the API do not save versions. If nothing changed after the last version, the API saves no new version and returns the last version. `response.status_code` is `201` for a new version and `200` for the last version.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+
+response = client.emails.create_version(email_id)
+
+version_id = response['data']['id']
+is_new = response.status_code == 201
+```
+
+### Restore a version of an email
+<a name="restore-a-version-of-an-email"></a>
+
+Puts the email back to the version, and returns the full email with the new etag. Before the restore, the API saves the current state as a version, so you can undo the restore.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+version_id = '901'
+etag = 'etag-from-the-last-response'
+
+response = client.emails.restore_version(email_id, version_id, etag)
+
+etag = response['etag']
+```
+
+### Retry a write with an idempotency key
+<a name="retry-a-write-with-an-idempotency-key"></a>
+
+If a write fails with a network error, you do not know if the API did the write. Give the write an `idempotency_key`, and retry it with the same key and the same arguments. If the first request succeeded, the API returns the stored response and does not do the write two times. Then `response.is_idempotent_replay` is `True`.
+
+- Use a new key for each write. The API keeps a key for 24 hours.
+- The key must be 1 to 255 printable ASCII characters. The SDK sends the key as you give it. The API answers an invalid key with status `400`.
+- If `requests` cannot send the key in a header, it raises `requests.exceptions.InvalidHeader`. For example, a key with a space at the start or a new line causes this error.
+- The same key with different arguments raises `ApiError` with status `422`. If the first request is still running, the API returns `409` without a `code`.
+- These methods accept a key: `create_block`, `update_block`, `delete_block`, `move_block`, `update_settings`, `create_template`, `create_version` and `restore_version`.
+
+```python
+import uuid
+
+import requests
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+email_id = '123456'
+etag = 'etag-from-the-last-response'
+key = str(uuid.uuid4())
+
+try:
+    response = client.emails.create_block(
+        email_id, etag, MailerLite.BlockType.DIVIDER, {}, idempotency_key=key
+    )
+except (requests.ConnectionError, requests.Timeout):
+    # Network error: retry with the same key and the same arguments.
+    response = client.emails.create_block(
+        email_id, etag, MailerLite.BlockType.DIVIDER, {}, idempotency_key=key
+    )
+
+print(response['data']['id'], response.is_idempotent_replay)
+```
+
+## Brand styles
+<a name="brand-styles"></a>
+
+### Get the brand styles
+<a name="get-the-brand-styles"></a>
+
+Returns the palettes of your account: `brand` (your brand styles, or `None` if your account has none), `default` and the `presets`. Match a palette on its `identifier`, not on its `name`. To apply a preset to an email, [update the design settings](#update-the-design-settings) with `{'brand': {'style': identifier}}`.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+response = client.brand_styles.get()
+
+identifiers = [preset['identifier'] for preset in response['data']['presets']]
+```
+
+## Files
+<a name="files"></a>
+
+### List all files
+<a name="list-all-files"></a>
+
+Returns the files of your media library. Use their `url` in image blocks. `width` and `height` are `None` for files that are not images.
+
+- `filter`: `name` (a part of the file name) and `type` (one of `MailerLite.FileType`).
+- `sort`: one of `MailerLite.FileSort`. The default is newest first.
+
+```python
+import mailerlite as MailerLite
+
+client = MailerLite.Client({
+  'api_key': 'your-api-key'
+})
+
+response = client.files.list(
+    filter={'name': 'summer sale', 'type': MailerLite.FileType.IMAGE},
+    sort=MailerLite.FileSort.SIZE_DESCENDING,
+    page=1,
+    limit=25,
+)
 ```
 
 ## Forms

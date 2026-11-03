@@ -13,6 +13,12 @@ class Campaigns(object):
         Create a campaign
         Ref: https://developers.mailerlite.com/docs/campaigns.html#create-a-campaign
 
+        To build the emails with the simple editor, set `editor` to `EDITOR_SIMPLE`
+        in each email, and do not send `content`. Then edit the emails with
+        `client.emails`. `template_id` is optional: a shared template of the
+        simple editor to start from. It needs `editor`. All emails of the campaign
+        must have the same `editor` and `template_id`.
+
         :param campaign: dict A dict that contains all campaign related arguments
         :return: JSON array
         :rtype: dict
@@ -26,6 +32,8 @@ class Campaigns(object):
 
         Provides ability to update single campaign.
         Ref: https://developers.mailerlite.com/docs/campaigns.html#update-campaign
+
+        Only `create()` accepts `editor` and `template_id` in the emails.
 
         :param campaign_id: int Id of the campaign
         :param campaign: dict A dict that contains all campaign related arguments
