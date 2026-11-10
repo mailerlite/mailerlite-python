@@ -10,7 +10,9 @@ _EMAIL_RE = re.compile(r"[\w.]+\@[\w.]+")
 
 def _is_id(value):
     # bool is an int in Python, but not a subscriber ID
-    return isinstance(value, int) and not isinstance(value, bool)
+    return (isinstance(value, int) and not isinstance(value, bool)) or (
+        isinstance(value, str) and value.isascii() and value.isdigit()
+    )
 
 
 def _is_email(value):
