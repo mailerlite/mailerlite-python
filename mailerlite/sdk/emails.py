@@ -398,7 +398,9 @@ class Emails(object):
         Save an email as a template
 
         Copies the email to a new template with the given name.
-        The API cannot delete templates.
+        The API cannot delete templates. Use the `id` of the new template as
+        `template_id` in `client.campaigns.create()` to start a simple editor
+        campaign from it.
 
         :param email_id: str|int Email ID
         :param name: str Name of the template
