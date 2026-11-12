@@ -15,9 +15,11 @@ class Campaigns(object):
 
         To build the emails with the simple editor, set `editor` to `EDITOR_SIMPLE`
         in each email, and do not send `content`. Then edit the emails with
-        `client.emails`. `template_id` is optional: a shared template of the
-        simple editor to start from. It needs `editor`. All emails of the campaign
-        must have the same `editor` and `template_id`.
+        `client.emails`. `template_id` is optional: the simple editor template
+        that the email starts from. It is a template from the shared gallery, or
+        a template that you saved from your own email with
+        `client.emails.create_template()`. It needs `editor`. All emails of the
+        campaign must have the same `editor` and `template_id`.
 
         :param campaign: dict A dict that contains all campaign related arguments
         :return: JSON array
