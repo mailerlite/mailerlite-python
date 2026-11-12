@@ -3,14 +3,16 @@ from __future__ import absolute_import
 import re
 from urllib.parse import quote
 
-from mailerlite.sdk._params import query_params, reject_unknown
+from mailerlite.sdk._params import _ID_PATTERN, path_id, query_params, reject_unknown
 
 _EMAIL_RE = re.compile(r"[\w.]+\@[\w.]+")
 
 
 def _is_id(value):
     # bool is an int in Python, but not a subscriber ID
-    return isinstance(value, int) and not isinstance(value, bool)
+    return (isinstance(value, int) and not isinstance(value, bool)) or (
+        isinstance(value, str) and _ID_PATTERN.fullmatch(value) is not None
+    )
 
 
 def _is_email(value):
@@ -172,17 +174,14 @@ class Subscribers(object):
         Provides ability to delete existing subscriber.
         Ref: https://developers.mailerlite.com/docs/subscribers.html#delete-a-subscriber
 
-        :param subscriber_id: int Susbscriber ID
+        :param subscriber_id: int/string Susbscriber ID
         :raises: :class: `TypeError` : `subscriber_id` type is not valid
         :raises: :class: `requests.HTTPError` : API request failed, e.g. subscriber was not found
         :return: `true` if action was successful
         :rtype: bool
         """
 
-        if not isinstance(subscriber_id, int):
-            raise TypeError(
-                f"`subscriber_id` type is not valid. Expected `int`, got {type(subscriber_id)}."
-            )
+        subscriber_id = path_id(subscriber_id, "subscriber_id")
 
         self.api_client.request("DELETE", f"{self.base_api_url}/{subscriber_id}")
 
@@ -195,16 +194,13 @@ class Subscribers(object):
         Returns a single import report.
         Ref: https://developers.mailerlite.com/docs/subscribers.html#get-single-import
 
-        :param import_id: int Import ID
+        :param import_id: int/string Import ID
         :raises: :class: `TypeError` : `import_id` type is not valid
         :return: JSON array
         :rtype: dict
         """
 
-        if not isinstance(import_id, int):
-            raise TypeError(
-                f"`import_id` type is not valid. Expected `int`, got {type(import_id)}."
-            )
+        import_id = path_id(import_id, "import_id")
 
         return self.api_client.request(
             "GET", f"{self.base_api_url}/import/{import_id}"
@@ -217,23 +213,17 @@ class Subscribers(object):
         Provides the ability to assign an existing subscriber to a group.
         Ref: https://developers.mailerlite.com/docs/groups.html#assign-subscriber-to-a-group
 
-        :param subscriber_id: int Subscriber ID
-        :param group_id: int Group ID
+        :param subscriber_id: int/string Subscriber ID
+        :param group_id: int/string Group ID
         :raises: :class: `TypeError` : `subscriber_id` type is not valid
         :raises: :class: `TypeError` : `group_id` type is not valid
         :return: JSON array
         :rtype: dict
         """
 
-        if not isinstance(subscriber_id, int):
-            raise TypeError(
-                f"`subscriber_id` type is not valid. Expected `int`, got {type(subscriber_id)}."
-            )
+        subscriber_id = path_id(subscriber_id, "subscriber_id")
 
-        if not isinstance(group_id, int):
-            raise TypeError(
-                f"`group_id` type is not valid. Expected `int`, got {type(group_id)}."
-            )
+        group_id = path_id(group_id, "group_id")
 
         return self.api_client.request(
             "POST", f"{self.base_api_url}/{subscriber_id}/groups/{group_id}"
@@ -246,8 +236,8 @@ class Subscribers(object):
         Provides the ability to unassign an existing subscriber to a group.
         Ref: https://developers.mailerlite.com/docs/groups.html#unassign-subscriber-from-a-group
 
-        :param subscriber_id: int Subscriber ID
-        :param group_id: int Group ID
+        :param subscriber_id: int/string Subscriber ID
+        :param group_id: int/string Group ID
         :raises: :class: `TypeError` : `subscriber_id` type is not valid
         :raises: :class: `TypeError` : `group_id` type is not valid
         :raises: :class: `requests.HTTPError` : API request failed, e.g. subscriber was not found
@@ -255,15 +245,9 @@ class Subscribers(object):
         :rtype: bool
         """
 
-        if not isinstance(subscriber_id, int):
-            raise TypeError(
-                f"`subscriber_id` type is not valid. Expected `int`, got {type(subscriber_id)}."
-            )
+        subscriber_id = path_id(subscriber_id, "subscriber_id")
 
-        if not isinstance(group_id, int):
-            raise TypeError(
-                f"`group_id` type is not valid. Expected `int`, got {type(group_id)}."
-            )
+        group_id = path_id(group_id, "group_id")
 
         self.api_client.request(
             "DELETE", f"{self.base_api_url}/{subscriber_id}/groups/{group_id}"
@@ -291,17 +275,14 @@ class Subscribers(object):
         It will removes the subscriber from your account and all information will be completely deleted in 30 days. This feature is GDPR compliant.If you want to forget a subscriber, send this POST request.
         Ref: https://developers.mailerlite.com/docs/subscribers.html#forget-a-subscriber
 
-        :param subscriber_id: int Susbscriber ID
+        :param subscriber_id: int/string Susbscriber ID
         :raises: :class: `TypeError` : `subscriber_id` type is not valid
         :raises: :class: `requests.HTTPError` : API request failed, e.g. subscriber was not found
         :return: `true` if action was successful
         :rtype: bool
         """
 
-        if not isinstance(subscriber_id, int):
-            raise TypeError(
-                f"`subscriber_id` type is not valid. Expected `int`, got {type(subscriber_id)}."
-            )
+        subscriber_id = path_id(subscriber_id, "subscriber_id")
 
         self.api_client.request("POST", f"{self.base_api_url}/{subscriber_id}/forget")
 
@@ -314,7 +295,7 @@ class Subscribers(object):
         Returns the activity log of a subscriber.
         Ref: https://developers.mailerlite.com/docs/subscribers.html
 
-        :param subscriber_id: int Subscriber ID
+        :param subscriber_id: int/string Subscriber ID
         :param **kwargs: dict You can pass additional arguments - limit, page or filter by log_name
         :raises: :class: `TypeError` : `subscriber_id` type is not valid
         :raises: :class: `TypeError` : Got an unknown argument
@@ -322,10 +303,7 @@ class Subscribers(object):
         :rtype: dict
         """
 
-        if not isinstance(subscriber_id, int):
-            raise TypeError(
-                f"`subscriber_id` type is not valid. Expected `int`, got {type(subscriber_id)}."
-            )
+        subscriber_id = path_id(subscriber_id, "subscriber_id")
 
         return self.api_client.request(
             "GET",
