@@ -371,6 +371,7 @@ class TestEcommerce:
     @pytest.mark.parametrize("call, method, url, params, body", REQUESTS)
     def test_request(self, mocker, call, method, url, params, body):
         request = mocker.patch("requests.request")
+        request.return_value.status_code = 200
         request.return_value.json.return_value = {}
 
         call(self.client)

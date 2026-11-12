@@ -151,3 +151,69 @@ class TestSegments:
     #     response = self.client.segments.delete(segment_id)
 
     #     assert response is False
+
+
+class TestSegmentsRequests:
+    @classmethod
+    def setup_class(self):
+        self.client = MailerLite.Client({"api_key": "test"})
+
+    def test_list_sends_documented_query_params(self, sent_request):
+        self.client.segments.list(limit=10, page=2, sort="name")
+
+        request = sent_request()
+        assert request.method == "GET"
+        assert request.path == "/segments"
+        assert request.params == {"limit": 10, "page": 2, "sort": "name"}
+
+    def test_get_subscribers_sends_cursor_and_filter_status(self, sent_request):
+        self.client.segments.get_subscribers(
+            123, filter={"status": "active"}, limit=10, cursor="abc"
+        )
+
+        request = sent_request()
+        assert request.method == "GET"
+        assert request.path == "/segments/123/subscribers"
+        assert request.params == {
+            "filter[status]": "active",
+            "limit": 10,
+            "cursor": "abc",
+        }
+
+    def test_get_subscribers_sends_after_as_cursor_with_a_warning(self, sent_request):
+        with pytest.warns(DeprecationWarning, match="after"):
+            self.client.segments.get_subscribers(123, after="abc")
+
+        assert sent_request().params == {"cursor": "abc"}
+
+    def test_get_subscribers_prefers_cursor_over_after(self, sent_request):
+        with pytest.warns(DeprecationWarning, match="after"):
+            self.client.segments.get_subscribers(123, after="old", cursor="new")
+
+        assert sent_request().params == {"cursor": "new"}
+
+    def test_get_sends_query_params_through_the_shared_helper(self, sent_request):
+        self.client.segments.get(123, filter={"status": "active"}, limit=None)
+
+        request = sent_request()
+        assert request.method == "GET"
+        assert request.path == "/segments/123"
+        assert request.params == {"filter[status]": "active"}
+
+    def test_get_rejects_after(self, sent_request):
+        with pytest.raises(TypeError, match="after"):
+            self.client.segments.get(123, after="abc")
+
+    def test_update_sends_documented_body_params(self, sent_request):
+        rules = [[{"operator": "in_any", "args": ["groups", 1]}]]
+        response = self.client.segments.update(123, "New name", filter=rules)
+
+        request = sent_request()
+        assert response is True
+        assert request.method == "PUT"
+        assert request.path == "/segments/123"
+        assert request.body == {"name": "New name", "filter": rules}
+
+    def test_update_rejects_unknown_argument(self, sent_request):
+        with pytest.raises(TypeError):
+            self.client.segments.update(123, "New name", unknown=True)
