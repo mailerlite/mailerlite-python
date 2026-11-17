@@ -49,8 +49,6 @@ class SubscriberIdsTest(unittest.TestCase):
                     )
 
     def test_id_only_methods_reject_invalid_ids(self):
-        from mailerlite.exceptions import EmptyIdError, InvalidIdError
-
         for method in (
             "delete",
             "forget",
@@ -76,9 +74,7 @@ class SubscriberIdsTest(unittest.TestCase):
                         api = Mock()
                         args = ["42", "42"] if "group" in method else ["42"]
                         args[position] = value
-                        with self.assertRaises(
-                            (TypeError, EmptyIdError, InvalidIdError)
-                        ):
+                        with self.assertRaises(TypeError):
                             getattr(Subscribers(api), method)(*args)
                         api.request.assert_not_called()
 
