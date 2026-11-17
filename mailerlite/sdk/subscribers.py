@@ -15,6 +15,14 @@ def _is_id(value):
     )
 
 
+def _subscriber_id(value, name):
+    # Preserve the subscriber API's TypeError contract for invalid IDs.
+    try:
+        return path_id(value, name)
+    except ValueError as error:
+        raise TypeError(str(error)) from error
+
+
 def _is_email(value):
     return isinstance(value, str) and _EMAIL_RE.search(value) is not None
 
@@ -181,7 +189,7 @@ class Subscribers(object):
         :rtype: bool
         """
 
-        subscriber_id = path_id(subscriber_id, "subscriber_id")
+        subscriber_id = _subscriber_id(subscriber_id, "subscriber_id")
 
         self.api_client.request("DELETE", f"{self.base_api_url}/{subscriber_id}")
 
@@ -200,7 +208,7 @@ class Subscribers(object):
         :rtype: dict
         """
 
-        import_id = path_id(import_id, "import_id")
+        import_id = _subscriber_id(import_id, "import_id")
 
         return self.api_client.request(
             "GET", f"{self.base_api_url}/import/{import_id}"
@@ -221,9 +229,9 @@ class Subscribers(object):
         :rtype: dict
         """
 
-        subscriber_id = path_id(subscriber_id, "subscriber_id")
+        subscriber_id = _subscriber_id(subscriber_id, "subscriber_id")
 
-        group_id = path_id(group_id, "group_id")
+        group_id = _subscriber_id(group_id, "group_id")
 
         return self.api_client.request(
             "POST", f"{self.base_api_url}/{subscriber_id}/groups/{group_id}"
@@ -245,9 +253,9 @@ class Subscribers(object):
         :rtype: bool
         """
 
-        subscriber_id = path_id(subscriber_id, "subscriber_id")
+        subscriber_id = _subscriber_id(subscriber_id, "subscriber_id")
 
-        group_id = path_id(group_id, "group_id")
+        group_id = _subscriber_id(group_id, "group_id")
 
         self.api_client.request(
             "DELETE", f"{self.base_api_url}/{subscriber_id}/groups/{group_id}"
@@ -282,7 +290,7 @@ class Subscribers(object):
         :rtype: bool
         """
 
-        subscriber_id = path_id(subscriber_id, "subscriber_id")
+        subscriber_id = _subscriber_id(subscriber_id, "subscriber_id")
 
         self.api_client.request("POST", f"{self.base_api_url}/{subscriber_id}/forget")
 
@@ -303,7 +311,7 @@ class Subscribers(object):
         :rtype: dict
         """
 
-        subscriber_id = path_id(subscriber_id, "subscriber_id")
+        subscriber_id = _subscriber_id(subscriber_id, "subscriber_id")
 
         return self.api_client.request(
             "GET",
